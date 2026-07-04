@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motel Tycoon — Idle Simulator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dark:#14121f;
+    --panel:#1f1c30;
+    --panel-light:#2a2640;
+    --sidebar:#181527;
+    --neon-pink:#ff4fa3;
+    --neon-teal:#35e8c4;
+    --amber:#ffb703;
+    --gold:#ffd76a;
+    --danger:#ff5c5c;
+    --text-dim:#a9a3c4;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0; min-height:100vh;}
+  body{
+    background:
+      radial-gradient(circle at 15% 0%, rgba(255,79,163,0.10), transparent 40%),
+      radial-gradient(circle at 85% 100%, rgba(53,232,196,0.08), transparent 45%),
+      var(--dark);
+    color:#f1eefc;
+    font-family:'Rubik', sans-serif;
+  }
+
+  .app{display:flex; min-height:100vh;}
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar{
+    width:220px;
+    flex-shrink:0;
+    background:var(--sidebar);
+    border-right:1px solid rgba(255,255,255,0.06);
+    display:flex;
+    flex-direction:column;
+    padding:18px 14px;
+    gap:6px;
+  }
+  .brand{
+    font-family:'Press Start 2P', monospace;
+    font-size:0.85rem;
+    color:var(--neon-pink);
+    text-shadow:0 0 10px rgba(255,79,163,0.5);
+    text-align:center;
+    padding:6px 0 18px;
+    letter-spacing:0.5px;
+  }
+  .nav-btn{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    background:transparent;
+    border:none;
+    color:var(--text-dim);
+    font-family:'Rubik', sans-serif;
+    font-weight:600;
+    font-size:0.88rem;
+    padding:12px 14px;
+    border-radius:12px;
+    cursor:pointer;
+    text-align:left;
+    transition:background 0.15s ease, color 0.15s ease;
+  }
+  .nav-btn .ico{font-size:1.1rem;}
+  .nav-btn:hover{background:var(--panel-light); color:#f1eefc;}
+  .nav-btn.active{
+    background:linear-gradient(90deg, rgba(255,79,163,0.18), rgba(255,79,163,0.03));
+    color:#fff;
+    box-shadow:inset 3px 0 0 var(--neon-pink);
+  }
+  .nav-btn:focus-visible{outline:2px solid var(--amber); outline-offset:2px;}
+  .nav-badge{
+    margin-left:auto;
+    background:var(--danger);
+    color:#2a0a0a;
+    font-size:0.68rem;
+    font-weight:700;
+    border-radius:999px;
+    padding:2px 7px;
+    display:none;
+  }
+  .nav-badge.show{display:inline-block;}
+
+  .sidebar-sound{
+    margin-top:auto;
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.08);
+    color:var(--text-dim);
+    font-size:0.78rem;
+    padding:8px 10px;
+    border-radius:10px;
+    text-align:center;
+  }
+  .sidebar-wallet{
+    background:var(--panel);
+    border-radius:12px;
+    padding:12px 14px;
+    text-align:center;
+    margin-top:8px;
+  }
+  .sidebar-wallet .label{font-size:0.68rem; color:var(--text-dim); letter-spacing:0.5px;}
+  .sidebar-wallet .amount{
+    font-family:'Press Start 2P', monospace;
+    font-size:0.95rem;
+    color:var(--amber);
+    margin-top:4px;
+  }
+
+  /* ---------- MAIN CONTENT ---------- */
+  .content{flex:1; padding:22px 26px 60px; max-width:920px;}
+  .view{display:none;}
+  .view.active{display:block; animation:fadeIn 0.25s ease;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
+
+  .view-head{margin-bottom:18px;}
+  .view-head h2{
+    font-family:'Press Start 2P', monospace;
+    font-size:1rem;
+    color:var(--neon-teal);
+    margin:0 0 4px;
+  }
+  .view-head p{color:var(--text-dim); font-size:0.85rem; margin:0;}
+  .sub-head{
+    font-family:'Press Start 2P', monospace;
+    font-size:0.8rem;
+    color:var(--neon-teal);
+    margin:26px 0 12px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+    gap:12px;
+    margin-bottom:22px;
+  }
+
+  .category-heading{
+    font-family:'Press Start 2P', monospace;
+    font-size:0.68rem;
+    color:var(--neon-pink);
+    letter-spacing:0.5px;
+    margin:0 0 10px;
+    padding-bottom:6px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+
+  .card{
+    background:var(--panel);
+    border-radius:14px;
+    padding:14px;
+    border:1px solid rgba(255,255,255,0.05);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    position:relative;
+  }
+  .card.occupied{box-shadow:inset 0 0 0 1.5px rgba(53,232,196,0.4);}
+  .card.maint{box-shadow:inset 0 0 0 1.5px rgba(255,92,92,0.5);}
+  .card.vip{box-shadow:inset 0 0 0 1.5px rgba(255,215,106,0.55);}
+  .card.dirty{box-shadow:inset 0 0 0 1.5px rgba(255,183,3,0.5);}
+
+  .room-icon{font-size:1.8rem;}
+  .room-title{font-weight:600; font-size:0.95rem; display:flex; align-items:center; gap:6px;}
+  .level-chip{
+    font-size:0.62rem;
+    background:var(--panel-light);
+    color:var(--text-dim);
+    padding:2px 7px;
+    border-radius:999px;
+    font-weight:600;
+  }
+  .vip-chip{
+    font-size:0.62rem;
+    background:rgba(255,215,106,0.18);
+    color:var(--gold);
+    padding:2px 7px;
+    border-radius:999px;
+    font-weight:700;
+  }
+  .room-status{font-size:0.75rem; color:var(--text-dim);}
+  .room-status.occ{color:var(--neon-teal);}
+  .room-status.empty{color:var(--text-dim);}
+  .room-status.maint{color:var(--danger); font-weight:600;}
+  .room-status.dirty{color:var(--amber); font-weight:600;}
+
+  button{
+    font-family:'Rubik', sans-serif;
+    border:none;
+    border-radius:10px;
+    padding:9px 12px;
+    font-weight:600;
+    font-size:0.82rem;
+    cursor:pointer;
+    transition:transform 0.12s ease, opacity 0.15s ease;
+  }
+  button:active{transform:scale(0.96);}
+  button:disabled{opacity:0.4; cursor:not-allowed;}
+  button:focus-visible{outline:2px solid var(--amber); outline-offset:2px;}
+
+  .btn-buy{background:var(--neon-teal); color:#0a2b26;}
+  .btn-pay{background:var(--danger); color:#2a0a0a;}
+  .btn-ghost{background:var(--panel-light); color:#f1eefc;}
+  .btn-amber{background:var(--amber); color:#332400;}
+  .btn-gold{background:var(--gold); color:#332400;}
+
+  .buy-room-card{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    border:2px dashed rgba(255,255,255,0.12);
+    background:transparent;
+    min-height:120px;
+  }
+  .buy-room-card .inner{display:flex; flex-direction:column; gap:8px; align-items:center;}
+
+  .item-emoji{font-size:1.9rem;}
+  .item-stock{font-size:0.78rem; color:var(--text-dim);}
+  .item-stock.low{color:var(--danger); font-weight:600;}
+  .item-trend{font-size:0.68rem; color:var(--gold); font-weight:700;}
+  .qty-row{display:flex; gap:6px;}
+  .qty-row button{flex:1; padding:7px 4px; font-size:0.72rem;}
+
+  .role-row{display:flex; gap:6px; flex-wrap:wrap;}
+  .role-row button{flex:1; padding:8px 4px; font-size:0.7rem; min-width:80px;}
+
+  .emp-bar{height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden; margin-top:4px;}
+  .emp-bar-fill{height:100%; background:var(--neon-teal); transition:width 0.4s ease;}
+  .emp-bar-fill.expired{background:var(--danger);}
+  .xp-bar{height:4px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden; margin-top:2px;}
+  .xp-bar-fill{height:100%; background:var(--gold);}
+
+  /* dashboard stat cards */
+  .stat-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:12px; margin-bottom:24px;}
+  .stat-card{background:var(--panel); border-radius:14px; padding:16px; text-align:center;}
+  .stat-card .num{font-family:'Press Start 2P', monospace; font-size:1.1rem; color:var(--amber);}
+  .stat-card .lbl{font-size:0.72rem; color:var(--text-dim); margin-top:6px;}
+
+  .trend-banner{
+    background:linear-gradient(90deg, rgba(255,215,106,0.14), transparent);
+    border:1px solid rgba(255,215,106,0.3);
+    border-radius:12px;
+    padding:12px 16px;
+    font-size:0.85rem;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .bonus-card{
+    background:var(--panel);
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+
+  .prestige-card{
+    background:linear-gradient(135deg, rgba(255,79,163,0.15), rgba(53,232,196,0.08));
+    border:1px solid rgba(255,79,163,0.3);
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:20px;
+  }
+  .prestige-card h3{font-family:'Press Start 2P', monospace; font-size:0.82rem; color:var(--neon-pink); margin:0 0 8px;}
+  .prestige-card p{font-size:0.82rem; color:var(--text-dim); margin:0 0 12px;}
+
+  .chart-wrap{background:var(--panel); border-radius:14px; padding:16px; margin-bottom:24px;}
+  .chart-wrap .lbl{font-size:0.72rem; color:var(--text-dim); margin-bottom:8px;}
+
+  .achv-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:10px; margin-bottom:24px;}
+  .achv-card{
+    background:var(--panel);
+    border-radius:12px;
+    padding:12px;
+    text-align:center;
+    opacity:0.35;
+    filter:grayscale(1);
+  }
+  .achv-card.unlocked{opacity:1; filter:none; box-shadow:inset 0 0 0 1.5px rgba(255,215,106,0.4);}
+  .achv-card .aicon{font-size:1.6rem;}
+  .achv-card .atitle{font-size:0.72rem; font-weight:600; margin-top:6px;}
+  .achv-card .areward{font-size:0.66rem; color:var(--gold); margin-top:2px;}
+
+  .notif-list{display:flex; flex-direction:column; gap:8px;}
+  .notif{
+    background:var(--panel);
+    border-left:3px solid var(--amber);
+    border-radius:8px;
+    padding:10px 14px;
+    font-size:0.82rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+  }
+  .notif.danger{border-left-color:var(--danger);}
+  .notif button{background:transparent; color:var(--text-dim); padding:2px 6px; font-size:0.9rem;}
+  .notif-empty{color:var(--text-dim); font-size:0.82rem; text-align:center; padding:14px 0;}
+
+  .toast{
+    position:fixed;
+    top:16px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--panel-light);
+    border:1px solid var(--neon-teal);
+    color:#f1eefc;
+    padding:12px 20px;
+    border-radius:12px;
+    font-size:0.85rem;
+    z-index:50;
+    box-shadow:0 10px 28px rgba(0,0,0,0.4);
+    display:none;
+    text-align:center;
+    max-width:90vw;
+  }
+  .toast.show{display:block; animation:toastIn 0.3s ease;}
+  @keyframes toastIn{from{opacity:0; transform:translate(-50%, -10px);} to{opacity:1; transform:translate(-50%, 0);}}
+
+  @media (max-width: 680px){
+    .app{flex-direction:column;}
+    .sidebar{width:100%; flex-direction:row; overflow-x:auto; padding:10px; gap:8px; align-items:center;}
+    .brand{display:none;}
+    .nav-btn{width:auto; white-space:nowrap; padding:10px 12px;}
+    .sidebar-sound, .sidebar-wallet{margin-top:0; margin-left:6px; padding:8px 10px; white-space:nowrap;}
+    .content{padding:16px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .toast.show, .view.active{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">🏨 MOTEL<br>TYCOON</div>
+
+    <button class="nav-btn active" data-view="dashboard">
+      <span class="ico">📊</span> Dashboard
+    </button>
+    <button class="nav-btn" data-view="hotel">
+      <span class="ico">🏨</span> Hotel
+      <span class="nav-badge" id="badge-hotel"></span>
+    </button>
+    <button class="nav-btn" data-view="mall">
+      <span class="ico">🛍️</span> Shopping Mall
+      <span class="nav-badge" id="badge-mall"></span>
+    </button>
+    <button class="nav-btn" data-view="purchase">
+      <span class="ico">📦</span> Product Kharido
+    </button>
+    <button class="nav-btn" data-view="manpower">
+      <span class="ico">👷</span> Manpower
+      <span class="nav-badge" id="badge-manpower"></span>
+    </button>
+
+    <button class="sidebar-sound" id="soundToggle">🔊 Sound: On</button>
+    <div class="sidebar-wallet">
+      <div class="label">WALLET</div>
+      <div class="amount" id="walletSidebar">₹0</div>
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <!-- DASHBOARD -->
+    <section class="view active" id="view-dashboard">
+      <div class="view-head">
+        <h2>📊 DASHBOARD</h2>
+        <p>Tamara motel business nu overview</p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="num" id="dashWallet">₹0</div><div class="lbl">WALLET</div></div>
+        <div class="stat-card"><div class="num" id="dashRooms">0</div><div class="lbl">ROOMS</div></div>
+        <div class="stat-card"><div class="num" id="dashOccupied">0</div><div class="lbl">OCCUPIED</div></div>
+        <div class="stat-card"><div class="num" id="dashStaff">0</div><div class="lbl">ACTIVE STAFF</div></div>
+        <div class="stat-card"><div class="num" id="dashLifetime">₹0</div><div class="lbl">TOTAL KAMAYU</div></div>
+        <div class="stat-card"><div class="num" id="dashPrestige">0</div><div class="lbl">PRESTIGE LEVEL</div></div>
+      </div>
+
+      <div class="trend-banner" id="trendBanner">📈 Trending category: —</div>
+
+      <div class="bonus-card" id="bonusCard">
+        <div>
+          <div style="font-weight:700;" id="bonusTitle">Daily Bonus</div>
+          <div style="font-size:0.78rem; color:var(--text-dim);" id="bonusSub">Loading…</div>
+        </div>
+        <button class="btn-gold" id="bonusBtn" style="display:none;">Bonus Lo</button>
+      </div>
+
+      <div class="prestige-card" id="prestigeCard" style="display:none;">
+        <h3>🌆 NAYA SHEHAR — PRESTIGE</h3>
+        <p>Tamaru current motel reset thashe (rooms, staff, stock, wallet), pan hamesha mate income par permanent bonus male chhe. Achievements ane total kamayu paisa yaad rahese.</p>
+        <button class="btn-buy" id="prestigeBtn">Naya Shehar Expand Karo</button>
+      </div>
+
+      <div class="chart-wrap">
+        <div class="lbl">Wallet growth (recent)</div>
+        <svg id="walletChart" viewBox="0 0 300 80" width="100%" height="80" preserveAspectRatio="none"></svg>
+      </div>
+
+      <div class="sub-head">🏆 ACHIEVEMENTS</div>
+      <div class="achv-grid" id="achvGrid"></div>
+
+      <div class="sub-head">🔔 NOTIFICATIONS</div>
+      <div class="notif-list" id="notifList"></div>
+    </section>
+
+    <!-- HOTEL -->
+    <section class="view" id="view-hotel">
+      <div class="view-head">
+        <h2>🏨 HOTEL</h2>
+        <p>Room kharido, upgrade karo, saaf rakho — customer bhado automatic wallet ma jamse</p>
+      </div>
+      <div class="grid" id="roomsGrid"></div>
+    </section>
+
+    <!-- SHOPPING MALL -->
+    <section class="view" id="view-mall">
+      <div class="view-head">
+        <h2>🛍️ SHOPPING MALL</h2>
+        <p>Aa stock customers ne automatic vechay chhe — vadhu stock mate "Product Kharido" ma jao</p>
+      </div>
+      <div class="grid" id="mallGrid"></div>
+    </section>
+
+    <!-- PRODUCT PURCHASE -->
+    <section class="view" id="view-purchase">
+      <div class="view-head">
+        <h2>📦 PRODUCT KHARIDO</h2>
+        <p>Aya thi product kharido, ee Shopping Mall ma stock ma jama thashe</p>
+      </div>
+      <div class="grid" id="purchaseGrid"></div>
+    </section>
+
+    <!-- MANPOWER -->
+    <section class="view" id="view-manpower">
+      <div class="view-head">
+        <h2>👷 MANPOWER</h2>
+        <p>Employee hire karo — role choose karo, 10 real-hour active rahe, pachi salary pay karo</p>
+      </div>
+      <div class="grid" id="staffGrid"></div>
+    </section>
+
+  </main>
+</div>
+
+<script type="application/json" id="marketConfig">
+[
+  {"id":"wafer","name":"Wafer","emoji":"🍪","category":"Snacks","buyCost":5,"sellPrice":13},
+  {"id":"chocolate","name":"Chocolate","emoji":"🍫","category":"Snacks","buyCost":10,"sellPrice":24},
+  {"id":"biscuit","name":"Biscuit Packet","emoji":"🍘","category":"Snacks","buyCost":6,"sellPrice":14},
+  {"id":"chips","name":"Chips","emoji":"🍟","category":"Snacks","buyCost":8,"sellPrice":19},
+  {"id":"namkeen","name":"Namkeen Packet","emoji":"🥜","category":"Snacks","buyCost":10,"sellPrice":22},
+  {"id":"noodles","name":"Instant Noodles","emoji":"🍜","category":"Snacks","buyCost":14,"sellPrice":30},
+  {"id":"icecream","name":"Ice Cream","emoji":"🍦","category":"Snacks","buyCost":20,"sellPrice":45,"perishable":true},
+  {"id":"chewingGum","name":"Chewing Gum","emoji":"🍬","category":"Snacks","buyCost":2,"sellPrice":6},
+
+  {"id":"coldDrink","name":"Cold Drink","emoji":"🥤","category":"Drinks","buyCost":15,"sellPrice":32,"perishable":true},
+  {"id":"water","name":"Water Bottle","emoji":"💧","category":"Drinks","buyCost":4,"sellPrice":9},
+  {"id":"juice","name":"Juice Box","emoji":"🧃","category":"Drinks","buyCost":12,"sellPrice":26,"perishable":true},
+  {"id":"tea","name":"Tea Packet","emoji":"🍵","category":"Drinks","buyCost":3,"sellPrice":8},
+  {"id":"coffee","name":"Coffee Sachet","emoji":"☕","category":"Drinks","buyCost":5,"sellPrice":12},
+  {"id":"energyDrink","name":"Energy Drink","emoji":"⚡","category":"Drinks","buyCost":25,"sellPrice":55},
+
+  {"id":"soap","name":"Soap","emoji":"🧼","category":"Personal Care","buyCost":15,"sellPrice":28},
+  {"id":"shampoo","name":"Shampoo Sachet","emoji":"🧴","category":"Personal Care","buyCost":5,"sellPrice":11},
+  {"id":"toothpaste","name":"Toothpaste Mini","emoji":"🪥","category":"Personal Care","buyCost":20,"sellPrice":38},
+  {"id":"comb","name":"Comb","emoji":"💇","category":"Personal Care","buyCost":10,"sellPrice":20},
+
+  {"id":"umbrella","name":"Umbrella","emoji":"☂️","category":"Utility","buyCost":80,"sellPrice":150},
+  {"id":"torch","name":"Torch","emoji":"🔦","category":"Utility","buyCost":60,"sellPrice":120},
+  {"id":"newspaper","name":"Newspaper","emoji":"📰","category":"Utility","buyCost":5,"sellPrice":10},
+  {"id":"phoneCharger","name":"Phone Charger","emoji":"🔌","category":"Utility","buyCost":90,"sellPrice":170}
+]
+</script>
+
+<script>
+(async function(){
+
+  const STORAGE_KEY = 'motel-tycoon-state-v2';
+  const MARKET_CONFIG = JSON.parse(document.getElementById('marketConfig').textContent);
+
+  // ---------- ROOM CONFIG ----------
+  const ROOM_LEVELS = [
+    { level:1, name:'Standard', incomeMult:1,   maintMult:1,   upgradeCost:0,   cleanCost:20 },
+    { level:2, name:'Deluxe',   incomeMult:1.8, maintMult:1.3, upgradeCost:400, cleanCost:35 },
+    { level:3, name:'Suite',    incomeMult:3,   maintMult:1.6, upgradeCost:900, cleanCost:55 }
+  ];
+  const ROOM_BASE_COST = 500;
+  const ROOM_COST_GROWTH = 1.55;
+  const ROOM_INCOME_PER_SEC = 1;
+  const ROOM_MAINTENANCE_INTERVAL = 90;
+  const ROOM_MAINTENANCE_COST = 60;
+  const CUSTOMER_ARRIVAL_CHANCE = 0.06;
+  const CUSTOMER_STAY_MIN = 40;
+  const CUSTOMER_STAY_MAX = 100;
+  const CUSTOMER_MARKET_BUY_CHANCE = 0.35;
+  const VIP_CHANCE = 0.15;
+  const VIP_INCOME_MULT = 2;
+  const VIP_WEAR_MULT = 1.4; // VIPs wear the room out faster, needing maintenance sooner
+  const COMBO_CHANCE = 0.25;
+  const SPOILAGE_CHANCE_PER_TICK = 0.01; // per perishable item, only rolled once stock is high
+
+  // ---------- EMPLOYEE CONFIG ----------
+  const ROLES = {
+    cleaner: { label:'Cleaner', icon:'🧹', baseCost:300 },
+    cashier: { label:'Cashier', icon:'🧾', baseCost:350 },
+    manager: { label:'Manager', icon:'🗂️', baseCost:450 }
+  };
+  const EMPLOYEE_COST_GROWTH = 1.35;
+  const EMPLOYEE_SALARY = 350;
+  const EMPLOYEE_SHIFT_SECONDS = 10 * 60 * 60;
+  const XP_PER_ACTIVE_TICK = 1;
+  const XP_PER_LEVEL = 600; // 10 real minutes of active work per level
+  const MAX_EMP_LEVEL = 5;
+
+  // ---------- ECONOMY / META ----------
+  const OFFLINE_CAP_SECONDS = 24 * 60 * 60;
+  const AUTOSAVE_EVERY_TICKS = 5;
+  const CATEGORY_ORDER = ['Snacks', 'Drinks', 'Personal Care', 'Utility'];
+  const DEMAND_CYCLE_SECONDS = 600; // trending category changes every 10 minutes
+  const PRESTIGE_THRESHOLD = 500000;
+  const WALLET_HISTORY_SAMPLE_SECONDS = 15;
+  const WALLET_HISTORY_MAX_POINTS = 40;
+
+  const ACHIEVEMENTS = [
+    { id:'first_room', title:'Pratham Room', icon:'🏨', reward:100, check:s=>s.rooms.length>=1 },
+    { id:'five_rooms', title:'5 Rooms Motel', icon:'🏘️', reward:300, check:s=>s.rooms.length>=5 },
+    { id:'ten_rooms', title:'10 Rooms Empire', icon:'🏰', reward:800, check:s=>s.rooms.length>=10 },
+    { id:'first_employee', title:'Pratham Staff', icon:'🧑‍💼', reward:150, check:s=>s.employees.length>=1 },
+    { id:'five_employees', title:'Puri Team', icon:'👥', reward:500, check:s=>s.employees.length>=5 },
+    { id:'all_stocked', title:'Full Supermarket', icon:'🛍️', reward:200, check:s=>s.market.every(m=>m.stock>0) },
+    { id:'earn_10k', title:'₹10,000 Kamaya', icon:'💰', reward:250, check:s=>s.lifetimeEarnings>=10000 },
+    { id:'earn_1l', title:'₹1,00,000 Kamaya', icon:'💎', reward:1000, check:s=>s.lifetimeEarnings>=100000 },
+    { id:'earn_5l', title:'₹5,00,000 Kamaya', icon:'👑', reward:2500, check:s=>s.lifetimeEarnings>=500000 }
+  ];
+
+  let state = null;
+  let tickCount = 0;
+  let toastTimer = null;
+  let audioCtx = null;
+
+  function defaultState(){
+    return {
+      wallet: 800,
+      lifetimeEarnings: 0,
+      rooms: [],
+      nextRoomId: 1,
+      market: MARKET_CONFIG.map(m => ({...m, stock:0, sold:0, spoiled:0})),
+      employees: [],
+      nextEmployeeId: 1,
+      notifications: [],
+      nextNotifId: 1,
+      unlockedAchievements: [],
+      walletHistory: [],
+      soundOn: true,
+      lastBonusDate: null,
+      bonusStreak: 0,
+      prestigeLevel: 0,
+      lastSaved: Date.now()
+    };
+  }
+
+  async function loadState(){
+    try{
+      const res = await window.storage.get(STORAGE_KEY, false);
+      if(res && res.value) return JSON.parse(res.value);
+    }catch(e){ /* no save found yet — first time playing */ }
+    return defaultState();
+  }
+
+  // Fills in any fields that didn't exist in an older save, without ever
+  // touching the player's existing wallet/rooms/employees/market data.
+  function migrateState(){
+    if(state.lifetimeEarnings === undefined) state.lifetimeEarnings = state.wallet;
+    if(!state.unlockedAchievements) state.unlockedAchievements = [];
+    if(!state.walletHistory) state.walletHistory = [];
+    if(state.soundOn === undefined) state.soundOn = true;
+    if(state.lastBonusDate === undefined) state.lastBonusDate = null;
+    if(state.bonusStreak === undefined) state.bonusStreak = 0;
+    if(state.prestigeLevel === undefined) state.prestigeLevel = 0;
+
+    state.rooms.forEach(r=>{
+      if(r.level === undefined) r.level = 1;
+      if(r.vip === undefined) r.vip = false;
+      if(r.needsCleaning === undefined) r.needsCleaning = false;
+    });
+
+    state.employees.forEach(e=>{
+      if(!e.role) e.role = 'manager';
+      if(e.xp === undefined) e.xp = 0;
+    });
+  }
+
+  // Whenever new products are added to MARKET_CONFIG, this keeps every
+  // existing player's stock/sold counts intact and just appends the new
+  // items with stock 0 — nobody's saved progress gets wiped by an update.
+  function reconcileMarket(){
+    const existingMap = {};
+    (state.market || []).forEach(m => { existingMap[m.id] = m; });
+    state.market = MARKET_CONFIG.map(cfg=>{
+      const ex = existingMap[cfg.id];
+      return {
+        id: cfg.id, name: cfg.name, emoji: cfg.emoji, category: cfg.category,
+        buyCost: cfg.buyCost, sellPrice: cfg.sellPrice, perishable: !!cfg.perishable,
+        stock: ex ? ex.stock : 0,
+        sold: ex ? ex.sold : 0,
+        spoiled: ex ? (ex.spoiled||0) : 0
+      };
+    });
+  }
+
+  async function saveState(){
+    state.lastSaved = Date.now();
+    try{ await window.storage.set(STORAGE_KEY, JSON.stringify(state), false); }
+    catch(e){ console.error('Save failed', e); }
+  }
+
+  function save(){ saveState(); }
+
+  function addNotif(text, tone){
+    state.notifications.unshift({id: state.nextNotifId++, text, tone: tone||'', time: Date.now()});
+    state.notifications = state.notifications.slice(0, 12);
+  }
+
+  function showToast(text){
+    const t = document.getElementById('toast');
+    t.textContent = text;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> t.classList.remove('show'), 3200);
+  }
+
+  function fmt(n){ return '₹' + Math.floor(n).toLocaleString('en-IN'); }
+  function nowSec(){ return Date.now()/1000; }
+  function prestigeMultiplier(){ return 1 + state.prestigeLevel * 0.25; }
+  function roomLevelInfo(level){ return ROOM_LEVELS[level-1] || ROOM_LEVELS[0]; }
+
+  function earnMoney(amount){
+    state.wallet += amount;
+    state.lifetimeEarnings += amount;
+  }
+
+  // ---------- SOUND (Web Audio, no external files) ----------
+  function ensureAudio(){
+    if(!audioCtx){
+      try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+      catch(e){ audioCtx = null; }
+    }
+    if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  }
+  function playTone(freq, dur, type){
+    if(!state.soundOn || !audioCtx) return;
+    try{
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type || 'sine';
+      osc.frequency.value = freq;
+      gain.gain.value = 0.08;
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.start();
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+      osc.stop(audioCtx.currentTime + dur);
+    }catch(e){ /* ignore audio errors */ }
+  }
+  function soundCoin(){ playTone(1046, 0.12); }
+  function soundAlert(){ playTone(300, 0.25, 'square'); }
+  function soundAchievement(){ playTone(784, 0.1); setTimeout(()=>playTone(1175, 0.18), 100); }
+
+  // ---------- ROOMS ----------
+  function nextRoomCost(){
+    return Math.round(ROOM_BASE_COST * Math.pow(ROOM_COST_GROWTH, state.rooms.length));
+  }
+
+  function buyRoom(){
+    const cost = nextRoomCost();
+    if(state.wallet < cost){
+      addNotif(`Room kharidva mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    state.wallet -= cost;
+    state.rooms.push({id: state.nextRoomId++, occupied:false, guestUntil:0, occupiedSince:0, maintenanceDue:false, level:1, vip:false, needsCleaning:false});
+    addNotif(`Naviu Room #${state.rooms.length} kharidyu!`, '');
+    checkAchievements();
+    render(); save();
+  }
+
+  function upgradeRoom(roomId){
+    const room = state.rooms.find(r=>r.id===roomId);
+    if(!room || room.level >= ROOM_LEVELS.length) return;
+    const nextLevel = roomLevelInfo(room.level + 1);
+    if(state.wallet < nextLevel.upgradeCost){
+      addNotif(`Upgrade mate ${fmt(nextLevel.upgradeCost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    state.wallet -= nextLevel.upgradeCost;
+    room.level += 1;
+    addNotif(`Room #${state.rooms.indexOf(room)+1} have ${nextLevel.name} ma upgrade thayu!`, '');
+    render(); save();
+  }
+
+  function payMaintenance(roomId){
+    const room = state.rooms.find(r=>r.id===roomId);
+    if(!room) return;
+    const cost = Math.round(ROOM_MAINTENANCE_COST * roomLevelInfo(room.level).maintMult);
+    if(state.wallet < cost){
+      addNotif(`Maintenance mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    state.wallet -= cost;
+    room.maintenanceDue = false;
+    room.occupiedSince = nowSec();
+    render(); save();
+  }
+
+  function cleanRoom(roomId){
+    const room = state.rooms.find(r=>r.id===roomId);
+    if(!room) return;
+    const cost = roomLevelInfo(room.level).cleanCost;
+    if(state.wallet < cost){
+      addNotif(`Cleaning mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    state.wallet -= cost;
+    room.needsCleaning = false;
+    render(); save();
+  }
+
+  // ---------- SUPERMARKET / PURCHASE ----------
+  function buyStock(itemId, qty){
+    const item = state.market.find(m=>m.id===itemId);
+    if(!item) return;
+    const cost = item.buyCost * qty;
+    if(state.wallet < cost){
+      addNotif(`${item.name} na ${qty} nag mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    state.wallet -= cost;
+    item.stock += qty;
+    showToast(`${item.name} +${qty} — Shopping Mall ma jama thayu!`);
+    render(); save();
+  }
+
+  // ---------- EMPLOYEES ----------
+  function nextEmployeeCost(role){
+    const count = state.employees.filter(e=>e.role===role).length;
+    return Math.round(ROLES[role].baseCost * Math.pow(EMPLOYEE_COST_GROWTH, count));
+  }
+
+  function hireEmployee(role){
+    if(!ROLES[role]) return;
+    const cost = nextEmployeeCost(role);
+    if(state.wallet < cost){
+      addNotif(`${ROLES[role].label} hire karva mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    state.wallet -= cost;
+    const now = nowSec();
+    state.employees.push({id: state.nextEmployeeId++, role, hiredAt: now, expiresAt: now + EMPLOYEE_SHIFT_SECONDS, active:true, xp:0});
+    addNotif(`Navo ${ROLES[role].label} hire thayo — 10 kalak active rahese.`, '');
+    checkAchievements();
+    render(); save();
+  }
+
+  function paySalary(empId){
+    const emp = state.employees.find(e=>e.id===empId);
+    if(!emp) return;
+    if(state.wallet < EMPLOYEE_SALARY){
+      addNotif(`Salary mate ${fmt(EMPLOYEE_SALARY)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    state.wallet -= EMPLOYEE_SALARY;
+    const now = nowSec();
+    emp.hiredAt = now; emp.expiresAt = now + EMPLOYEE_SHIFT_SECONDS; emp.active = true;
+    addNotif('Salary pay thai gayi — employee farithi 10 kalak active.', '');
+    render(); save();
+  }
+
+  function empLevel(emp){ return Math.min(MAX_EMP_LEVEL, 1 + Math.floor((emp.xp||0)/XP_PER_LEVEL)); }
+  function activeByRole(role){
+    const now = nowSec();
+    return state.employees.filter(e=>e.role===role && e.active && e.expiresAt>now);
+  }
+
+  // ---------- TRENDING DEMAND ----------
+  function trendingCategory(){
+    const idx = Math.floor(nowSec()/DEMAND_CYCLE_SECONDS) % CATEGORY_ORDER.length;
+    return CATEGORY_ORDER[idx];
+  }
+
+  // ---------- ACHIEVEMENTS ----------
+  function checkAchievements(){
+    ACHIEVEMENTS.forEach(a=>{
+      if(state.unlockedAchievements.includes(a.id)) return;
+      if(a.check(state)){
+        state.unlockedAchievements.push(a.id);
+        earnMoney(a.reward);
+        addNotif(`Achievement unlock: ${a.title} (+${fmt(a.reward)})`, '');
+        showToast(`🏆 ${a.title} unlocked! +${fmt(a.reward)}`);
+        soundAchievement();
+      }
+    });
+  }
+
+  // ---------- DAILY BONUS ----------
+  function todayKey(){ return new Date().toDateString(); }
+  function claimDailyBonus(){
+    const today = todayKey();
+    if(state.lastBonusDate === today) return;
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    state.bonusStreak = (state.lastBonusDate === yesterday) ? state.bonusStreak + 1 : 1;
+    const amount = 200 + Math.min(state.bonusStreak, 10) * 50;
+    earnMoney(amount);
+    state.lastBonusDate = today;
+    addNotif(`Daily bonus levu: ${fmt(amount)} (streak ${state.bonusStreak} din)`, '');
+    showToast(`🎁 Daily Bonus: ${fmt(amount)}!`);
+    soundCoin();
+    render(); save();
+  }
+
+  // ---------- PRESTIGE ----------
+  function doPrestige(){
+    if(state.lifetimeEarnings < PRESTIGE_THRESHOLD) return;
+    state.prestigeLevel += 1;
+    state.wallet = 800;
+    state.rooms = [];
+    state.nextRoomId = 1;
+    state.employees = [];
+    state.nextEmployeeId = 1;
+    state.market = MARKET_CONFIG.map(m => ({...m, stock:0, sold:0, spoiled:0}));
+    addNotif(`Naya Shehar! Prestige Level ${state.prestigeLevel} — income have +${state.prestigeLevel*25}% permanent.`, '');
+    showToast(`🌆 Naya Shehar shuru! Permanent +${state.prestigeLevel*25}% income bonus.`);
+    soundAchievement();
+    render(); save();
+  }
+
+  // ---------- GAME TICK ----------
+  function tick(deltaSeconds, isOfflineCatchup){
+    const now = nowSec();
+    const mult = prestigeMultiplier();
+
+    state.employees.forEach(emp=>{
+      if(emp.active && emp.expiresAt <= now){
+        emp.active = false;
+        if(!isOfflineCatchup) addNotif(`${ROLES[emp.role].label} nu shift purd thayu — salary pay karo.`, 'danger');
+      } else if(emp.active){
+        emp.xp = (emp.xp||0) + XP_PER_ACTIVE_TICK * deltaSeconds;
+      }
+    });
+
+    const managers = activeByRole('manager');
+    const cleaners = activeByRole('cleaner');
+    const cashiers = activeByRole('cashier');
+    const cashierBonus = Math.min(1.6, 1 + cashiers.reduce((sum,e)=> sum + 0.15*(1+(empLevel(e)-1)*0.1), 0));
+
+    const trend = trendingCategory();
+
+    state.rooms.forEach((room, idx)=>{
+      const lvl = roomLevelInfo(room.level);
+      const maintCost = Math.round(ROOM_MAINTENANCE_COST * lvl.maintMult * (1 - Math.min(0.2, (managers.length?0.05*empLevel(managers[0]):0))));
+      const cleanCost = lvl.cleanCost;
+
+      if(room.needsCleaning){
+        if(cleaners.length && state.wallet >= cleanCost){
+          state.wallet -= cleanCost;
+          room.needsCleaning = false;
+        }
+        return; // no new guests while dirty
+      }
+
+      if(room.occupied){
+        if(room.maintenanceDue){
+          if(managers.length && state.wallet >= maintCost){
+            state.wallet -= maintCost;
+            room.maintenanceDue = false;
+            room.occupiedSince = now;
+          }
+        } else {
+          const income = ROOM_INCOME_PER_SEC * lvl.incomeMult * (room.vip ? VIP_INCOME_MULT : 1) * mult;
+          earnMoney(income * deltaSeconds);
+          const wearMult = room.vip ? VIP_WEAR_MULT : 1;
+          if((now - room.occupiedSince) * wearMult >= ROOM_MAINTENANCE_INTERVAL){
+            room.maintenanceDue = true;
+            if(!isOfflineCatchup) addNotif(`Room #${idx+1} ne maintenance joie chhe.`, 'danger');
+          }
+        }
+        if(room.guestUntil && now >= room.guestUntil){
+          room.occupied = false;
+          room.guestUntil = 0;
+          room.needsCleaning = true;
+        }
+      } else {
+        const chance = 1 - Math.pow(1 - CUSTOMER_ARRIVAL_CHANCE, deltaSeconds);
+        if(Math.random() < chance){
+          room.occupied = true;
+          room.occupiedSince = now;
+          room.maintenanceDue = false;
+          room.vip = Math.random() < VIP_CHANCE;
+          const stay = CUSTOMER_STAY_MIN + Math.random()*(CUSTOMER_STAY_MAX-CUSTOMER_STAY_MIN);
+          room.guestUntil = now + stay;
+          if(!isOfflineCatchup && room.vip) addNotif(`Room #${idx+1} ma VIP customer aavya! 👑`, '');
+
+          if(Math.random() < CUSTOMER_MARKET_BUY_CHANCE){
+            buyFromCustomer(trend, cashierBonus, isOfflineCatchup);
+          }
+        }
+      }
+    });
+
+    // perishable spoilage — only when stock is comfortably high
+    state.market.forEach(item=>{
+      if(item.perishable && item.stock > 10 && Math.random() < SPOILAGE_CHANCE_PER_TICK * deltaSeconds){
+        item.stock -= 1;
+        item.spoiled = (item.spoiled||0) + 1;
+      }
+    });
+  }
+
+  function weightedPick(items, trend){
+    const weighted = [];
+    items.forEach(it=>{
+      const w = it.category === trend ? 2 : 1;
+      for(let i=0;i<w;i++) weighted.push(it);
+    });
+    return weighted[Math.floor(Math.random()*weighted.length)];
+  }
+
+  function buyFromCustomer(trend, cashierBonus, isOfflineCatchup){
+    const inStock = state.market.filter(m=>m.stock>0);
+    if(!inStock.length) return;
+    const item1 = weightedPick(inStock, trend);
+    item1.stock -= 1; item1.sold += 1;
+    let revenue = item1.sellPrice;
+
+    if(Math.random() < COMBO_CHANCE){
+      const remaining = state.market.filter(m=>m.stock>0 && m.id!==item1.id);
+      if(remaining.length){
+        const item2 = weightedPick(remaining, trend);
+        item2.stock -= 1; item2.sold += 1;
+        revenue = (item1.sellPrice + item2.sellPrice) * 1.1;
+        if(item2.stock === 0 && !isOfflineCatchup) addNotif(`${item2.name} khali thai gayi chhe — stock lo.`, 'danger');
+      }
+    }
+
+    earnMoney(revenue * cashierBonus);
+    if(item1.stock === 0 && !isOfflineCatchup) addNotif(`${item1.name} khali thai gayi chhe — "Product Kharido" ma jai ne stock lo.`, 'danger');
+  }
+
+  async function runOfflineCatchup(){
+    const elapsed = (Date.now() - state.lastSaved)/1000;
+    if(elapsed < 3) return;
+    const capped = Math.min(elapsed, OFFLINE_CAP_SECONDS);
+    const walletBefore = state.wallet;
+
+    const STEP = 20;
+    let remaining = capped;
+    while(remaining > 0){
+      const step = Math.min(STEP, remaining);
+      tick(step, true);
+      remaining -= step;
+    }
+
+    const earned = state.wallet - walletBefore;
+    if(earned > 0) showToast(`Tame dur hata! Idle earning: ${fmt(earned)} 💰`);
+  }
+
+  // ---------- RENDER ----------
+  function render(){
+    document.getElementById('walletSidebar').textContent = fmt(state.wallet);
+    document.getElementById('dashWallet').textContent = fmt(state.wallet);
+    document.getElementById('dashRooms').textContent = state.rooms.length;
+    document.getElementById('dashOccupied').textContent = state.rooms.filter(r=>r.occupied).length;
+    document.getElementById('dashStaff').textContent = state.employees.filter(e=>e.active).length;
+    document.getElementById('dashLifetime').textContent = fmt(state.lifetimeEarnings);
+    document.getElementById('dashPrestige').textContent = state.prestigeLevel;
+
+    const maintCount = state.rooms.filter(r=>r.maintenanceDue || r.needsCleaning).length;
+    const lowStockCount = state.market.filter(m=>m.stock===0).length;
+    const shiftEndedCount = state.employees.filter(e=>!e.active).length;
+    setBadge('badge-hotel', maintCount);
+    setBadge('badge-mall', lowStockCount);
+    setBadge('badge-manpower', shiftEndedCount);
+
+    document.getElementById('trendBanner').textContent = `📈 Trending category abhi: ${trendingCategory()} — aa category vadhu vechay chhe`;
+
+    renderBonus();
+    renderPrestige();
+    renderRooms();
+    renderMall();
+    renderPurchase();
+    renderStaff();
+    renderAchievements();
+    renderNotifs();
+    renderChart();
+  }
+
+  function renderBonus(){
+    const today = todayKey();
+    const claimed = state.lastBonusDate === today;
+    document.getElementById('bonusTitle').textContent = claimed ? `Aaje no bonus lidho ✅ (streak ${state.bonusStreak} din)` : 'Aaje no Daily Bonus tayar chhe!';
+    document.getElementById('bonusSub').textContent = claimed ? 'Kaal farithi aavo.' : `Streak: ${state.bonusStreak} din — bonus levo!`;
+    document.getElementById('bonusBtn').style.display = claimed ? 'none' : 'inline-block';
+  }
+
+  function renderPrestige(){
+    const card = document.getElementById('prestigeCard');
+    if(state.lifetimeEarnings >= PRESTIGE_THRESHOLD || state.prestigeLevel > 0){
+      card.style.display = 'block';
+      const btn = document.getElementById('prestigeBtn');
+      const eligible = state.lifetimeEarnings >= PRESTIGE_THRESHOLD;
+      btn.disabled = !eligible;
+      btn.textContent = eligible ? 'Naya Shehar Expand Karo' : `${fmt(PRESTIGE_THRESHOLD - state.lifetimeEarnings)} vadhu kamavo`;
+    } else {
+      card.style.display = 'none';
+    }
+  }
+
+  function setBadge(id, count){
+    const el = document.getElementById(id);
+    if(count > 0){ el.textContent = count; el.classList.add('show'); }
+    else { el.classList.remove('show'); }
+  }
+
+  function renderRooms(){
+    const grid = document.getElementById('roomsGrid');
+    grid.innerHTML = '';
+    state.rooms.forEach((room, idx)=>{
+      const lvl = roomLevelInfo(room.level);
+      const card = document.createElement('div');
+      let cls = 'card';
+      if(room.maintenanceDue) cls += ' maint';
+      else if(room.needsCleaning) cls += ' dirty';
+      else if(room.occupied) cls += ' occupied';
+      if(room.vip && room.occupied) cls += ' vip';
+      card.className = cls;
+
+      let statusHtml, actionHtml;
+      if(room.maintenanceDue){
+        const cost = Math.round(ROOM_MAINTENANCE_COST * lvl.maintMult);
+        statusHtml = `<div class="room-status maint">Maintenance joie chhe!</div>`;
+        actionHtml = `<button class="btn-pay" data-action="maint" data-id="${room.id}">Pay ${fmt(cost)}</button>`;
+      } else if(room.needsCleaning){
+        statusHtml = `<div class="room-status dirty">Cleaning joie chhe</div>`;
+        actionHtml = `<button class="btn-amber" data-action="clean" data-id="${room.id}">Clean ${fmt(lvl.cleanCost)}</button>`;
+      } else if(room.occupied){
+        statusHtml = `<div class="room-status occ">${room.vip ? 'VIP customer chhe 👑' : 'Occupied — customer chhe'}</div>`;
+        actionHtml = '';
+      } else {
+        statusHtml = `<div class="room-status empty">Khali chhe — customer ni raah</div>`;
+        const next = roomLevelInfo(room.level+1);
+        actionHtml = room.level < ROOM_LEVELS.length
+          ? `<button class="btn-ghost" data-action="upgrade" data-id="${room.id}">Upgrade to ${next.name} — ${fmt(next.upgradeCost)}</button>`
+          : '';
+      }
+
+      card.innerHTML = `
+        <div class="room-icon">${room.maintenanceDue ? '🛠️' : room.needsCleaning ? '🧹' : room.occupied ? (room.vip ? '👑' : '🛏️') : '🚪'}</div>
+        <div class="room-title">Room #${idx+1} <span class="level-chip">${lvl.name}</span>${room.vip && room.occupied ? '<span class="vip-chip">VIP</span>' : ''}</div>
+        ${statusHtml}
+        ${actionHtml}
+      `;
+      grid.appendChild(card);
+    });
+
+    const buyCard = document.createElement('div');
+    buyCard.className = 'card buy-room-card';
+    buyCard.innerHTML = `
+      <div class="inner">
+        <div style="font-size:1.6rem;">➕</div>
+        <button class="btn-buy" data-action="buyRoom">Room Kharido — ${fmt(nextRoomCost())}</button>
+      </div>`;
+    grid.appendChild(buyCard);
+  }
+
+  function renderMall(){
+    const container = document.getElementById('mallGrid');
+    container.innerHTML = '';
+    const trend = trendingCategory();
+    CATEGORY_ORDER.forEach(cat=>{
+      const items = state.market.filter(m=>m.category===cat);
+      if(!items.length) return;
+      const heading = document.createElement('div');
+      heading.className = 'category-heading';
+      heading.textContent = cat + (cat===trend ? ' 🔥 Trending' : '');
+      container.appendChild(heading);
+
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+      items.forEach(item=>{
+        const card = document.createElement('div');
+        card.className = 'card item-card';
+        const low = item.stock === 0;
+        card.innerHTML = `
+          <div class="item-emoji">${item.emoji}</div>
+          <div class="room-title">${item.name}${item.perishable ? ' 🧊' : ''}</div>
+          <div class="item-stock ${low?'low':''}">${low ? 'Stock khali chhe!' : 'Stock: ' + item.stock}</div>
+          <div style="font-size:0.72rem; color:var(--text-dim);">Vechay chhe ${fmt(item.sellPrice)} ma · Kul vechayu: ${item.sold}</div>
+          ${item.perishable ? `<div style="font-size:0.66rem; color:var(--text-dim);">Kharab thayu: ${item.spoiled||0}</div>` : ''}
+        `;
+        grid.appendChild(card);
+      });
+      container.appendChild(grid);
+    });
+  }
+
+  function renderPurchase(){
+    const container = document.getElementById('purchaseGrid');
+    container.innerHTML = '';
+    const trend = trendingCategory();
+    CATEGORY_ORDER.forEach(cat=>{
+      const items = state.market.filter(m=>m.category===cat);
+      if(!items.length) return;
+      const heading = document.createElement('div');
+      heading.className = 'category-heading';
+      heading.textContent = cat + (cat===trend ? ' 🔥 Trending' : '');
+      container.appendChild(heading);
+
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+      items.forEach(item=>{
+        const card = document.createElement('div');
+        card.className = 'card item-card';
+        card.innerHTML = `
+          <div class="item-emoji">${item.emoji}</div>
+          <div class="room-title">${item.name}${item.perishable ? ' 🧊' : ''}</div>
+          <div class="item-stock">Have Stock: ${item.stock}</div>
+          <div style="font-size:0.72rem; color:var(--text-dim);">Kharid kimat: ${fmt(item.buyCost)} / nag</div>
+          <div class="qty-row">
+            <button class="btn-ghost" data-action="buyStock" data-id="${item.id}" data-qty="5">+5</button>
+            <button class="btn-ghost" data-action="buyStock" data-id="${item.id}" data-qty="10">+10</button>
+            <button class="btn-ghost" data-action="buyStock" data-id="${item.id}" data-qty="50">+50</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+      container.appendChild(grid);
+    });
+  }
+
+  function renderStaff(){
+    const grid = document.getElementById('staffGrid');
+    grid.innerHTML = '';
+    const now = nowSec();
+
+    state.employees.forEach((emp, idx)=>{
+      const card = document.createElement('div');
+      card.className = 'card emp-card';
+      const remaining = Math.max(0, emp.expiresAt - now);
+      const pct = emp.active ? Math.max(0, Math.min(100, (remaining/EMPLOYEE_SHIFT_SECONDS)*100)) : 0;
+      const hrs = Math.floor(remaining/3600);
+      const mins = Math.floor((remaining%3600)/60);
+      const role = ROLES[emp.role];
+      const lvl = empLevel(emp);
+      const xpPct = Math.min(100, ((emp.xp||0) % XP_PER_LEVEL) / XP_PER_LEVEL * 100);
+      card.innerHTML = `
+        <div class="room-icon">${emp.active ? role.icon : '💤'}</div>
+        <div class="room-title">${role.label} #${idx+1} <span class="level-chip">Lv ${lvl}</span></div>
+        <div class="room-status ${emp.active ? 'occ' : 'maint'}">${emp.active ? `Active — ${hrs}h ${mins}m baki` : 'Shift purd — salary joie chhe'}</div>
+        <div class="emp-bar"><div class="emp-bar-fill ${emp.active?'':'expired'}" style="width:${pct}%"></div></div>
+        <div class="xp-bar"><div class="xp-bar-fill" style="width:${xpPct}%"></div></div>
+        ${!emp.active ? `<button class="btn-pay" data-action="paySalary" data-id="${emp.id}">Salary Pay ${fmt(EMPLOYEE_SALARY)}</button>` : ''}
+      `;
+      grid.appendChild(card);
+    });
+
+    const hireCard = document.createElement('div');
+    hireCard.className = 'card buy-room-card';
+    hireCard.innerHTML = `
+      <div class="inner" style="width:100%;">
+        <div style="font-size:1.4rem;">➕ Hire</div>
+        <div class="role-row">
+          <button class="btn-buy" data-action="hire" data-role="cleaner">🧹 Cleaner<br>${fmt(nextEmployeeCost('cleaner'))}</button>
+          <button class="btn-buy" data-action="hire" data-role="cashier">🧾 Cashier<br>${fmt(nextEmployeeCost('cashier'))}</button>
+          <button class="btn-buy" data-action="hire" data-role="manager">🗂️ Manager<br>${fmt(nextEmployeeCost('manager'))}</button>
+        </div>
+      </div>`;
+    grid.appendChild(hireCard);
+  }
+
+  function renderAchievements(){
+    const grid = document.getElementById('achvGrid');
+    grid.innerHTML = '';
+    ACHIEVEMENTS.forEach(a=>{
+      const unlocked = state.unlockedAchievements.includes(a.id);
+      const card = document.createElement('div');
+      card.className = 'achv-card' + (unlocked ? ' unlocked' : '');
+      card.innerHTML = `
+        <div class="aicon">${unlocked ? a.icon : '🔒'}</div>
+        <div class="atitle">${a.title}</div>
+        <div class="areward">+${fmt(a.reward)}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function renderNotifs(){
+    const list = document.getElementById('notifList');
+    if(!state.notifications.length){
+      list.innerHTML = '<div class="notif-empty">Koi notification nathi — badhu barabar chalu chhe.</div>';
+      return;
+    }
+    list.innerHTML = '';
+    state.notifications.forEach(n=>{
+      const div = document.createElement('div');
+      div.className = 'notif' + (n.tone === 'danger' ? ' danger' : '');
+      const timeStr = new Date(n.time).toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'});
+      div.innerHTML = `<span>${n.text} <span style="color:var(--text-dim); font-size:0.72rem;">(${timeStr})</span></span><button data-action="dismissNotif" data-id="${n.id}">✕</button>`;
+      list.appendChild(div);
+    });
+  }
+
+  function renderChart(){
+    const svg = document.getElementById('walletChart');
+    const points = state.walletHistory;
+    if(points.length < 2){
+      svg.innerHTML = `<text x="150" y="42" fill="var(--text-dim)" font-size="10" text-anchor="middle">Thodi vaar ma data dekhaashe…</text>`;
+      return;
+    }
+    const w = 300, h = 80, pad = 6;
+    const values = points.map(p=>p.w);
+    const min = Math.min(...values), max = Math.max(...values);
+    const range = (max - min) || 1;
+    const stepX = (w - pad*2) / (points.length - 1);
+    let path = '';
+    points.forEach((p, i)=>{
+      const x = pad + i*stepX;
+      const y = h - pad - ((p.w - min)/range) * (h - pad*2);
+      path += (i===0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1) + ' ';
+    });
+    svg.innerHTML = `<polyline points="${path.trim().replace(/[ML]/g,'').trim()}" fill="none" stroke="var(--neon-teal)" stroke-width="2" vector-effect="non-scaling-stroke"/>`
+      .replace('polyline points', 'path d')
+      .replace('/>', ' style="fill:none;"/>');
+    // fallback simpler: build a proper <path>
+    svg.innerHTML = `<path d="${path.trim()}" fill="none" stroke="var(--neon-teal)" stroke-width="2"/>`;
+  }
+
+  // ---------- NAVIGATION ----------
+  function switchView(view){
+    document.querySelectorAll('.nav-btn').forEach(b=>{
+      b.classList.toggle('active', b.dataset.view === view);
+    });
+    document.querySelectorAll('.view').forEach(v=>{
+      v.classList.toggle('active', v.id === 'view-' + view);
+    });
+  }
+
+  document.querySelectorAll('.nav-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=> switchView(btn.dataset.view));
+  });
+
+  document.getElementById('soundToggle').addEventListener('click', ()=>{
+    ensureAudio();
+    state.soundOn = !state.soundOn;
+    document.getElementById('soundToggle').textContent = state.soundOn ? '🔊 Sound: On' : '🔇 Sound: Off';
+    save();
+  });
+
+  document.getElementById('bonusBtn').addEventListener('click', claimDailyBonus);
+  document.getElementById('prestigeBtn').addEventListener('click', doPrestige);
+
+  // ---------- EVENTS ----------
+  document.addEventListener('click', (e)=>{
+    ensureAudio(); // first interaction unlocks Web Audio per browser policy
+    const btn = e.target.closest('button[data-action]');
+    if(!btn) return;
+    const action = btn.dataset.action;
+    if(action === 'buyRoom'){ buyRoom(); soundCoin(); }
+    else if(action === 'upgrade') upgradeRoom(Number(btn.dataset.id));
+    else if(action === 'maint') payMaintenance(Number(btn.dataset.id));
+    else if(action === 'clean') cleanRoom(Number(btn.dataset.id));
+    else if(action === 'buyStock'){ buyStock(btn.dataset.id, Number(btn.dataset.qty)); }
+    else if(action === 'hire') hireEmployee(btn.dataset.role);
+    else if(action === 'paySalary') paySalary(Number(btn.dataset.id));
+    else if(action === 'dismissNotif'){
+      state.notifications = state.notifications.filter(n=>n.id !== Number(btn.dataset.id));
+      render(); save();
+    }
+  });
+
+  // ---------- INIT ----------
+  state = await loadState();
+  migrateState();
+  reconcileMarket();
+  await runOfflineCatchup();
+  checkAchievements();
+  document.getElementById('soundToggle').textContent = state.soundOn ? '🔊 Sound: On' : '🔇 Sound: Off';
+  render();
+  save();
+
+  setInterval(()=>{
+    try{
+      tick(1, false);
+      tickCount++;
+      if(tickCount % WALLET_HISTORY_SAMPLE_SECONDS === 0){
+        state.walletHistory.push({ t: Date.now(), w: state.wallet });
+        if(state.walletHistory.length > WALLET_HISTORY_MAX_POINTS) state.walletHistory.shift();
+      }
+      checkAchievements();
+      render();
+      if(tickCount % AUTOSAVE_EVERY_TICKS === 0) save();
+    }catch(err){
+      // Never let one bad tick stop the idle loop for the whole session.
+      console.error('Tick error', err);
+    }
+  }, 1000);
+
+  // Save on every path that could end the session, so progress
+  // is never lost between visits — the game truly stays idle.
+  window.addEventListener('beforeunload', ()=>{ saveState(); });
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.visibilityState === 'hidden') saveState();
+  });
+
+})();
+</script>
+
+</body>
+</html>
