@@ -67,6 +67,7 @@
     border-radius:12px;
     cursor:pointer;
     text-align:left;
+    position:relative;
     transition:background 0.15s ease, color 0.15s ease;
   }
   .nav-btn .ico{font-size:1.1rem;}
@@ -89,8 +90,8 @@
   }
   .nav-badge.show{display:inline-block;}
 
-  .sidebar-sound{
-    margin-top:auto;
+  .sidebar-sound, .sidebar-music{
+    margin-top:8px;
     background:transparent;
     border:1px solid rgba(255,255,255,0.08);
     color:var(--text-dim);
@@ -99,6 +100,7 @@
     border-radius:10px;
     text-align:center;
   }
+  .sidebar-sound{margin-top:auto;}
   .sidebar-wallet{
     background:var(--panel);
     border-radius:12px;
@@ -295,6 +297,15 @@
   .achv-card .atitle{font-size:0.72rem; font-weight:600; margin-top:6px;}
   .achv-card .areward{font-size:0.66rem; color:var(--gold); margin-top:2px;}
 
+  .stock-price{font-family:'Press Start 2P', monospace; font-size:0.85rem; color:var(--amber);}
+  .stock-change{font-size:0.75rem; font-weight:700;}
+  .stock-change.up{color:var(--neon-teal);}
+  .stock-change.down{color:var(--danger);}
+  .stock-spark{width:100%; height:34px; display:block;}
+  .stock-holding{font-size:0.7rem; color:var(--text-dim); background:rgba(255,255,255,0.04); border-radius:8px; padding:6px 8px;}
+  .stock-holding.profit{color:var(--neon-teal);}
+  .stock-holding.loss{color:var(--danger);}
+
   .notif-list{display:flex; flex-direction:column; gap:8px;}
   .notif{
     background:var(--panel);
@@ -331,13 +342,87 @@
   .toast.show{display:block; animation:toastIn 0.3s ease;}
   @keyframes toastIn{from{opacity:0; transform:translate(-50%, -10px);} to{opacity:1; transform:translate(-50%, 0);}}
 
+  /* ---------- MOBILE TOP BAR (hidden on desktop) ---------- */
+  .mobile-topbar{
+    display:none;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:12px 14px;
+    background:var(--sidebar);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    position:sticky;
+    top:0;
+    z-index:30;
+  }
+  .mobile-topbar .brand-mini{
+    font-family:'Press Start 2P', monospace;
+    font-size:0.72rem;
+    color:var(--neon-pink);
+    text-shadow:0 0 8px rgba(255,79,163,0.5);
+    white-space:nowrap;
+  }
+  .mobile-topbar .mt-wallet{
+    font-family:'Press Start 2P', monospace;
+    font-size:0.78rem;
+    color:var(--amber);
+    white-space:nowrap;
+  }
+  .mobile-topbar .mt-icons{display:flex; gap:6px;}
+  .mt-icon-btn{
+    background:var(--panel-light);
+    color:#f1eefc;
+    border-radius:10px;
+    width:36px;
+    height:36px;
+    padding:0;
+    font-size:1rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
   @media (max-width: 680px){
     .app{flex-direction:column;}
-    .sidebar{width:100%; flex-direction:row; overflow-x:auto; padding:10px; gap:8px; align-items:center;}
-    .brand{display:none;}
-    .nav-btn{width:auto; white-space:nowrap; padding:10px 12px;}
-    .sidebar-sound, .sidebar-wallet{margin-top:0; margin-left:6px; padding:8px 10px; white-space:nowrap;}
-    .content{padding:16px;}
+
+    .mobile-topbar{display:flex;}
+
+    /* sidebar becomes a fixed bottom app-style tab bar */
+    .sidebar{
+      position:fixed;
+      bottom:0; left:0; right:0;
+      width:100%;
+      flex-direction:row;
+      justify-content:space-around;
+      align-items:stretch;
+      padding:6px 4px;
+      gap:2px;
+      border-right:none;
+      border-top:1px solid rgba(255,255,255,0.08);
+      z-index:40;
+      box-shadow:0 -6px 20px rgba(0,0,0,0.35);
+    }
+    .brand, .sidebar-sound, .sidebar-music, .sidebar-wallet{display:none;}
+    .nav-btn{
+      flex-direction:column;
+      width:auto;
+      flex:1;
+      gap:2px;
+      padding:7px 1px 5px;
+      font-size:0.56rem;
+      text-align:center;
+      border-radius:10px;
+    }
+    .nav-btn .ico{font-size:1.15rem;}
+    .nav-btn.active{box-shadow:none; background:rgba(255,79,163,0.16);}
+    .nav-badge{
+      position:absolute;
+      top:2px;
+      right:14%;
+      margin-left:0;
+    }
+
+    .content{padding:14px 14px 88px;}
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -371,13 +456,26 @@
       <span class="ico">👷</span> Manpower
       <span class="nav-badge" id="badge-manpower"></span>
     </button>
+    <button class="nav-btn" data-view="stocks">
+      <span class="ico">📈</span> Share Market
+    </button>
 
-    <button class="sidebar-sound" id="soundToggle">🔊 Sound: On</button>
+    <button class="sidebar-sound" id="soundToggle">🔊 SFX: On</button>
+    <button class="sidebar-music" id="musicToggle">🎵 Music: On</button>
     <div class="sidebar-wallet">
       <div class="label">WALLET</div>
       <div class="amount" id="walletSidebar">₹0</div>
     </div>
   </aside>
+
+  <div class="mobile-topbar">
+    <div class="brand-mini">🏨 MOTEL TYCOON</div>
+    <div class="mt-wallet" id="walletMobile">₹0</div>
+    <div class="mt-icons">
+      <button class="mt-icon-btn" id="soundToggleMobile">🔊</button>
+      <button class="mt-icon-btn" id="musicToggleMobile">🎵</button>
+    </div>
+  </div>
 
   <main class="content">
 
@@ -395,6 +493,7 @@
         <div class="stat-card"><div class="num" id="dashStaff">0</div><div class="lbl">ACTIVE STAFF</div></div>
         <div class="stat-card"><div class="num" id="dashLifetime">₹0</div><div class="lbl">TOTAL KAMAYU</div></div>
         <div class="stat-card"><div class="num" id="dashPrestige">0</div><div class="lbl">PRESTIGE LEVEL</div></div>
+        <div class="stat-card"><div class="num" id="dashPortfolio">₹0</div><div class="lbl">SHARE PORTFOLIO</div></div>
       </div>
 
       <div class="trend-banner" id="trendBanner">📈 Trending category: —</div>
@@ -461,8 +560,33 @@
       <div class="grid" id="staffGrid"></div>
     </section>
 
+    <!-- SHARE MARKET -->
+    <section class="view" id="view-stocks">
+      <div class="view-head">
+        <h2>📈 SHARE MARKET</h2>
+        <p>Share kharido ane vecho — kimat dar second badlay chhe</p>
+      </div>
+      <div class="trend-banner" style="border-color:rgba(53,232,196,0.35); background:linear-gradient(90deg, rgba(53,232,196,0.14), transparent);">
+        🟢 Market 24/7 khulu chhe — jyare pan trade karo
+      </div>
+      <div class="grid" id="stocksGrid"></div>
+    </section>
+
   </main>
 </div>
+
+<script type="application/json" id="stockConfig">
+[
+  {"id":"bharatMotors","name":"Bharat Motors","emoji":"🚗","price":120,"volatility":0.02},
+  {"id":"gangaFoods","name":"Ganga Foods","emoji":"🍚","price":60,"volatility":0.015},
+  {"id":"himalayaTextiles","name":"Himalaya Textiles","emoji":"🧵","price":45,"volatility":0.018},
+  {"id":"shaktiEnergy","name":"Shakti Energy","emoji":"⚡","price":200,"volatility":0.025},
+  {"id":"rangoliRetail","name":"Rangoli Retail","emoji":"🛒","price":80,"volatility":0.02},
+  {"id":"sagarShipping","name":"Sagar Shipping","emoji":"🚢","price":150,"volatility":0.022},
+  {"id":"vayuAirlines","name":"Vayu Airlines","emoji":"✈️","price":95,"volatility":0.03},
+  {"id":"digitalBharat","name":"Digital Bharat Tech","emoji":"💻","price":300,"volatility":0.028}
+]
+</script>
 
 <script type="application/json" id="marketConfig">
 [
@@ -499,6 +623,7 @@
 
   const STORAGE_KEY = 'motel-tycoon-state-v2';
   const MARKET_CONFIG = JSON.parse(document.getElementById('marketConfig').textContent);
+  const STOCK_CONFIG = JSON.parse(document.getElementById('stockConfig').textContent);
 
   // ---------- ROOM CONFIG ----------
   const ROOM_LEVELS = [
@@ -540,6 +665,9 @@
   const CATEGORY_ORDER = ['Snacks', 'Drinks', 'Personal Care', 'Utility'];
   const DEMAND_CYCLE_SECONDS = 600; // trending category changes every 10 minutes
   const PRESTIGE_THRESHOLD = 500000;
+  const STOCK_HISTORY_SAMPLE_TICKS = 10;
+  const STOCK_HISTORY_MAX_POINTS = 30;
+  const STOCK_MEAN_REVERSION = 0.01;
   const WALLET_HISTORY_SAMPLE_SECONDS = 15;
   const WALLET_HISTORY_MAX_POINTS = 40;
 
@@ -569,11 +697,14 @@
       market: MARKET_CONFIG.map(m => ({...m, stock:0, sold:0, spoiled:0})),
       employees: [],
       nextEmployeeId: 1,
+      stocks: STOCK_CONFIG.map(s => ({...s, currentPrice:s.price, history:[s.price]})),
+      portfolio: {},
       notifications: [],
       nextNotifId: 1,
       unlockedAchievements: [],
       walletHistory: [],
       soundOn: true,
+      musicOn: true,
       lastBonusDate: null,
       bonusStreak: 0,
       prestigeLevel: 0,
@@ -596,9 +727,11 @@
     if(!state.unlockedAchievements) state.unlockedAchievements = [];
     if(!state.walletHistory) state.walletHistory = [];
     if(state.soundOn === undefined) state.soundOn = true;
+    if(state.musicOn === undefined) state.musicOn = true;
     if(state.lastBonusDate === undefined) state.lastBonusDate = null;
     if(state.bonusStreak === undefined) state.bonusStreak = 0;
     if(state.prestigeLevel === undefined) state.prestigeLevel = 0;
+    if(!state.portfolio) state.portfolio = {};
 
     state.rooms.forEach(r=>{
       if(r.level === undefined) r.level = 1;
@@ -626,6 +759,21 @@
         stock: ex ? ex.stock : 0,
         sold: ex ? ex.sold : 0,
         spoiled: ex ? (ex.spoiled||0) : 0
+      };
+    });
+  }
+
+  // Same idea as reconcileMarket — if new stocks get added later, existing
+  // players keep their current holdings and price history untouched.
+  function reconcileStocks(){
+    const existingMap = {};
+    (state.stocks || []).forEach(s => { existingMap[s.id] = s; });
+    state.stocks = STOCK_CONFIG.map(cfg=>{
+      const ex = existingMap[cfg.id];
+      return {
+        id: cfg.id, name: cfg.name, emoji: cfg.emoji, price: cfg.price, volatility: cfg.volatility,
+        currentPrice: ex ? ex.currentPrice : cfg.price,
+        history: ex && ex.history && ex.history.length ? ex.history : [cfg.price]
       };
     });
   }
@@ -686,6 +834,73 @@
   function soundCoin(){ playTone(1046, 0.12); }
   function soundAlert(){ playTone(300, 0.25, 'square'); }
   function soundAchievement(){ playTone(784, 0.1); setTimeout(()=>playTone(1175, 0.18), 100); }
+  function soundClick(){ playTone(700, 0.045, 'triangle'); }
+
+  // ---------- BACKGROUND MUSIC (generated ambient loop, no external audio) ----------
+  // A warm four-chord progression (I-V-vi-IV) with a light plucked melody on
+  // top for movement — purely synthesized, so it's safe/license-free and
+  // works even offline since nothing is downloaded.
+  const CHORD_PROGRESSION = [
+    { chord:[130.81, 164.81, 196.00], melody:[261.63, 329.63] },  // C major  → C5 E5
+    { chord:[98.00,  123.47, 146.83], melody:[196.00, 246.94] },  // G major  → G4 B4
+    { chord:[110.00, 130.81, 164.81], melody:[220.00, 261.63] },  // A minor  → A4 C5
+    { chord:[87.31,  110.00, 130.81], melody:[174.61, 220.00] }   // F major  → F4 A4
+  ];
+  let musicChordIndex = 0;
+  let musicIntervalId = null;
+
+  function playPad(freqs, startTime){
+    freqs.forEach(f=>{
+      try{
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = f;
+        gain.gain.setValueAtTime(0, startTime);
+        gain.gain.linearRampToValueAtTime(0.02, startTime + 0.8);
+        gain.gain.linearRampToValueAtTime(0, startTime + 3.8);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(startTime);
+        osc.stop(startTime + 4);
+      }catch(e){ /* ignore audio errors */ }
+    });
+  }
+
+  function playMelodyNote(freq, startTime){
+    try{
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0, startTime);
+      gain.gain.linearRampToValueAtTime(0.05, startTime + 0.05);
+      gain.gain.linearRampToValueAtTime(0, startTime + 0.9);
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.start(startTime);
+      osc.stop(startTime + 1);
+    }catch(e){ /* ignore audio errors */ }
+  }
+
+  function playChordEntry(entry){
+    if(!audioCtx || !state.musicOn) return;
+    const now = audioCtx.currentTime;
+    playPad(entry.chord, now);
+    playMelodyNote(entry.melody[0], now + 0.3);
+    playMelodyNote(entry.melody[1], now + 2.1);
+  }
+
+  function startBackgroundMusic(){
+    if(musicIntervalId || !audioCtx || !state.musicOn) return;
+    playChordEntry(CHORD_PROGRESSION[musicChordIndex]);
+    musicIntervalId = setInterval(()=>{
+      musicChordIndex = (musicChordIndex + 1) % CHORD_PROGRESSION.length;
+      playChordEntry(CHORD_PROGRESSION[musicChordIndex]);
+    }, 4000);
+  }
+
+  function stopBackgroundMusic(){
+    if(musicIntervalId){ clearInterval(musicIntervalId); musicIntervalId = null; }
+  }
 
   // ---------- ROOMS ----------
   function nextRoomCost(){
@@ -854,10 +1069,69 @@
     render(); save();
   }
 
+  // ---------- SHARE MARKET (24/7) ----------
+  function findStock(stockId){ return state.stocks.find(s=>s.id===stockId); }
+
+  function portfolioValue(){
+    let total = 0;
+    Object.keys(state.portfolio).forEach(id=>{
+      const holding = state.portfolio[id];
+      const stock = findStock(id);
+      if(holding && stock) total += holding.qty * stock.currentPrice;
+    });
+    return total;
+  }
+
+  function buyShares(stockId, qty){
+    const stock = findStock(stockId);
+    if(!stock) return;
+    const cost = stock.currentPrice * qty;
+    if(state.wallet < cost){
+      addNotif(`${stock.name} na ${qty} share mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    state.wallet -= cost;
+    const holding = state.portfolio[stockId] || {qty:0, avgPrice:0};
+    const newQty = holding.qty + qty;
+    holding.avgPrice = ((holding.qty*holding.avgPrice) + (qty*stock.currentPrice)) / newQty;
+    holding.qty = newQty;
+    state.portfolio[stockId] = holding;
+    showToast(`${stock.name} ${qty} share kharidya!`);
+    render(); save();
+  }
+
+  function sellShares(stockId, qtyOrAll){
+    const stock = findStock(stockId);
+    const holding = state.portfolio[stockId];
+    if(!stock || !holding || holding.qty <= 0) return;
+    const qty = qtyOrAll === 'all' ? holding.qty : Math.min(qtyOrAll, holding.qty);
+    if(qty <= 0) return;
+    const revenue = stock.currentPrice * qty;
+    earnMoney(revenue);
+    holding.qty -= qty;
+    if(holding.qty <= 0) delete state.portfolio[stockId];
+    showToast(`${stock.name} ${qty} share vechya — ${fmt(revenue)} malya!`);
+    render(); save();
+  }
+
+  // Simple random-walk with mild mean reversion so prices drift but don't
+  // run away to zero or infinity — scaled by elapsed seconds so offline
+  // catch-up jumps are proportionally larger, just like real markets moving
+  // while you were away.
+  function updateStockPrices(deltaSeconds){
+    state.stocks.forEach(stock=>{
+      const randomPct = (Math.random()-0.5) * 2 * stock.volatility * Math.sqrt(Math.max(deltaSeconds,1));
+      const reversionPct = ((stock.price - stock.currentPrice) / stock.price) * STOCK_MEAN_REVERSION;
+      stock.currentPrice = Math.max(1, stock.currentPrice * (1 + randomPct + reversionPct));
+    });
+  }
+
   // ---------- GAME TICK ----------
   function tick(deltaSeconds, isOfflineCatchup){
     const now = nowSec();
     const mult = prestigeMultiplier();
+
+    updateStockPrices(deltaSeconds);
 
     state.employees.forEach(emp=>{
       if(emp.active && emp.expiresAt <= now){
@@ -987,12 +1261,14 @@
   // ---------- RENDER ----------
   function render(){
     document.getElementById('walletSidebar').textContent = fmt(state.wallet);
+    document.getElementById('walletMobile').textContent = fmt(state.wallet);
     document.getElementById('dashWallet').textContent = fmt(state.wallet);
     document.getElementById('dashRooms').textContent = state.rooms.length;
     document.getElementById('dashOccupied').textContent = state.rooms.filter(r=>r.occupied).length;
     document.getElementById('dashStaff').textContent = state.employees.filter(e=>e.active).length;
     document.getElementById('dashLifetime').textContent = fmt(state.lifetimeEarnings);
     document.getElementById('dashPrestige').textContent = state.prestigeLevel;
+    document.getElementById('dashPortfolio').textContent = fmt(portfolioValue());
 
     const maintCount = state.rooms.filter(r=>r.maintenanceDue || r.needsCleaning).length;
     const lowStockCount = state.market.filter(m=>m.stock===0).length;
@@ -1009,6 +1285,7 @@
     renderMall();
     renderPurchase();
     renderStaff();
+    renderStocks();
     renderAchievements();
     renderNotifs();
     renderChart();
@@ -1197,6 +1474,66 @@
     grid.appendChild(hireCard);
   }
 
+  function buildSparklinePath(history, w, h){
+    if(history.length < 2) return '';
+    const min = Math.min(...history), max = Math.max(...history);
+    const range = (max - min) || 1;
+    const stepX = w / (history.length - 1);
+    let path = '';
+    history.forEach((v, i)=>{
+      const x = i * stepX;
+      const y = h - ((v - min)/range) * h;
+      path += (i===0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1) + ' ';
+    });
+    return path.trim();
+  }
+
+  function renderStocks(){
+    const grid = document.getElementById('stocksGrid');
+    grid.innerHTML = '';
+    state.stocks.forEach(stock=>{
+      const holding = state.portfolio[stock.id];
+      const first = stock.history[0] || stock.currentPrice;
+      const changePct = ((stock.currentPrice - first) / first) * 100;
+      const up = changePct >= 0;
+      const sparkPath = buildSparklinePath(stock.history, 100, 30);
+
+      let holdingHtml = '';
+      if(holding && holding.qty > 0){
+        const pl = (stock.currentPrice - holding.avgPrice) * holding.qty;
+        const plUp = pl >= 0;
+        holdingHtml = `
+          <div class="stock-holding ${plUp?'profit':'loss'}">
+            ${holding.qty} shares @ avg ${fmt(holding.avgPrice)} · P&L: ${plUp?'+':''}${fmt(pl)}
+          </div>
+          <div class="qty-row">
+            <button class="btn-pay" data-action="sellShares" data-id="${stock.id}" data-qty="1">Sell 1</button>
+            <button class="btn-pay" data-action="sellShares" data-id="${stock.id}" data-qty="5">Sell 5</button>
+            <button class="btn-pay" data-action="sellShares" data-id="${stock.id}" data-qty="all">Sell All</button>
+          </div>`;
+      }
+
+      const card = document.createElement('div');
+      card.className = 'card item-card';
+      card.innerHTML = `
+        <div class="item-emoji">${stock.emoji}</div>
+        <div class="room-title">${stock.name}</div>
+        <div class="stock-price">${fmt(stock.currentPrice)}</div>
+        <div class="stock-change ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(changePct).toFixed(2)}%</div>
+        <svg class="stock-spark" viewBox="0 0 100 30" preserveAspectRatio="none">
+          <path d="${sparkPath}" fill="none" stroke="${up?'var(--neon-teal)':'var(--danger)'}" stroke-width="2"/>
+        </svg>
+        <div class="qty-row">
+          <button class="btn-ghost" data-action="buyShares" data-id="${stock.id}" data-qty="1">Buy 1</button>
+          <button class="btn-ghost" data-action="buyShares" data-id="${stock.id}" data-qty="5">Buy 5</button>
+          <button class="btn-ghost" data-action="buyShares" data-id="${stock.id}" data-qty="10">Buy 10</button>
+        </div>
+        ${holdingHtml}
+      `;
+      grid.appendChild(card);
+    });
+  }
+
   function renderAchievements(){
     const grid = document.getElementById('achvGrid');
     grid.innerHTML = '';
@@ -1268,19 +1605,52 @@
     btn.addEventListener('click', ()=> switchView(btn.dataset.view));
   });
 
-  document.getElementById('soundToggle').addEventListener('click', ()=>{
+  function updateSoundLabels(){
+    document.getElementById('soundToggle').textContent = state.soundOn ? '🔊 SFX: On' : '🔇 SFX: Off';
+    document.getElementById('musicToggle').textContent = state.musicOn ? '🎵 Music: On' : '🎵 Music: Off';
+    document.getElementById('soundToggleMobile').textContent = state.soundOn ? '🔊' : '🔇';
+    document.getElementById('musicToggleMobile').textContent = state.musicOn ? '🎵' : '🔈';
+  }
+
+  function toggleSfx(){
     ensureAudio();
     state.soundOn = !state.soundOn;
-    document.getElementById('soundToggle').textContent = state.soundOn ? '🔊 Sound: On' : '🔇 Sound: Off';
+    updateSoundLabels();
     save();
-  });
+  }
+  function toggleMusic(){
+    ensureAudio();
+    state.musicOn = !state.musicOn;
+    if(state.musicOn) startBackgroundMusic(); else stopBackgroundMusic();
+    updateSoundLabels();
+    save();
+  }
+
+  document.getElementById('soundToggle').addEventListener('click', toggleSfx);
+  document.getElementById('soundToggleMobile').addEventListener('click', toggleSfx);
+  document.getElementById('musicToggle').addEventListener('click', toggleMusic);
+  document.getElementById('musicToggleMobile').addEventListener('click', toggleMusic);
 
   document.getElementById('bonusBtn').addEventListener('click', claimDailyBonus);
   document.getElementById('prestigeBtn').addEventListener('click', doPrestige);
 
   // ---------- EVENTS ----------
+  // A soft tick plays on every single button press anywhere in the app —
+  // nav tabs, toggles, buy/sell, everything — for satisfying tactile feedback.
+  document.addEventListener('click', (e)=>{
+    if(e.target.closest('button')){
+      ensureAudio();
+      soundClick();
+    }
+  }, true);
+
+  let audioUnlocked = false;
   document.addEventListener('click', (e)=>{
     ensureAudio(); // first interaction unlocks Web Audio per browser policy
+    if(!audioUnlocked){
+      audioUnlocked = true;
+      if(state.musicOn) startBackgroundMusic();
+    }
     const btn = e.target.closest('button[data-action]');
     if(!btn) return;
     const action = btn.dataset.action;
@@ -1291,6 +1661,8 @@
     else if(action === 'buyStock'){ buyStock(btn.dataset.id, Number(btn.dataset.qty)); }
     else if(action === 'hire') hireEmployee(btn.dataset.role);
     else if(action === 'paySalary') paySalary(Number(btn.dataset.id));
+    else if(action === 'buyShares') buyShares(btn.dataset.id, Number(btn.dataset.qty));
+    else if(action === 'sellShares') sellShares(btn.dataset.id, btn.dataset.qty === 'all' ? 'all' : Number(btn.dataset.qty));
     else if(action === 'dismissNotif'){
       state.notifications = state.notifications.filter(n=>n.id !== Number(btn.dataset.id));
       render(); save();
@@ -1301,9 +1673,10 @@
   state = await loadState();
   migrateState();
   reconcileMarket();
+  reconcileStocks();
   await runOfflineCatchup();
   checkAchievements();
-  document.getElementById('soundToggle').textContent = state.soundOn ? '🔊 Sound: On' : '🔇 Sound: Off';
+  updateSoundLabels();
   render();
   save();
 
@@ -1314,6 +1687,12 @@
       if(tickCount % WALLET_HISTORY_SAMPLE_SECONDS === 0){
         state.walletHistory.push({ t: Date.now(), w: state.wallet });
         if(state.walletHistory.length > WALLET_HISTORY_MAX_POINTS) state.walletHistory.shift();
+      }
+      if(tickCount % STOCK_HISTORY_SAMPLE_TICKS === 0){
+        state.stocks.forEach(s=>{
+          s.history.push(s.currentPrice);
+          if(s.history.length > STOCK_HISTORY_MAX_POINTS) s.history.shift();
+        });
       }
       checkAchievements();
       render();
@@ -1328,7 +1707,12 @@
   // is never lost between visits — the game truly stays idle.
   window.addEventListener('beforeunload', ()=>{ saveState(); });
   document.addEventListener('visibilitychange', ()=>{
-    if(document.visibilityState === 'hidden') saveState();
+    if(document.visibilityState === 'hidden'){
+      saveState();
+      stopBackgroundMusic();
+    } else if(state.musicOn && audioUnlocked){
+      startBackgroundMusic();
+    }
   });
 
 })();
