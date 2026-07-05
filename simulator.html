@@ -29,9 +29,9 @@
     color:#f1eefc;
     font-family:'Rubik', sans-serif;
   }
-
+ 
   .app{display:flex; min-height:100vh;}
-
+ 
   /* ---------- SIDEBAR ---------- */
   .sidebar{
     width:220px;
@@ -89,7 +89,7 @@
     display:none;
   }
   .nav-badge.show{display:inline-block;}
-
+ 
   .sidebar-sound, .sidebar-music{
     margin-top:8px;
     background:transparent;
@@ -115,13 +115,13 @@
     color:var(--amber);
     margin-top:4px;
   }
-
+ 
   /* ---------- MAIN CONTENT ---------- */
   .content{flex:1; padding:22px 26px 60px; max-width:920px;}
   .view{display:none;}
   .view.active{display:block; animation:fadeIn 0.25s ease;}
   @keyframes fadeIn{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
-
+ 
   .view-head{margin-bottom:18px;}
   .view-head h2{
     font-family:'Press Start 2P', monospace;
@@ -136,14 +136,14 @@
     color:var(--neon-teal);
     margin:26px 0 12px;
   }
-
+ 
   .grid{
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
     gap:12px;
     margin-bottom:22px;
   }
-
+ 
   .category-heading{
     font-family:'Press Start 2P', monospace;
     font-size:0.68rem;
@@ -153,7 +153,7 @@
     padding-bottom:6px;
     border-bottom:1px solid rgba(255,255,255,0.08);
   }
-
+ 
   .card{
     background:var(--panel);
     border-radius:14px;
@@ -168,7 +168,7 @@
   .card.maint{box-shadow:inset 0 0 0 1.5px rgba(255,92,92,0.5);}
   .card.vip{box-shadow:inset 0 0 0 1.5px rgba(255,215,106,0.55);}
   .card.dirty{box-shadow:inset 0 0 0 1.5px rgba(255,183,3,0.5);}
-
+ 
   .room-icon{font-size:1.8rem;}
   .room-title{font-weight:600; font-size:0.95rem; display:flex; align-items:center; gap:6px;}
   .level-chip{
@@ -192,7 +192,7 @@
   .room-status.empty{color:var(--text-dim);}
   .room-status.maint{color:var(--danger); font-weight:600;}
   .room-status.dirty{color:var(--amber); font-weight:600;}
-
+ 
   button{
     font-family:'Rubik', sans-serif;
     border:none;
@@ -206,13 +206,13 @@
   button:active{transform:scale(0.96);}
   button:disabled{opacity:0.4; cursor:not-allowed;}
   button:focus-visible{outline:2px solid var(--amber); outline-offset:2px;}
-
+ 
   .btn-buy{background:var(--neon-teal); color:#0a2b26;}
   .btn-pay{background:var(--danger); color:#2a0a0a;}
   .btn-ghost{background:var(--panel-light); color:#f1eefc;}
   .btn-amber{background:var(--amber); color:#332400;}
   .btn-gold{background:var(--gold); color:#332400;}
-
+ 
   .buy-room-card{
     display:flex;
     align-items:center;
@@ -223,29 +223,29 @@
     min-height:120px;
   }
   .buy-room-card .inner{display:flex; flex-direction:column; gap:8px; align-items:center;}
-
+ 
   .item-emoji{font-size:1.9rem;}
   .item-stock{font-size:0.78rem; color:var(--text-dim);}
   .item-stock.low{color:var(--danger); font-weight:600;}
   .item-trend{font-size:0.68rem; color:var(--gold); font-weight:700;}
   .qty-row{display:flex; gap:6px;}
   .qty-row button{flex:1; padding:7px 4px; font-size:0.72rem;}
-
+ 
   .role-row{display:flex; gap:6px; flex-wrap:wrap;}
   .role-row button{flex:1; padding:8px 4px; font-size:0.7rem; min-width:80px;}
-
+ 
   .emp-bar{height:6px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden; margin-top:4px;}
   .emp-bar-fill{height:100%; background:var(--neon-teal); transition:width 0.4s ease;}
   .emp-bar-fill.expired{background:var(--danger);}
   .xp-bar{height:4px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden; margin-top:2px;}
   .xp-bar-fill{height:100%; background:var(--gold);}
-
+ 
   /* dashboard stat cards */
   .stat-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:12px; margin-bottom:24px;}
   .stat-card{background:var(--panel); border-radius:14px; padding:16px; text-align:center;}
   .stat-card .num{font-family:'Press Start 2P', monospace; font-size:1.1rem; color:var(--amber);}
   .stat-card .lbl{font-size:0.72rem; color:var(--text-dim); margin-top:6px;}
-
+ 
   .trend-banner{
     background:linear-gradient(90deg, rgba(255,215,106,0.14), transparent);
     border:1px solid rgba(255,215,106,0.3);
@@ -257,7 +257,7 @@
     align-items:center;
     gap:10px;
   }
-
+ 
   .bonus-card{
     background:var(--panel);
     border-radius:14px;
@@ -269,7 +269,7 @@
     gap:12px;
     flex-wrap:wrap;
   }
-
+ 
   .prestige-card{
     background:linear-gradient(135deg, rgba(255,79,163,0.15), rgba(53,232,196,0.08));
     border:1px solid rgba(255,79,163,0.3);
@@ -279,10 +279,10 @@
   }
   .prestige-card h3{font-family:'Press Start 2P', monospace; font-size:0.82rem; color:var(--neon-pink); margin:0 0 8px;}
   .prestige-card p{font-size:0.82rem; color:var(--text-dim); margin:0 0 12px;}
-
+ 
   .chart-wrap{background:var(--panel); border-radius:14px; padding:16px; margin-bottom:24px;}
   .chart-wrap .lbl{font-size:0.72rem; color:var(--text-dim); margin-bottom:8px;}
-
+ 
   .achv-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:10px; margin-bottom:24px;}
   .achv-card{
     background:var(--panel);
@@ -296,7 +296,7 @@
   .achv-card .aicon{font-size:1.6rem;}
   .achv-card .atitle{font-size:0.72rem; font-weight:600; margin-top:6px;}
   .achv-card .areward{font-size:0.66rem; color:var(--gold); margin-top:2px;}
-
+ 
   .stock-price{font-family:'Press Start 2P', monospace; font-size:0.85rem; color:var(--amber);}
   .stock-change{font-size:0.75rem; font-weight:700;}
   .stock-change.up{color:var(--neon-teal);}
@@ -305,7 +305,7 @@
   .stock-holding{font-size:0.7rem; color:var(--text-dim); background:rgba(255,255,255,0.04); border-radius:8px; padding:6px 8px;}
   .stock-holding.profit{color:var(--neon-teal);}
   .stock-holding.loss{color:var(--danger);}
-
+ 
   .notif-list{display:flex; flex-direction:column; gap:8px;}
   .notif{
     background:var(--panel);
@@ -321,7 +321,7 @@
   .notif.danger{border-left-color:var(--danger);}
   .notif button{background:transparent; color:var(--text-dim); padding:2px 6px; font-size:0.9rem;}
   .notif-empty{color:var(--text-dim); font-size:0.82rem; text-align:center; padding:14px 0;}
-
+ 
   .toast{
     position:fixed;
     top:16px;
@@ -341,7 +341,7 @@
   }
   .toast.show{display:block; animation:toastIn 0.3s ease;}
   @keyframes toastIn{from{opacity:0; transform:translate(-50%, -10px);} to{opacity:1; transform:translate(-50%, 0);}}
-
+ 
   /* ---------- MOBILE TOP BAR (hidden on desktop) ---------- */
   .mobile-topbar{
     display:none;
@@ -381,85 +381,134 @@
     align-items:center;
     justify-content:center;
   }
-
+  .hamburger-btn{ display:none; }
+ 
+  /* ---------- SIDEBAR SECTION HEADERS + LOCKED NAV ITEMS ---------- */
+  .nav-section-label{
+    font-family:'Press Start 2P', monospace;
+    font-size:0.6rem;
+    color:var(--text-dim);
+    letter-spacing:0.5px;
+    padding:14px 14px 4px;
+    opacity:0.7;
+  }
+  .nav-btn.locked{ opacity:0.45; cursor:not-allowed; }
+  .nav-lock-icon{ margin-left:auto; font-size:0.85rem; }
+  .sidebar-scroll{
+    flex:1;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+ 
+  /* ---------- DRAWER BACKDROP (mobile only) ---------- */
+  .drawer-backdrop{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+    z-index:35;
+  }
+  .drawer-backdrop.show{display:block;}
+ 
   @media (max-width: 680px){
     .app{flex-direction:column;}
-
+ 
     .mobile-topbar{display:flex;}
-
-    /* sidebar becomes a fixed bottom app-style tab bar */
+    .hamburger-btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--panel-light);
+      color:#f1eefc;
+      border-radius:10px;
+      width:36px;
+      height:36px;
+      padding:0;
+      font-size:1.1rem;
+    }
+ 
+    /* sidebar becomes an off-canvas slide-in drawer */
     .sidebar{
       position:fixed;
-      bottom:0; left:0; right:0;
-      width:100%;
-      flex-direction:row;
-      justify-content:space-around;
-      align-items:stretch;
-      padding:6px 4px;
-      gap:2px;
-      border-right:none;
-      border-top:1px solid rgba(255,255,255,0.08);
-      z-index:40;
-      box-shadow:0 -6px 20px rgba(0,0,0,0.35);
+      top:0; left:0; bottom:0;
+      width:260px;
+      transform:translateX(-100%);
+      transition:transform 0.25s ease;
+      z-index:45;
+      box-shadow:8px 0 24px rgba(0,0,0,0.4);
     }
-    .brand, .sidebar-sound, .sidebar-music, .sidebar-wallet{display:none;}
-    .nav-btn{
-      flex-direction:column;
-      width:auto;
-      flex:1;
-      gap:2px;
-      padding:7px 1px 5px;
-      font-size:0.56rem;
-      text-align:center;
-      border-radius:10px;
-    }
-    .nav-btn .ico{font-size:1.15rem;}
-    .nav-btn.active{box-shadow:none; background:rgba(255,79,163,0.16);}
-    .nav-badge{
-      position:absolute;
-      top:2px;
-      right:14%;
-      margin-left:0;
-    }
-
-    .content{padding:14px 14px 88px;}
+    .sidebar.open{ transform:translateX(0); }
+    .brand, .sidebar-sound, .sidebar-music, .sidebar-wallet{display:flex;}
+ 
+    .nav-btn{ width:100%; flex-direction:row; text-align:left; font-size:0.88rem; padding:12px 14px; }
+    .nav-btn .ico{font-size:1.1rem;}
+ 
+    .content{padding:14px;}
   }
-
+ 
   @media (prefers-reduced-motion: reduce){
     .toast.show, .view.active{animation:none;}
+    .sidebar{transition:none;}
   }
 </style>
 </head>
 <body>
-
+ 
 <div class="toast" id="toast"></div>
-
+ 
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+ 
 <div class="app">
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="brand">🏨 MOTEL<br>TYCOON</div>
-
-    <button class="nav-btn active" data-view="dashboard">
-      <span class="ico">📊</span> Dashboard
-    </button>
-    <button class="nav-btn" data-view="hotel">
-      <span class="ico">🏨</span> Hotel
-      <span class="nav-badge" id="badge-hotel"></span>
-    </button>
-    <button class="nav-btn" data-view="mall">
-      <span class="ico">🛍️</span> Shopping Mall
-      <span class="nav-badge" id="badge-mall"></span>
-    </button>
-    <button class="nav-btn" data-view="purchase">
-      <span class="ico">📦</span> Product Kharido
-    </button>
-    <button class="nav-btn" data-view="manpower">
-      <span class="ico">👷</span> Manpower
-      <span class="nav-badge" id="badge-manpower"></span>
-    </button>
-    <button class="nav-btn" data-view="stocks">
-      <span class="ico">📈</span> Share Market
-    </button>
-
+ 
+    <div class="sidebar-scroll">
+      <div class="nav-section-label">MAIN</div>
+      <button class="nav-btn active" data-view="dashboard">
+        <span class="ico">📊</span> Dashboard
+      </button>
+ 
+      <div class="nav-section-label">BUSINESSES</div>
+      <button class="nav-btn" data-view="hotel">
+        <span class="ico">🏨</span> Hotel
+        <span class="nav-badge" id="badge-hotel"></span>
+      </button>
+      <button class="nav-btn" data-view="mall">
+        <span class="ico">🛍️</span> Shopping Mall
+        <span class="nav-badge" id="badge-mall"></span>
+      </button>
+      <button class="nav-btn" data-view="purchase">
+        <span class="ico">📦</span> Product Kharido
+      </button>
+      <button class="nav-btn" data-business="coffeeShop" data-view="coffeeShop">
+        <span class="ico">☕</span> Coffee Shop
+      </button>
+      <button class="nav-btn" data-business="fastFood" data-view="fastFood">
+        <span class="ico">🍔</span> Fast Food
+      </button>
+      <button class="nav-btn" data-business="laundry" data-view="laundry">
+        <span class="ico">🧺</span> Laundry
+      </button>
+      <button class="nav-btn" data-business="airport" data-view="airport">
+        <span class="ico">✈️</span> Airport
+      </button>
+ 
+      <div class="nav-section-label">MANAGEMENT</div>
+      <button class="nav-btn" data-view="manpower">
+        <span class="ico">👷</span> Manpower
+        <span class="nav-badge" id="badge-manpower"></span>
+      </button>
+      <button class="nav-btn" data-view="stocks">
+        <span class="ico">📈</span> Share Market
+      </button>
+      <button class="nav-btn" data-view="finance">
+        <span class="ico">🏦</span> Finance
+        <span class="nav-badge" id="badge-finance"></span>
+      </button>
+    </div>
+ 
     <button class="sidebar-sound" id="soundToggle">🔊 SFX: On</button>
     <button class="sidebar-music" id="musicToggle">🎵 Music: On</button>
     <div class="sidebar-wallet">
@@ -467,8 +516,9 @@
       <div class="amount" id="walletSidebar">₹0</div>
     </div>
   </aside>
-
+ 
   <div class="mobile-topbar">
+    <button class="hamburger-btn" id="hamburgerBtn">☰</button>
     <div class="brand-mini">🏨 MOTEL TYCOON</div>
     <div class="mt-wallet" id="walletMobile">₹0</div>
     <div class="mt-icons">
@@ -476,28 +526,39 @@
       <button class="mt-icon-btn" id="musicToggleMobile">🎵</button>
     </div>
   </div>
-
+ 
   <main class="content">
-
+ 
     <!-- DASHBOARD -->
     <section class="view active" id="view-dashboard">
       <div class="view-head">
         <h2>📊 DASHBOARD</h2>
         <p>Tamara motel business nu overview</p>
       </div>
-
+ 
       <div class="stat-grid">
         <div class="stat-card"><div class="num" id="dashWallet">₹0</div><div class="lbl">WALLET</div></div>
+        <div class="stat-card"><div class="num" id="dashNetWorth">₹0</div><div class="lbl">NET WORTH</div></div>
         <div class="stat-card"><div class="num" id="dashRooms">0</div><div class="lbl">ROOMS</div></div>
         <div class="stat-card"><div class="num" id="dashOccupied">0</div><div class="lbl">OCCUPIED</div></div>
         <div class="stat-card"><div class="num" id="dashStaff">0</div><div class="lbl">ACTIVE STAFF</div></div>
         <div class="stat-card"><div class="num" id="dashLifetime">₹0</div><div class="lbl">TOTAL KAMAYU</div></div>
         <div class="stat-card"><div class="num" id="dashPrestige">0</div><div class="lbl">PRESTIGE LEVEL</div></div>
         <div class="stat-card"><div class="num" id="dashPortfolio">₹0</div><div class="lbl">SHARE PORTFOLIO</div></div>
+        <div class="stat-card"><div class="num" id="dashCustomers">0</div><div class="lbl">TOTAL CUSTOMERS</div></div>
+        <div class="stat-card"><div class="num" id="dashBizLevel">0/6</div><div class="lbl">BUSINESS LEVEL</div></div>
+        <div class="stat-card"><div class="num" id="dashReputation">0</div><div class="lbl">CITY REPUTATION</div></div>
       </div>
-
+ 
+      <div class="bonus-card">
+        <div>
+          <div style="font-weight:700;">🏦 Aaje no hisab</div>
+          <div style="font-size:0.78rem; color:var(--text-dim);" id="financeSummaryLine">Loading…</div>
+        </div>
+      </div>
+ 
       <div class="trend-banner" id="trendBanner">📈 Trending category: —</div>
-
+ 
       <div class="bonus-card" id="bonusCard">
         <div>
           <div style="font-weight:700;" id="bonusTitle">Daily Bonus</div>
@@ -505,25 +566,25 @@
         </div>
         <button class="btn-gold" id="bonusBtn" style="display:none;">Bonus Lo</button>
       </div>
-
+ 
       <div class="prestige-card" id="prestigeCard" style="display:none;">
         <h3>🌆 NAYA SHEHAR — PRESTIGE</h3>
         <p>Tamaru current motel reset thashe (rooms, staff, stock, wallet), pan hamesha mate income par permanent bonus male chhe. Achievements ane total kamayu paisa yaad rahese.</p>
         <button class="btn-buy" id="prestigeBtn">Naya Shehar Expand Karo</button>
       </div>
-
+ 
       <div class="chart-wrap">
         <div class="lbl">Wallet growth (recent)</div>
         <svg id="walletChart" viewBox="0 0 300 80" width="100%" height="80" preserveAspectRatio="none"></svg>
       </div>
-
+ 
       <div class="sub-head">🏆 ACHIEVEMENTS</div>
       <div class="achv-grid" id="achvGrid"></div>
-
+ 
       <div class="sub-head">🔔 NOTIFICATIONS</div>
       <div class="notif-list" id="notifList"></div>
     </section>
-
+ 
     <!-- HOTEL -->
     <section class="view" id="view-hotel">
       <div class="view-head">
@@ -532,7 +593,7 @@
       </div>
       <div class="grid" id="roomsGrid"></div>
     </section>
-
+ 
     <!-- SHOPPING MALL -->
     <section class="view" id="view-mall">
       <div class="view-head">
@@ -541,7 +602,7 @@
       </div>
       <div class="grid" id="mallGrid"></div>
     </section>
-
+ 
     <!-- PRODUCT PURCHASE -->
     <section class="view" id="view-purchase">
       <div class="view-head">
@@ -550,7 +611,7 @@
       </div>
       <div class="grid" id="purchaseGrid"></div>
     </section>
-
+ 
     <!-- MANPOWER -->
     <section class="view" id="view-manpower">
       <div class="view-head">
@@ -559,7 +620,7 @@
       </div>
       <div class="grid" id="staffGrid"></div>
     </section>
-
+ 
     <!-- SHARE MARKET -->
     <section class="view" id="view-stocks">
       <div class="view-head">
@@ -571,10 +632,84 @@
       </div>
       <div class="grid" id="stocksGrid"></div>
     </section>
-
+ 
+    <!-- COFFEE SHOP -->
+    <section class="view" id="view-coffeeShop">
+      <div class="view-head">
+        <h2>☕ COFFEE SHOP</h2>
+        <p>Item kharido, customers automatic khareedi karse</p>
+      </div>
+      <div id="coffeeShopLocked" class="lock-notice" style="display:none;"></div>
+      <div class="grid" id="coffeeShopGrid"></div>
+    </section>
+ 
+    <!-- FAST FOOD -->
+    <section class="view" id="view-fastFood">
+      <div class="view-head">
+        <h2>🍔 FAST FOOD</h2>
+        <p>Item kharido, customers automatic khareedi karse</p>
+      </div>
+      <div id="fastFoodLocked" class="lock-notice" style="display:none;"></div>
+      <div class="grid" id="fastFoodGrid"></div>
+    </section>
+ 
+    <!-- LAUNDRY -->
+    <section class="view" id="view-laundry">
+      <div class="view-head">
+        <h2>🧺 LAUNDRY SERVICE</h2>
+        <p>Machine kharido — customer laundry mukse, automatic income aavse</p>
+      </div>
+      <div id="laundryLocked" class="lock-notice" style="display:none;"></div>
+      <div class="grid" id="laundryGrid"></div>
+    </section>
+ 
+    <!-- AIRPORT -->
+    <section class="view" id="view-airport">
+      <div class="view-head">
+        <h2>✈️ AIRPORT</h2>
+        <p>Gate kharido — plane land thashe, runway maintenance rakhvu joie</p>
+      </div>
+      <div id="airportLocked" class="lock-notice" style="display:none;"></div>
+      <div class="grid" id="airportGrid"></div>
+    </section>
+ 
+    <!-- FINANCE -->
+    <section class="view" id="view-finance">
+      <div class="view-head">
+        <h2>🏦 FINANCE</h2>
+        <p>Bank loan, tax bill ane daily report</p>
+      </div>
+ 
+      <div class="sub-head">💳 BANK LOAN</div>
+      <div class="grid" id="loanGrid"></div>
+ 
+      <div class="sub-head">🧾 TAX</div>
+      <div class="grid" id="taxGrid"></div>
+ 
+      <div class="sub-head">📊 DAILY REPORT</div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="num" id="reportIncome">₹0</div><div class="lbl">AAJNI AAVAK</div></div>
+        <div class="stat-card"><div class="num" id="reportExpense">₹0</div><div class="lbl">AAJNU KHARCH</div></div>
+        <div class="stat-card"><div class="num" id="reportProfit">₹0</div><div class="lbl">AAJNO NAFO</div></div>
+      </div>
+    </section>
+ 
   </main>
 </div>
-
+ 
+<style>
+  .lock-notice{
+    background:var(--panel);
+    border:1px solid rgba(255,92,92,0.3);
+    border-radius:12px;
+    padding:16px;
+    margin-bottom:16px;
+    font-size:0.85rem;
+    color:var(--text-dim);
+    text-align:center;
+  }
+</style>
+ 
 <script type="application/json" id="stockConfig">
 [
   {"id":"bharatMotors","name":"Bharat Motors","emoji":"🚗","price":120,"volatility":0.02},
@@ -587,7 +722,7 @@
   {"id":"digitalBharat","name":"Digital Bharat Tech","emoji":"💻","price":300,"volatility":0.028}
 ]
 </script>
-
+ 
 <script type="application/json" id="marketConfig">
 [
   {"id":"wafer","name":"Wafer","emoji":"🍪","category":"Snacks","buyCost":5,"sellPrice":13},
@@ -598,33 +733,65 @@
   {"id":"noodles","name":"Instant Noodles","emoji":"🍜","category":"Snacks","buyCost":14,"sellPrice":30},
   {"id":"icecream","name":"Ice Cream","emoji":"🍦","category":"Snacks","buyCost":20,"sellPrice":45,"perishable":true},
   {"id":"chewingGum","name":"Chewing Gum","emoji":"🍬","category":"Snacks","buyCost":2,"sellPrice":6},
-
+ 
   {"id":"coldDrink","name":"Cold Drink","emoji":"🥤","category":"Drinks","buyCost":15,"sellPrice":32,"perishable":true},
   {"id":"water","name":"Water Bottle","emoji":"💧","category":"Drinks","buyCost":4,"sellPrice":9},
   {"id":"juice","name":"Juice Box","emoji":"🧃","category":"Drinks","buyCost":12,"sellPrice":26,"perishable":true},
   {"id":"tea","name":"Tea Packet","emoji":"🍵","category":"Drinks","buyCost":3,"sellPrice":8},
   {"id":"coffee","name":"Coffee Sachet","emoji":"☕","category":"Drinks","buyCost":5,"sellPrice":12},
   {"id":"energyDrink","name":"Energy Drink","emoji":"⚡","category":"Drinks","buyCost":25,"sellPrice":55},
-
+ 
   {"id":"soap","name":"Soap","emoji":"🧼","category":"Personal Care","buyCost":15,"sellPrice":28},
   {"id":"shampoo","name":"Shampoo Sachet","emoji":"🧴","category":"Personal Care","buyCost":5,"sellPrice":11},
   {"id":"toothpaste","name":"Toothpaste Mini","emoji":"🪥","category":"Personal Care","buyCost":20,"sellPrice":38},
   {"id":"comb","name":"Comb","emoji":"💇","category":"Personal Care","buyCost":10,"sellPrice":20},
-
+ 
   {"id":"umbrella","name":"Umbrella","emoji":"☂️","category":"Utility","buyCost":80,"sellPrice":150},
   {"id":"torch","name":"Torch","emoji":"🔦","category":"Utility","buyCost":60,"sellPrice":120},
   {"id":"newspaper","name":"Newspaper","emoji":"📰","category":"Utility","buyCost":5,"sellPrice":10},
   {"id":"phoneCharger","name":"Phone Charger","emoji":"🔌","category":"Utility","buyCost":90,"sellPrice":170}
 ]
 </script>
-
+ 
+<script type="application/json" id="businessConfig">
+[
+  {"id":"motel", "name":"Motel", "icon":"🏨", "unlockCost":0},
+  {"id":"supermarket", "name":"Super Market", "icon":"🛒", "unlockCost":0},
+  {"id":"coffeeShop", "name":"Coffee Shop", "icon":"☕", "unlockCost":5000},
+  {"id":"fastFood", "name":"Fast Food", "icon":"🍔", "unlockCost":20000},
+  {"id":"laundry", "name":"Laundry Service", "icon":"🧺", "unlockCost":50000},
+  {"id":"airport", "name":"Airport", "icon":"✈️", "unlockCost":200000}
+]
+</script>
+ 
+<script type="application/json" id="shopsConfig">
+{
+  "coffeeShop": [
+    {"id":"espresso","name":"Espresso","emoji":"☕","buyCost":8,"sellPrice":20},
+    {"id":"coldCoffee","name":"Cold Coffee","emoji":"🥤","buyCost":12,"sellPrice":28},
+    {"id":"sandwich","name":"Sandwich","emoji":"🥪","buyCost":15,"sellPrice":32},
+    {"id":"muffin","name":"Muffin","emoji":"🧁","buyCost":10,"sellPrice":24},
+    {"id":"croissant","name":"Croissant","emoji":"🥐","buyCost":9,"sellPrice":22}
+  ],
+  "fastFood": [
+    {"id":"burger","name":"Burger","emoji":"🍔","buyCost":25,"sellPrice":55},
+    {"id":"fries","name":"Fries","emoji":"🍟","buyCost":12,"sellPrice":28},
+    {"id":"pizzaSlice","name":"Pizza Slice","emoji":"🍕","buyCost":20,"sellPrice":45},
+    {"id":"softDrink","name":"Soft Drink","emoji":"🥤","buyCost":8,"sellPrice":18},
+    {"id":"momos","name":"Momos","emoji":"🥟","buyCost":15,"sellPrice":34}
+  ]
+}
+</script>
+ 
 <script>
 (async function(){
-
+ 
   const STORAGE_KEY = 'motel-tycoon-state-v2';
   const MARKET_CONFIG = JSON.parse(document.getElementById('marketConfig').textContent);
+  const BUSINESS_CONFIG = JSON.parse(document.getElementById('businessConfig').textContent);
+  const SHOPS_CONFIG = JSON.parse(document.getElementById('shopsConfig').textContent);
   const STOCK_CONFIG = JSON.parse(document.getElementById('stockConfig').textContent);
-
+ 
   // ---------- ROOM CONFIG ----------
   const ROOM_LEVELS = [
     { level:1, name:'Standard', incomeMult:1,   maintMult:1,   upgradeCost:0,   cleanCost:20 },
@@ -645,12 +812,50 @@
   const VIP_WEAR_MULT = 1.4; // VIPs wear the room out faster, needing maintenance sooner
   const COMBO_CHANCE = 0.25;
   const SPOILAGE_CHANCE_PER_TICK = 0.01; // per perishable item, only rolled once stock is high
-
+ 
+  // ---------- LAUNDRY CONFIG (mirrors room mechanic, separate business) ----------
+  const LAUNDRY_LEVELS = [
+    { level:1, name:'Basic Washer',  incomeMult:1,   maintMult:1,   upgradeCost:0,   cleanCost:12 },
+    { level:2, name:'Twin Tub',      incomeMult:1.7, maintMult:1.25, upgradeCost:250, cleanCost:20 },
+    { level:3, name:'Automatic',     incomeMult:2.6, maintMult:1.5, upgradeCost:600, cleanCost:30 }
+  ];
+  const LAUNDRY_BASE_COST = 300;
+  const LAUNDRY_COST_GROWTH = 1.5;
+  const LAUNDRY_INCOME_PER_SEC = 0.6;
+  const LAUNDRY_MAINTENANCE_INTERVAL = 80;
+  const LAUNDRY_MAINTENANCE_COST = 35;
+  const LAUNDRY_ARRIVAL_CHANCE = 0.05;
+  const LAUNDRY_STAY_MIN = 30;
+  const LAUNDRY_STAY_MAX = 70;
+ 
+  // ---------- AIRPORT (end-game, mirrors room mechanic with plane gates) ----------
+  const AIRPORT_LEVELS = [
+    { level:1, name:'Domestic Gate',      incomeMult:1,   maintMult:1,   upgradeCost:0,    cleanCost:80 },
+    { level:2, name:'International Gate', incomeMult:2.2, maintMult:1.4, upgradeCost:3000, cleanCost:140 },
+    { level:3, name:'VIP Terminal',       incomeMult:4,   maintMult:1.8, upgradeCost:8000, cleanCost:220 }
+  ];
+  const AIRPORT_BASE_COST = 4000;
+  const AIRPORT_COST_GROWTH = 1.6;
+  const AIRPORT_INCOME_PER_SEC = 3;
+  const AIRPORT_MAINTENANCE_INTERVAL = 100;
+  const AIRPORT_MAINTENANCE_COST = 300;
+  const AIRPORT_ARRIVAL_CHANCE = 0.045;
+  const AIRPORT_STAY_MIN = 50;
+  const AIRPORT_STAY_MAX = 110;
+  const AIRPORT_VIP_CHANCE = 0.12; // private jet
+  const AIRPORT_VIP_INCOME_MULT = 2.5;
+ 
+  // ---------- SHOP BUSINESS CONFIG (Coffee Shop / Fast Food — generic engine) ----------
+  const SHOP_ARRIVAL_CHANCE = 0.05;
+ 
   // ---------- EMPLOYEE CONFIG ----------
   const ROLES = {
-    cleaner: { label:'Cleaner', icon:'🧹', baseCost:300 },
-    cashier: { label:'Cashier', icon:'🧾', baseCost:350 },
-    manager: { label:'Manager', icon:'🗂️', baseCost:450 }
+    receptionist: { label:'Receptionist', icon:'🛎️', baseCost:280 },
+    cashier:      { label:'Cashier',      icon:'🧾', baseCost:350 },
+    cleaner:      { label:'Cleaner',      icon:'🧹', baseCost:300 },
+    security:     { label:'Security Guard', icon:'💂', baseCost:320 },
+    stockBoy:     { label:'Stock Boy',    icon:'📦', baseCost:260 },
+    manager:      { label:'Manager',      icon:'🗂️', baseCost:450 }
   };
   const EMPLOYEE_COST_GROWTH = 1.35;
   const EMPLOYEE_SALARY = 350;
@@ -658,7 +863,7 @@
   const XP_PER_ACTIVE_TICK = 1;
   const XP_PER_LEVEL = 600; // 10 real minutes of active work per level
   const MAX_EMP_LEVEL = 5;
-
+ 
   // ---------- ECONOMY / META ----------
   const OFFLINE_CAP_SECONDS = 24 * 60 * 60;
   const AUTOSAVE_EVERY_TICKS = 5;
@@ -670,7 +875,12 @@
   const STOCK_MEAN_REVERSION = 0.01;
   const WALLET_HISTORY_SAMPLE_SECONDS = 15;
   const WALLET_HISTORY_MAX_POINTS = 40;
-
+ 
+  // ---------- FINANCE ----------
+  const LOAN_AMOUNT = 5000;
+  const LOAN_DAILY_INTEREST = 0.02; // 2% simple interest per real day outstanding
+  const TAX_RATE = 0.05; // 5% of each day's income, billed at day rollover
+ 
   const ACHIEVEMENTS = [
     { id:'first_room', title:'Pratham Room', icon:'🏨', reward:100, check:s=>s.rooms.length>=1 },
     { id:'five_rooms', title:'5 Rooms Motel', icon:'🏘️', reward:300, check:s=>s.rooms.length>=5 },
@@ -680,14 +890,18 @@
     { id:'all_stocked', title:'Full Supermarket', icon:'🛍️', reward:200, check:s=>s.market.every(m=>m.stock>0) },
     { id:'earn_10k', title:'₹10,000 Kamaya', icon:'💰', reward:250, check:s=>s.lifetimeEarnings>=10000 },
     { id:'earn_1l', title:'₹1,00,000 Kamaya', icon:'💎', reward:1000, check:s=>s.lifetimeEarnings>=100000 },
-    { id:'earn_5l', title:'₹5,00,000 Kamaya', icon:'👑', reward:2500, check:s=>s.lifetimeEarnings>=500000 }
+    { id:'earn_5l', title:'₹5,00,000 Kamaya', icon:'👑', reward:2500, check:s=>s.lifetimeEarnings>=500000 },
+    { id:'coffee_unlock', title:'Coffee Shop Kholyu', icon:'☕', reward:200, check:s=>s.businesses.coffeeShop.unlocked },
+    { id:'fastfood_unlock', title:'Fast Food Kholyu', icon:'🍔', reward:500, check:s=>s.businesses.fastFood.unlocked },
+    { id:'laundry_unlock', title:'Laundry Kholyu', icon:'🧺', reward:1000, check:s=>s.businesses.laundry.unlocked },
+    { id:'all_business', title:'Business Empire!', icon:'🏙️', reward:3000, check:s=>Object.values(s.businesses).every(b=>b.unlocked) }
   ];
-
+ 
   let state = null;
   let tickCount = 0;
   let toastTimer = null;
   let audioCtx = null;
-
+ 
   function defaultState(){
     return {
       wallet: 800,
@@ -699,6 +913,19 @@
       nextEmployeeId: 1,
       stocks: STOCK_CONFIG.map(s => ({...s, currentPrice:s.price, history:[s.price]})),
       portfolio: {},
+      businesses: defaultBusinesses(),
+      shops: {
+        coffeeShop: { items: defaultShopItems('coffeeShop') },
+        fastFood: { items: defaultShopItems('fastFood') }
+      },
+      laundry: { machines: [], nextMachineId: 1 },
+      airport: { gates: [], nextGateId: 1 },
+      loan: null,
+      taxDue: 0,
+      todayIncome: 0,
+      todayExpense: 0,
+      lastEconomyDay: todayKey(),
+      totalCustomersServed: 0,
       notifications: [],
       nextNotifId: 1,
       unlockedAchievements: [],
@@ -711,7 +938,17 @@
       lastSaved: Date.now()
     };
   }
-
+ 
+  function defaultBusinesses(){
+    const map = {};
+    BUSINESS_CONFIG.forEach(b=>{ map[b.id] = { unlocked: b.unlockCost === 0 }; });
+    return map;
+  }
+ 
+  function defaultShopItems(shopId){
+    return SHOPS_CONFIG[shopId].map(i => ({...i, stock:0, sold:0}));
+  }
+ 
   async function loadState(){
     try{
       const res = await window.storage.get(STORAGE_KEY, false);
@@ -719,7 +956,7 @@
     }catch(e){ /* no save found yet — first time playing */ }
     return defaultState();
   }
-
+ 
   // Fills in any fields that didn't exist in an older save, without ever
   // touching the player's existing wallet/rooms/employees/market data.
   function migrateState(){
@@ -732,19 +969,42 @@
     if(state.bonusStreak === undefined) state.bonusStreak = 0;
     if(state.prestigeLevel === undefined) state.prestigeLevel = 0;
     if(!state.portfolio) state.portfolio = {};
-
+    if(!state.businesses) state.businesses = defaultBusinesses();
+    if(!state.shops) state.shops = { coffeeShop:{items:defaultShopItems('coffeeShop')}, fastFood:{items:defaultShopItems('fastFood')} };
+    if(!state.laundry) state.laundry = { machines: [], nextMachineId: 1 };
+    if(state.laundry.nextMachineId === undefined) state.laundry.nextMachineId = 1;
+    if(!state.airport) state.airport = { gates: [], nextGateId: 1 };
+    if(state.airport.nextGateId === undefined) state.airport.nextGateId = 1;
+    if(state.loan === undefined) state.loan = null;
+    if(state.taxDue === undefined) state.taxDue = 0;
+    if(state.todayIncome === undefined) state.todayIncome = 0;
+    if(state.todayExpense === undefined) state.todayExpense = 0;
+    if(!state.lastEconomyDay) state.lastEconomyDay = todayKey();
+    if(state.totalCustomersServed === undefined) state.totalCustomersServed = 0;
+ 
+    state.laundry.machines.forEach(m=>{
+      if(m.level === undefined) m.level = 1;
+      if(m.needsCleaning === undefined) m.needsCleaning = false;
+    });
+ 
+    state.airport.gates.forEach(g=>{
+      if(g.level === undefined) g.level = 1;
+      if(g.vip === undefined) g.vip = false;
+      if(g.needsCleaning === undefined) g.needsCleaning = false;
+    });
+ 
     state.rooms.forEach(r=>{
       if(r.level === undefined) r.level = 1;
       if(r.vip === undefined) r.vip = false;
       if(r.needsCleaning === undefined) r.needsCleaning = false;
     });
-
+ 
     state.employees.forEach(e=>{
       if(!e.role) e.role = 'manager';
       if(e.xp === undefined) e.xp = 0;
     });
   }
-
+ 
   // Whenever new products are added to MARKET_CONFIG, this keeps every
   // existing player's stock/sold counts intact and just appends the new
   // items with stock 0 — nobody's saved progress gets wiped by an update.
@@ -762,7 +1022,7 @@
       };
     });
   }
-
+ 
   // Same idea as reconcileMarket — if new stocks get added later, existing
   // players keep their current holdings and price history untouched.
   function reconcileStocks(){
@@ -777,20 +1037,39 @@
       };
     });
   }
-
+ 
+  // Same pattern for Coffee Shop / Fast Food item catalogs.
+  function reconcileShops(){
+    Object.keys(SHOPS_CONFIG).forEach(shopId=>{
+      const shop = state.shops[shopId] || { items: [] };
+      const existingMap = {};
+      (shop.items || []).forEach(i => { existingMap[i.id] = i; });
+      shop.items = SHOPS_CONFIG[shopId].map(cfg=>{
+        const ex = existingMap[cfg.id];
+        return {
+          id: cfg.id, name: cfg.name, emoji: cfg.emoji,
+          buyCost: cfg.buyCost, sellPrice: cfg.sellPrice,
+          stock: ex ? ex.stock : 0,
+          sold: ex ? ex.sold : 0
+        };
+      });
+      state.shops[shopId] = shop;
+    });
+  }
+ 
   async function saveState(){
     state.lastSaved = Date.now();
     try{ await window.storage.set(STORAGE_KEY, JSON.stringify(state), false); }
     catch(e){ console.error('Save failed', e); }
   }
-
+ 
   function save(){ saveState(); }
-
+ 
   function addNotif(text, tone){
     state.notifications.unshift({id: state.nextNotifId++, text, tone: tone||'', time: Date.now()});
     state.notifications = state.notifications.slice(0, 12);
   }
-
+ 
   function showToast(text){
     const t = document.getElementById('toast');
     t.textContent = text;
@@ -798,17 +1077,25 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(()=> t.classList.remove('show'), 3200);
   }
-
+ 
   function fmt(n){ return '₹' + Math.floor(n).toLocaleString('en-IN'); }
   function nowSec(){ return Date.now()/1000; }
   function prestigeMultiplier(){ return 1 + state.prestigeLevel * 0.25; }
   function roomLevelInfo(level){ return ROOM_LEVELS[level-1] || ROOM_LEVELS[0]; }
-
+  function laundryLevelInfo(level){ return LAUNDRY_LEVELS[level-1] || LAUNDRY_LEVELS[0]; }
+  function airportLevelInfo(level){ return AIRPORT_LEVELS[level-1] || AIRPORT_LEVELS[0]; }
+ 
   function earnMoney(amount){
     state.wallet += amount;
     state.lifetimeEarnings += amount;
+    state.todayIncome += amount;
   }
-
+ 
+  function spendMoney(amount){
+    state.wallet -= amount;
+    state.todayExpense += amount;
+  }
+ 
   // ---------- SOUND (Web Audio, no external files) ----------
   function ensureAudio(){
     if(!audioCtx){
@@ -835,7 +1122,7 @@
   function soundAlert(){ playTone(300, 0.25, 'square'); }
   function soundAchievement(){ playTone(784, 0.1); setTimeout(()=>playTone(1175, 0.18), 100); }
   function soundClick(){ playTone(700, 0.045, 'triangle'); }
-
+ 
   // ---------- BACKGROUND MUSIC (generated ambient loop, no external audio) ----------
   // A warm four-chord progression (I-V-vi-IV) with a light plucked melody on
   // top for movement — purely synthesized, so it's safe/license-free and
@@ -848,7 +1135,7 @@
   ];
   let musicChordIndex = 0;
   let musicIntervalId = null;
-
+ 
   function playPad(freqs, startTime){
     freqs.forEach(f=>{
       try{
@@ -865,7 +1152,7 @@
       }catch(e){ /* ignore audio errors */ }
     });
   }
-
+ 
   function playMelodyNote(freq, startTime){
     try{
       const osc = audioCtx.createOscillator();
@@ -880,7 +1167,7 @@
       osc.stop(startTime + 1);
     }catch(e){ /* ignore audio errors */ }
   }
-
+ 
   function playChordEntry(entry){
     if(!audioCtx || !state.musicOn) return;
     const now = audioCtx.currentTime;
@@ -888,7 +1175,7 @@
     playMelodyNote(entry.melody[0], now + 0.3);
     playMelodyNote(entry.melody[1], now + 2.1);
   }
-
+ 
   function startBackgroundMusic(){
     if(musicIntervalId || !audioCtx || !state.musicOn) return;
     playChordEntry(CHORD_PROGRESSION[musicChordIndex]);
@@ -897,29 +1184,29 @@
       playChordEntry(CHORD_PROGRESSION[musicChordIndex]);
     }, 4000);
   }
-
+ 
   function stopBackgroundMusic(){
     if(musicIntervalId){ clearInterval(musicIntervalId); musicIntervalId = null; }
   }
-
+ 
   // ---------- ROOMS ----------
   function nextRoomCost(){
     return Math.round(ROOM_BASE_COST * Math.pow(ROOM_COST_GROWTH, state.rooms.length));
   }
-
+ 
   function buyRoom(){
     const cost = nextRoomCost();
     if(state.wallet < cost){
       addNotif(`Room kharidva mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
       render(); save(); return;
     }
-    state.wallet -= cost;
+    spendMoney(cost);
     state.rooms.push({id: state.nextRoomId++, occupied:false, guestUntil:0, occupiedSince:0, maintenanceDue:false, level:1, vip:false, needsCleaning:false});
     addNotif(`Naviu Room #${state.rooms.length} kharidyu!`, '');
     checkAchievements();
     render(); save();
   }
-
+ 
   function upgradeRoom(roomId){
     const room = state.rooms.find(r=>r.id===roomId);
     if(!room || room.level >= ROOM_LEVELS.length) return;
@@ -928,12 +1215,12 @@
       addNotif(`Upgrade mate ${fmt(nextLevel.upgradeCost)} joie chhe.`, 'danger'); soundAlert();
       render(); save(); return;
     }
-    state.wallet -= nextLevel.upgradeCost;
+    spendMoney(nextLevel.upgradeCost);
     room.level += 1;
     addNotif(`Room #${state.rooms.indexOf(room)+1} have ${nextLevel.name} ma upgrade thayu!`, '');
     render(); save();
   }
-
+ 
   function payMaintenance(roomId){
     const room = state.rooms.find(r=>r.id===roomId);
     if(!room) return;
@@ -942,12 +1229,12 @@
       addNotif(`Maintenance mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
       render(); save(); return;
     }
-    state.wallet -= cost;
+    spendMoney(cost);
     room.maintenanceDue = false;
     room.occupiedSince = nowSec();
     render(); save();
   }
-
+ 
   function cleanRoom(roomId){
     const room = state.rooms.find(r=>r.id===roomId);
     if(!room) return;
@@ -956,11 +1243,11 @@
       addNotif(`Cleaning mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
       render(); save(); return;
     }
-    state.wallet -= cost;
+    spendMoney(cost);
     room.needsCleaning = false;
     render(); save();
   }
-
+ 
   // ---------- SUPERMARKET / PURCHASE ----------
   function buyStock(itemId, qty){
     const item = state.market.find(m=>m.id===itemId);
@@ -970,18 +1257,18 @@
       addNotif(`${item.name} na ${qty} nag mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
       render(); save(); return;
     }
-    state.wallet -= cost;
+    spendMoney(cost);
     item.stock += qty;
     showToast(`${item.name} +${qty} — Shopping Mall ma jama thayu!`);
     render(); save();
   }
-
+ 
   // ---------- EMPLOYEES ----------
   function nextEmployeeCost(role){
     const count = state.employees.filter(e=>e.role===role).length;
     return Math.round(ROLES[role].baseCost * Math.pow(EMPLOYEE_COST_GROWTH, count));
   }
-
+ 
   function hireEmployee(role){
     if(!ROLES[role]) return;
     const cost = nextEmployeeCost(role);
@@ -989,14 +1276,14 @@
       addNotif(`${ROLES[role].label} hire karva mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
       render(); save(); return;
     }
-    state.wallet -= cost;
+    spendMoney(cost);
     const now = nowSec();
     state.employees.push({id: state.nextEmployeeId++, role, hiredAt: now, expiresAt: now + EMPLOYEE_SHIFT_SECONDS, active:true, xp:0});
     addNotif(`Navo ${ROLES[role].label} hire thayo — 10 kalak active rahese.`, '');
     checkAchievements();
     render(); save();
   }
-
+ 
   function paySalary(empId){
     const emp = state.employees.find(e=>e.id===empId);
     if(!emp) return;
@@ -1004,25 +1291,25 @@
       addNotif(`Salary mate ${fmt(EMPLOYEE_SALARY)} joie chhe.`, 'danger'); soundAlert();
       render(); save(); return;
     }
-    state.wallet -= EMPLOYEE_SALARY;
+    spendMoney(EMPLOYEE_SALARY);
     const now = nowSec();
     emp.hiredAt = now; emp.expiresAt = now + EMPLOYEE_SHIFT_SECONDS; emp.active = true;
     addNotif('Salary pay thai gayi — employee farithi 10 kalak active.', '');
     render(); save();
   }
-
+ 
   function empLevel(emp){ return Math.min(MAX_EMP_LEVEL, 1 + Math.floor((emp.xp||0)/XP_PER_LEVEL)); }
   function activeByRole(role){
     const now = nowSec();
     return state.employees.filter(e=>e.role===role && e.active && e.expiresAt>now);
   }
-
+ 
   // ---------- TRENDING DEMAND ----------
   function trendingCategory(){
     const idx = Math.floor(nowSec()/DEMAND_CYCLE_SECONDS) % CATEGORY_ORDER.length;
     return CATEGORY_ORDER[idx];
   }
-
+ 
   // ---------- ACHIEVEMENTS ----------
   function checkAchievements(){
     ACHIEVEMENTS.forEach(a=>{
@@ -1036,7 +1323,7 @@
       }
     });
   }
-
+ 
   // ---------- DAILY BONUS ----------
   function todayKey(){ return new Date().toDateString(); }
   function claimDailyBonus(){
@@ -1052,7 +1339,7 @@
     soundCoin();
     render(); save();
   }
-
+ 
   // ---------- PRESTIGE ----------
   function doPrestige(){
     if(state.lifetimeEarnings < PRESTIGE_THRESHOLD) return;
@@ -1063,15 +1350,22 @@
     state.employees = [];
     state.nextEmployeeId = 1;
     state.market = MARKET_CONFIG.map(m => ({...m, stock:0, sold:0, spoiled:0}));
+    state.shops.coffeeShop.items = defaultShopItems('coffeeShop');
+    state.shops.fastFood.items = defaultShopItems('fastFood');
+    state.laundry = { machines: [], nextMachineId: 1 };
+    state.loan = null;
+    state.taxDue = 0;
+    // Business unlock status is permanent — prestige resets the operations,
+    // not what the player has already unlocked in the city.
     addNotif(`Naya Shehar! Prestige Level ${state.prestigeLevel} — income have +${state.prestigeLevel*25}% permanent.`, '');
     showToast(`🌆 Naya Shehar shuru! Permanent +${state.prestigeLevel*25}% income bonus.`);
     soundAchievement();
     render(); save();
   }
-
+ 
   // ---------- SHARE MARKET (24/7) ----------
   function findStock(stockId){ return state.stocks.find(s=>s.id===stockId); }
-
+ 
   function portfolioValue(){
     let total = 0;
     Object.keys(state.portfolio).forEach(id=>{
@@ -1081,7 +1375,7 @@
     });
     return total;
   }
-
+ 
   function buyShares(stockId, qty){
     const stock = findStock(stockId);
     if(!stock) return;
@@ -1090,7 +1384,7 @@
       addNotif(`${stock.name} na ${qty} share mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
       render(); save(); return;
     }
-    state.wallet -= cost;
+    spendMoney(cost);
     const holding = state.portfolio[stockId] || {qty:0, avgPrice:0};
     const newQty = holding.qty + qty;
     holding.avgPrice = ((holding.qty*holding.avgPrice) + (qty*stock.currentPrice)) / newQty;
@@ -1099,7 +1393,7 @@
     showToast(`${stock.name} ${qty} share kharidya!`);
     render(); save();
   }
-
+ 
   function sellShares(stockId, qtyOrAll){
     const stock = findStock(stockId);
     const holding = state.portfolio[stockId];
@@ -1113,7 +1407,7 @@
     showToast(`${stock.name} ${qty} share vechya — ${fmt(revenue)} malya!`);
     render(); save();
   }
-
+ 
   // Simple random-walk with mild mean reversion so prices drift but don't
   // run away to zero or infinity — scaled by elapsed seconds so offline
   // catch-up jumps are proportionally larger, just like real markets moving
@@ -1125,14 +1419,297 @@
       stock.currentPrice = Math.max(1, stock.currentPrice * (1 + randomPct + reversionPct));
     });
   }
-
+ 
+  // ---------- BUSINESS UNLOCK SYSTEM ----------
+  function businessMeta(id){ return BUSINESS_CONFIG.find(b=>b.id===id); }
+ 
+  function checkBusinessUnlocks(){
+    BUSINESS_CONFIG.forEach(b=>{
+      const rec = state.businesses[b.id];
+      if(!rec.unlocked && state.lifetimeEarnings >= b.unlockCost){
+        rec.unlocked = true;
+        addNotif(`🎉 ${b.name} unlock thai gayu! Naya business shuru karo.`, '');
+        showToast(`🎉 ${b.icon} ${b.name} unlock thayu!`);
+        soundAchievement();
+      }
+    });
+  }
+ 
+  function isUnlocked(id){ return !!(state.businesses[id] && state.businesses[id].unlocked); }
+ 
+  // ---------- LAUNDRY SERVICE (mirrors Motel room mechanic) ----------
+  function nextLaundryCost(){
+    return Math.round(LAUNDRY_BASE_COST * Math.pow(LAUNDRY_COST_GROWTH, state.laundry.machines.length));
+  }
+ 
+  function buyLaundryMachine(){
+    const cost = nextLaundryCost();
+    if(state.wallet < cost){
+      addNotif(`Machine kharidva mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    spendMoney(cost);
+    state.laundry.machines.push({id: state.laundry.nextMachineId++, occupied:false, guestUntil:0, occupiedSince:0, maintenanceDue:false, level:1, needsCleaning:false});
+    addNotif(`Naviu Laundry Machine #${state.laundry.machines.length} kharidyu!`, '');
+    checkAchievements();
+    render(); save();
+  }
+ 
+  function upgradeLaundryMachine(machineId){
+    const m = state.laundry.machines.find(x=>x.id===machineId);
+    if(!m || m.level >= LAUNDRY_LEVELS.length) return;
+    const next = laundryLevelInfo(m.level+1);
+    if(state.wallet < next.upgradeCost){
+      addNotif(`Upgrade mate ${fmt(next.upgradeCost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    spendMoney(next.upgradeCost);
+    m.level += 1;
+    addNotif(`Machine #${state.laundry.machines.indexOf(m)+1} have ${next.name} ma upgrade thayu!`, '');
+    render(); save();
+  }
+ 
+  function payLaundryMaintenance(machineId){
+    const m = state.laundry.machines.find(x=>x.id===machineId);
+    if(!m) return;
+    const cost = Math.round(LAUNDRY_MAINTENANCE_COST * laundryLevelInfo(m.level).maintMult);
+    if(state.wallet < cost){
+      addNotif(`Maintenance mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    spendMoney(cost);
+    m.maintenanceDue = false;
+    m.occupiedSince = nowSec();
+    render(); save();
+  }
+ 
+  function cleanLaundryMachine(machineId){
+    const m = state.laundry.machines.find(x=>x.id===machineId);
+    if(!m) return;
+    const cost = laundryLevelInfo(m.level).cleanCost;
+    if(state.wallet < cost){
+      addNotif(`Cleaning mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    spendMoney(cost);
+    m.needsCleaning = false;
+    render(); save();
+  }
+ 
+  // ---------- AIRPORT (end-game — planes, gates, runway maintenance) ----------
+  function nextGateCost(){
+    return Math.round(AIRPORT_BASE_COST * Math.pow(AIRPORT_COST_GROWTH, state.airport.gates.length));
+  }
+ 
+  function buyGate(){
+    const cost = nextGateCost();
+    if(state.wallet < cost){
+      addNotif(`Gate kharidva mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    spendMoney(cost);
+    state.airport.gates.push({id: state.airport.nextGateId++, occupied:false, guestUntil:0, occupiedSince:0, maintenanceDue:false, level:1, vip:false, needsCleaning:false});
+    addNotif(`Naviu Gate #${state.airport.gates.length} kholyu!`, '');
+    checkAchievements();
+    render(); save();
+  }
+ 
+  function upgradeGate(gateId){
+    const g = state.airport.gates.find(x=>x.id===gateId);
+    if(!g || g.level >= AIRPORT_LEVELS.length) return;
+    const next = airportLevelInfo(g.level+1);
+    if(state.wallet < next.upgradeCost){
+      addNotif(`Upgrade mate ${fmt(next.upgradeCost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    spendMoney(next.upgradeCost);
+    g.level += 1;
+    addNotif(`Gate #${state.airport.gates.indexOf(g)+1} have ${next.name} ma upgrade thayu!`, '');
+    render(); save();
+  }
+ 
+  function payGateMaintenance(gateId){
+    const g = state.airport.gates.find(x=>x.id===gateId);
+    if(!g) return;
+    const cost = Math.round(AIRPORT_MAINTENANCE_COST * airportLevelInfo(g.level).maintMult);
+    if(state.wallet < cost){
+      addNotif(`Runway maintenance mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    spendMoney(cost);
+    g.maintenanceDue = false;
+    g.occupiedSince = nowSec();
+    render(); save();
+  }
+ 
+  function cleanGate(gateId){
+    const g = state.airport.gates.find(x=>x.id===gateId);
+    if(!g) return;
+    const cost = airportLevelInfo(g.level).cleanCost;
+    if(state.wallet < cost){
+      addNotif(`Turnaround service mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    spendMoney(cost);
+    g.needsCleaning = false;
+    render(); save();
+  }
+ 
+  // ---------- SHOP BUSINESSES (Coffee Shop / Fast Food — generic engine) ----------
+  function buyShopStock(shopId, itemId, qty){
+    const item = state.shops[shopId].items.find(i=>i.id===itemId);
+    if(!item) return;
+    const cost = item.buyCost * qty;
+    if(state.wallet < cost){
+      addNotif(`${item.name} na ${qty} nag mate ${fmt(cost)} joie chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    spendMoney(cost);
+    item.stock += qty;
+    showToast(`${item.name} +${qty} — stock ma jama thayu!`);
+    render(); save();
+  }
+ 
+  function tickShop(shopId, deltaSeconds, cashierBonus, isOfflineCatchup){
+    if(!isUnlocked(shopId)) return;
+    const items = state.shops[shopId].items;
+    const chance = 1 - Math.pow(1 - SHOP_ARRIVAL_CHANCE, deltaSeconds);
+    if(Math.random() >= chance) return;
+    const inStock = items.filter(i=>i.stock>0);
+    if(!inStock.length) return;
+    const item = inStock[Math.floor(Math.random()*inStock.length)];
+    item.stock -= 1; item.sold += 1;
+    earnMoney(item.sellPrice * cashierBonus);
+    state.totalCustomersServed += 1;
+    if(item.stock === 0 && !isOfflineCatchup){
+      addNotif(`${item.name} khali thai gayi chhe — stock lo.`, 'danger');
+    }
+  }
+ 
+  // Generic "occupy → earn → wear out → clean" engine shared by Laundry and
+  // Airport, so both businesses behave consistently without duplicating the
+  // whole simulation loop for each one.
+  function tickServiceBusiness(businessId, units, deltaSeconds, isOfflineCatchup, cfg){
+    if(!isUnlocked(businessId)) return;
+    const now = nowSec();
+    units.forEach(unit=>{
+      const lvl = cfg.levelInfoFn(unit.level);
+      const managerDiscount = cfg.managers.length ? Math.min(0.2, 0.05*empLevel(cfg.managers[0])) : 0;
+      const maintCost = Math.round(cfg.maintenanceCost * lvl.maintMult * (1 - managerDiscount));
+      const cleanCost = lvl.cleanCost;
+ 
+      if(unit.needsCleaning){
+        if(cfg.cleaners.length && state.wallet >= cleanCost){
+          spendMoney(cleanCost);
+          unit.needsCleaning = false;
+        }
+        return;
+      }
+ 
+      if(unit.occupied){
+        if(unit.maintenanceDue){
+          if(cfg.managers.length && state.wallet >= maintCost){
+            spendMoney(maintCost);
+            unit.maintenanceDue = false;
+            unit.occupiedSince = now;
+          }
+        } else {
+          const vipMult = unit.vip ? cfg.vipIncomeMult : 1;
+          const income = cfg.incomePerSec * lvl.incomeMult * vipMult * cfg.mult;
+          earnMoney(income * deltaSeconds);
+          const wearMult = unit.vip ? (cfg.vipWearMult||1) : 1;
+          if((now - unit.occupiedSince) * wearMult >= cfg.maintenanceInterval){
+            unit.maintenanceDue = true;
+            if(!isOfflineCatchup) addNotif(`${cfg.unitLabel} ne maintenance joie chhe.`, 'danger');
+          }
+        }
+        if(unit.guestUntil && now >= unit.guestUntil){
+          unit.occupied = false;
+          unit.guestUntil = 0;
+          unit.needsCleaning = true;
+          state.totalCustomersServed += 1;
+        }
+      } else {
+        const chance = 1 - Math.pow(1 - cfg.arrivalChance, deltaSeconds);
+        if(Math.random() < chance){
+          unit.occupied = true;
+          unit.occupiedSince = now;
+          unit.maintenanceDue = false;
+          unit.vip = Math.random() < (cfg.vipChance||0);
+          const stay = cfg.stayMin + Math.random()*(cfg.stayMax-cfg.stayMin);
+          unit.guestUntil = now + stay;
+          if(!isOfflineCatchup && unit.vip) addNotif(`${cfg.vipLabel || 'VIP'} aavya! 👑`, '');
+        }
+      }
+    });
+  }
+ 
+  // ---------- FINANCE: LOAN + TAX ----------
+  function takeLoan(){
+    if(state.loan){
+      addNotif('Ek j samaye ek j loan lai shakay — pehla e chukvo.', 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    state.loan = { principal: LOAN_AMOUNT, takenAt: Date.now() };
+    state.wallet += LOAN_AMOUNT; // loan cash isn't "earned" income, so wallet only
+    addNotif(`Bank thi ${fmt(LOAN_AMOUNT)} no loan malyo — 2%/din interest lagshe.`, '');
+    showToast(`🏦 Loan malyo: ${fmt(LOAN_AMOUNT)}`);
+    render(); save();
+  }
+ 
+  function repayLoan(amount){
+    if(!state.loan) return;
+    const payAmount = Math.min(amount, state.loan.principal, state.wallet);
+    if(payAmount <= 0) return;
+    spendMoney(payAmount);
+    state.loan.principal -= payAmount;
+    if(state.loan.principal <= 0.5){
+      state.loan = null;
+      addNotif('Loan puru chukvai gayu! 🎉', '');
+      showToast('🏦 Loan fully repaid!');
+    }
+    render(); save();
+  }
+ 
+  function payTax(){
+    if(state.taxDue <= 0) return;
+    const payAmount = Math.min(state.taxDue, state.wallet);
+    if(payAmount <= 0){
+      addNotif(`Tax pay karva mate paisa khuta chhe.`, 'danger'); soundAlert();
+      render(); save(); return;
+    }
+    spendMoney(payAmount);
+    state.taxDue -= payAmount;
+    addNotif(`Tax bill pay thayu: ${fmt(payAmount)}`, '');
+    render(); save();
+  }
+ 
+  // Runs once per real calendar day: bills tax on yesterday's income and
+  // accrues simple daily interest on any outstanding loan.
+  function processEconomyDayRollover(){
+    const today = todayKey();
+    if(state.lastEconomyDay === today) return;
+    if(state.todayIncome > 0){
+      const tax = state.todayIncome * TAX_RATE;
+      state.taxDue += tax;
+      addNotif(`Naya din no Tax Bill: ${fmt(tax)}`, 'danger');
+    }
+    if(state.loan){
+      state.loan.principal *= (1 + LOAN_DAILY_INTEREST);
+    }
+    state.todayIncome = 0;
+    state.todayExpense = 0;
+    state.lastEconomyDay = today;
+  }
+ 
   // ---------- GAME TICK ----------
   function tick(deltaSeconds, isOfflineCatchup){
     const now = nowSec();
     const mult = prestigeMultiplier();
-
+ 
+    processEconomyDayRollover();
     updateStockPrices(deltaSeconds);
-
+ 
     state.employees.forEach(emp=>{
       if(emp.active && emp.expiresAt <= now){
         emp.active = false;
@@ -1141,31 +1718,37 @@
         emp.xp = (emp.xp||0) + XP_PER_ACTIVE_TICK * deltaSeconds;
       }
     });
-
+ 
     const managers = activeByRole('manager');
     const cleaners = activeByRole('cleaner');
     const cashiers = activeByRole('cashier');
+    const receptionists = activeByRole('receptionist');
+    const securityGuards = activeByRole('security');
+    const stockBoys = activeByRole('stockBoy');
     const cashierBonus = Math.min(1.6, 1 + cashiers.reduce((sum,e)=> sum + 0.15*(1+(empLevel(e)-1)*0.1), 0));
-
+    const receptionistVipBonus = receptionists.length ? 1 + 0.3*(1+(empLevel(receptionists[0])-1)*0.1) : 1;
+    const receptionistArrivalBonus = receptionists.length ? 0.02 : 0;
+    const securityDiscount = securityGuards.length ? Math.min(0.7, 0.4*(1+(empLevel(securityGuards[0])-1)*0.1)) : 0;
+ 
     const trend = trendingCategory();
-
+ 
     state.rooms.forEach((room, idx)=>{
       const lvl = roomLevelInfo(room.level);
       const maintCost = Math.round(ROOM_MAINTENANCE_COST * lvl.maintMult * (1 - Math.min(0.2, (managers.length?0.05*empLevel(managers[0]):0))));
       const cleanCost = lvl.cleanCost;
-
+ 
       if(room.needsCleaning){
         if(cleaners.length && state.wallet >= cleanCost){
-          state.wallet -= cleanCost;
+          spendMoney(cleanCost);
           room.needsCleaning = false;
         }
         return; // no new guests while dirty
       }
-
+ 
       if(room.occupied){
         if(room.maintenanceDue){
           if(managers.length && state.wallet >= maintCost){
-            state.wallet -= maintCost;
+            spendMoney(maintCost);
             room.maintenanceDue = false;
             room.occupiedSince = now;
           }
@@ -1182,34 +1765,74 @@
           room.occupied = false;
           room.guestUntil = 0;
           room.needsCleaning = true;
+          state.totalCustomersServed += 1;
         }
       } else {
-        const chance = 1 - Math.pow(1 - CUSTOMER_ARRIVAL_CHANCE, deltaSeconds);
+        const arrivalChance = Math.min(0.95, CUSTOMER_ARRIVAL_CHANCE + receptionistArrivalBonus);
+        const chance = 1 - Math.pow(1 - arrivalChance, deltaSeconds);
         if(Math.random() < chance){
           room.occupied = true;
           room.occupiedSince = now;
           room.maintenanceDue = false;
-          room.vip = Math.random() < VIP_CHANCE;
+          room.vip = Math.random() < Math.min(0.6, VIP_CHANCE * receptionistVipBonus);
           const stay = CUSTOMER_STAY_MIN + Math.random()*(CUSTOMER_STAY_MAX-CUSTOMER_STAY_MIN);
           room.guestUntil = now + stay;
           if(!isOfflineCatchup && room.vip) addNotif(`Room #${idx+1} ma VIP customer aavya! 👑`, '');
-
+ 
           if(Math.random() < CUSTOMER_MARKET_BUY_CHANCE){
             buyFromCustomer(trend, cashierBonus, isOfflineCatchup);
           }
         }
       }
     });
-
-    // perishable spoilage — only when stock is comfortably high
+ 
+    // perishable spoilage — Security Guards cut down the chance considerably
+    const effectiveSpoilChance = SPOILAGE_CHANCE_PER_TICK * (1 - securityDiscount);
     state.market.forEach(item=>{
-      if(item.perishable && item.stock > 10 && Math.random() < SPOILAGE_CHANCE_PER_TICK * deltaSeconds){
+      if(item.perishable && item.stock > 10 && Math.random() < effectiveSpoilChance * deltaSeconds){
         item.stock -= 1;
         item.spoiled = (item.spoiled||0) + 1;
       }
     });
+ 
+    // Laundry Service + Airport — generic service-business engine
+    tickServiceBusiness('laundry', state.laundry.machines, deltaSeconds, isOfflineCatchup, {
+      levelInfoFn: laundryLevelInfo, managers, cleaners, mult,
+      incomePerSec: LAUNDRY_INCOME_PER_SEC, maintenanceInterval: LAUNDRY_MAINTENANCE_INTERVAL,
+      maintenanceCost: LAUNDRY_MAINTENANCE_COST, arrivalChance: LAUNDRY_ARRIVAL_CHANCE,
+      stayMin: LAUNDRY_STAY_MIN, stayMax: LAUNDRY_STAY_MAX, vipChance:0, vipIncomeMult:1,
+      unitLabel: 'Laundry Machine'
+    });
+    tickServiceBusiness('airport', state.airport.gates, deltaSeconds, isOfflineCatchup, {
+      levelInfoFn: airportLevelInfo, managers, cleaners, mult,
+      incomePerSec: AIRPORT_INCOME_PER_SEC, maintenanceInterval: AIRPORT_MAINTENANCE_INTERVAL,
+      maintenanceCost: AIRPORT_MAINTENANCE_COST, arrivalChance: AIRPORT_ARRIVAL_CHANCE,
+      stayMin: AIRPORT_STAY_MIN, stayMax: AIRPORT_STAY_MAX,
+      vipChance: AIRPORT_VIP_CHANCE, vipIncomeMult: AIRPORT_VIP_INCOME_MULT, vipWearMult:1.2,
+      unitLabel: 'Gate', vipLabel: 'Private jet'
+    });
+ 
+    // Coffee Shop + Fast Food — generic shop engine (Supermarket stays on its own tested path)
+    tickShop('coffeeShop', deltaSeconds, cashierBonus, isOfflineCatchup);
+    tickShop('fastFood', deltaSeconds, cashierBonus, isOfflineCatchup);
+ 
+    // Stock Boy — auto-restocks anything that hits zero, across every shop
+    if(stockBoys.length){
+      const restockQty = 10;
+      const tryRestock = (item)=>{
+        if(item.stock === 0 && state.wallet >= item.buyCost * restockQty){
+          spendMoney(item.buyCost * restockQty);
+          item.stock += restockQty;
+        }
+      };
+      state.market.forEach(tryRestock);
+      state.shops.coffeeShop.items.forEach(tryRestock);
+      state.shops.fastFood.items.forEach(tryRestock);
+    }
+ 
+    checkBusinessUnlocks();
   }
-
+ 
   function weightedPick(items, trend){
     const weighted = [];
     items.forEach(it=>{
@@ -1218,14 +1841,14 @@
     });
     return weighted[Math.floor(Math.random()*weighted.length)];
   }
-
+ 
   function buyFromCustomer(trend, cashierBonus, isOfflineCatchup){
     const inStock = state.market.filter(m=>m.stock>0);
     if(!inStock.length) return;
     const item1 = weightedPick(inStock, trend);
     item1.stock -= 1; item1.sold += 1;
     let revenue = item1.sellPrice;
-
+ 
     if(Math.random() < COMBO_CHANCE){
       const remaining = state.market.filter(m=>m.stock>0 && m.id!==item1.id);
       if(remaining.length){
@@ -1235,17 +1858,17 @@
         if(item2.stock === 0 && !isOfflineCatchup) addNotif(`${item2.name} khali thai gayi chhe — stock lo.`, 'danger');
       }
     }
-
+ 
     earnMoney(revenue * cashierBonus);
     if(item1.stock === 0 && !isOfflineCatchup) addNotif(`${item1.name} khali thai gayi chhe — "Product Kharido" ma jai ne stock lo.`, 'danger');
   }
-
+ 
   async function runOfflineCatchup(){
     const elapsed = (Date.now() - state.lastSaved)/1000;
     if(elapsed < 3) return;
     const capped = Math.min(elapsed, OFFLINE_CAP_SECONDS);
     const walletBefore = state.wallet;
-
+ 
     const STEP = 20;
     let remaining = capped;
     while(remaining > 0){
@@ -1253,32 +1876,44 @@
       tick(step, true);
       remaining -= step;
     }
-
+ 
     const earned = state.wallet - walletBefore;
     if(earned > 0) showToast(`Tame dur hata! Idle earning: ${fmt(earned)} 💰`);
   }
-
+ 
   // ---------- RENDER ----------
   function render(){
     document.getElementById('walletSidebar').textContent = fmt(state.wallet);
     document.getElementById('walletMobile').textContent = fmt(state.wallet);
     document.getElementById('dashWallet').textContent = fmt(state.wallet);
+    document.getElementById('dashNetWorth').textContent = fmt(state.wallet + portfolioValue() - (state.loan?state.loan.principal:0));
     document.getElementById('dashRooms').textContent = state.rooms.length;
     document.getElementById('dashOccupied').textContent = state.rooms.filter(r=>r.occupied).length;
     document.getElementById('dashStaff').textContent = state.employees.filter(e=>e.active).length;
     document.getElementById('dashLifetime').textContent = fmt(state.lifetimeEarnings);
     document.getElementById('dashPrestige').textContent = state.prestigeLevel;
     document.getElementById('dashPortfolio').textContent = fmt(portfolioValue());
-
+    document.getElementById('dashCustomers').textContent = state.totalCustomersServed;
+    const unlockedCount = Object.values(state.businesses).filter(b=>b.unlocked).length;
+    document.getElementById('dashBizLevel').textContent = `${unlockedCount}/${BUSINESS_CONFIG.length}`;
+    document.getElementById('dashReputation').textContent = Math.round(unlockedCount*15 + state.prestigeLevel*25 + Math.min(40, state.rooms.length*2));
+ 
+    document.getElementById('financeSummaryLine').textContent =
+      `Aajni aavak ${fmt(state.todayIncome)} · kharch ${fmt(state.todayExpense)}` +
+      (state.taxDue > 0.5 ? ` · Tax due: ${fmt(state.taxDue)}` : '') +
+      (state.loan ? ` · Loan baki: ${fmt(state.loan.principal)}` : '');
+ 
     const maintCount = state.rooms.filter(r=>r.maintenanceDue || r.needsCleaning).length;
     const lowStockCount = state.market.filter(m=>m.stock===0).length;
     const shiftEndedCount = state.employees.filter(e=>!e.active).length;
     setBadge('badge-hotel', maintCount);
     setBadge('badge-mall', lowStockCount);
     setBadge('badge-manpower', shiftEndedCount);
-
+    setBadge('badge-finance', (state.taxDue > 0.5 ? 1 : 0));
+ 
     document.getElementById('trendBanner').textContent = `📈 Trending category abhi: ${trendingCategory()} — aa category vadhu vechay chhe`;
-
+ 
+    updateLockedNavStyling();
     renderBonus();
     renderPrestige();
     renderRooms();
@@ -1286,11 +1921,35 @@
     renderPurchase();
     renderStaff();
     renderStocks();
+    renderShopView('coffeeShop');
+    renderShopView('fastFood');
+    renderLaundry();
+    renderAirport();
+    renderFinance();
     renderAchievements();
     renderNotifs();
     renderChart();
   }
-
+ 
+  function updateLockedNavStyling(){
+    document.querySelectorAll('.nav-btn[data-business]').forEach(btn=>{
+      const bizId = btn.dataset.business;
+      const unlocked = isUnlocked(bizId);
+      btn.classList.toggle('locked', !unlocked);
+      let lockSpan = btn.querySelector('.nav-lock-icon');
+      if(!unlocked){
+        if(!lockSpan){
+          lockSpan = document.createElement('span');
+          lockSpan.className = 'nav-lock-icon';
+          lockSpan.textContent = '🔒';
+          btn.appendChild(lockSpan);
+        }
+      } else if(lockSpan){
+        lockSpan.remove();
+      }
+    });
+  }
+ 
   function renderBonus(){
     const today = todayKey();
     const claimed = state.lastBonusDate === today;
@@ -1298,7 +1957,7 @@
     document.getElementById('bonusSub').textContent = claimed ? 'Kaal farithi aavo.' : `Streak: ${state.bonusStreak} din — bonus levo!`;
     document.getElementById('bonusBtn').style.display = claimed ? 'none' : 'inline-block';
   }
-
+ 
   function renderPrestige(){
     const card = document.getElementById('prestigeCard');
     if(state.lifetimeEarnings >= PRESTIGE_THRESHOLD || state.prestigeLevel > 0){
@@ -1311,13 +1970,13 @@
       card.style.display = 'none';
     }
   }
-
+ 
   function setBadge(id, count){
     const el = document.getElementById(id);
     if(count > 0){ el.textContent = count; el.classList.add('show'); }
     else { el.classList.remove('show'); }
   }
-
+ 
   function renderRooms(){
     const grid = document.getElementById('roomsGrid');
     grid.innerHTML = '';
@@ -1330,7 +1989,7 @@
       else if(room.occupied) cls += ' occupied';
       if(room.vip && room.occupied) cls += ' vip';
       card.className = cls;
-
+ 
       let statusHtml, actionHtml;
       if(room.maintenanceDue){
         const cost = Math.round(ROOM_MAINTENANCE_COST * lvl.maintMult);
@@ -1349,7 +2008,7 @@
           ? `<button class="btn-ghost" data-action="upgrade" data-id="${room.id}">Upgrade to ${next.name} — ${fmt(next.upgradeCost)}</button>`
           : '';
       }
-
+ 
       card.innerHTML = `
         <div class="room-icon">${room.maintenanceDue ? '🛠️' : room.needsCleaning ? '🧹' : room.occupied ? (room.vip ? '👑' : '🛏️') : '🚪'}</div>
         <div class="room-title">Room #${idx+1} <span class="level-chip">${lvl.name}</span>${room.vip && room.occupied ? '<span class="vip-chip">VIP</span>' : ''}</div>
@@ -1358,7 +2017,7 @@
       `;
       grid.appendChild(card);
     });
-
+ 
     const buyCard = document.createElement('div');
     buyCard.className = 'card buy-room-card';
     buyCard.innerHTML = `
@@ -1368,7 +2027,7 @@
       </div>`;
     grid.appendChild(buyCard);
   }
-
+ 
   function renderMall(){
     const container = document.getElementById('mallGrid');
     container.innerHTML = '';
@@ -1380,7 +2039,7 @@
       heading.className = 'category-heading';
       heading.textContent = cat + (cat===trend ? ' 🔥 Trending' : '');
       container.appendChild(heading);
-
+ 
       const grid = document.createElement('div');
       grid.className = 'grid';
       items.forEach(item=>{
@@ -1399,7 +2058,7 @@
       container.appendChild(grid);
     });
   }
-
+ 
   function renderPurchase(){
     const container = document.getElementById('purchaseGrid');
     container.innerHTML = '';
@@ -1411,7 +2070,7 @@
       heading.className = 'category-heading';
       heading.textContent = cat + (cat===trend ? ' 🔥 Trending' : '');
       container.appendChild(heading);
-
+ 
       const grid = document.createElement('div');
       grid.className = 'grid';
       items.forEach(item=>{
@@ -1433,12 +2092,12 @@
       container.appendChild(grid);
     });
   }
-
+ 
   function renderStaff(){
     const grid = document.getElementById('staffGrid');
     grid.innerHTML = '';
     const now = nowSec();
-
+ 
     state.employees.forEach((emp, idx)=>{
       const card = document.createElement('div');
       card.className = 'card emp-card';
@@ -1459,21 +2118,24 @@
       `;
       grid.appendChild(card);
     });
-
+ 
     const hireCard = document.createElement('div');
     hireCard.className = 'card buy-room-card';
     hireCard.innerHTML = `
       <div class="inner" style="width:100%;">
         <div style="font-size:1.4rem;">➕ Hire</div>
         <div class="role-row">
-          <button class="btn-buy" data-action="hire" data-role="cleaner">🧹 Cleaner<br>${fmt(nextEmployeeCost('cleaner'))}</button>
+          <button class="btn-buy" data-action="hire" data-role="receptionist">🛎️ Receptionist<br>${fmt(nextEmployeeCost('receptionist'))}</button>
           <button class="btn-buy" data-action="hire" data-role="cashier">🧾 Cashier<br>${fmt(nextEmployeeCost('cashier'))}</button>
+          <button class="btn-buy" data-action="hire" data-role="cleaner">🧹 Cleaner<br>${fmt(nextEmployeeCost('cleaner'))}</button>
+          <button class="btn-buy" data-action="hire" data-role="security">💂 Security<br>${fmt(nextEmployeeCost('security'))}</button>
+          <button class="btn-buy" data-action="hire" data-role="stockBoy">📦 Stock Boy<br>${fmt(nextEmployeeCost('stockBoy'))}</button>
           <button class="btn-buy" data-action="hire" data-role="manager">🗂️ Manager<br>${fmt(nextEmployeeCost('manager'))}</button>
         </div>
       </div>`;
     grid.appendChild(hireCard);
   }
-
+ 
   function buildSparklinePath(history, w, h){
     if(history.length < 2) return '';
     const min = Math.min(...history), max = Math.max(...history);
@@ -1487,7 +2149,7 @@
     });
     return path.trim();
   }
-
+ 
   function renderStocks(){
     const grid = document.getElementById('stocksGrid');
     grid.innerHTML = '';
@@ -1497,7 +2159,7 @@
       const changePct = ((stock.currentPrice - first) / first) * 100;
       const up = changePct >= 0;
       const sparkPath = buildSparklinePath(stock.history, 100, 30);
-
+ 
       let holdingHtml = '';
       if(holding && holding.qty > 0){
         const pl = (stock.currentPrice - holding.avgPrice) * holding.qty;
@@ -1512,7 +2174,7 @@
             <button class="btn-pay" data-action="sellShares" data-id="${stock.id}" data-qty="all">Sell All</button>
           </div>`;
       }
-
+ 
       const card = document.createElement('div');
       card.className = 'card item-card';
       card.innerHTML = `
@@ -1533,7 +2195,207 @@
       grid.appendChild(card);
     });
   }
-
+ 
+  function renderLockNotice(shopId, elementId){
+    const el = document.getElementById(elementId);
+    const meta = businessMeta(shopId);
+    if(isUnlocked(shopId)){
+      el.style.display = 'none';
+      return false;
+    }
+    el.style.display = 'block';
+    el.textContent = `🔒 ${meta.icon} ${meta.name} khulva mate ${fmt(meta.unlockCost)} lifetime kamavo joie chhe (abhi: ${fmt(state.lifetimeEarnings)}).`;
+    return true;
+  }
+ 
+  // Renders both the buy controls and live stock/sales in one combined card
+  // per item — Coffee Shop & Fast Food don't need the split Mall/Purchase
+  // pages that Supermarket has, since each is a much smaller catalog.
+  function renderShopView(shopId){
+    const gridId = shopId + 'Grid';
+    const lockedId = shopId + 'Locked';
+    const grid = document.getElementById(gridId);
+    if(renderLockNotice(shopId, lockedId)){ grid.innerHTML = ''; return; }
+ 
+    const items = state.shops[shopId].items;
+    grid.innerHTML = '';
+    items.forEach(item=>{
+      const card = document.createElement('div');
+      card.className = 'card item-card';
+      const low = item.stock === 0;
+      card.innerHTML = `
+        <div class="item-emoji">${item.emoji}</div>
+        <div class="room-title">${item.name}</div>
+        <div class="item-stock ${low?'low':''}">${low ? 'Stock khali chhe!' : 'Stock: ' + item.stock}</div>
+        <div style="font-size:0.72rem; color:var(--text-dim);">Kharid ${fmt(item.buyCost)} · Vechay ${fmt(item.sellPrice)} · Vechayu: ${item.sold}</div>
+        <div class="qty-row">
+          <button class="btn-ghost" data-action="buyShopStock" data-shop="${shopId}" data-id="${item.id}" data-qty="5">+5</button>
+          <button class="btn-ghost" data-action="buyShopStock" data-shop="${shopId}" data-id="${item.id}" data-qty="10">+10</button>
+          <button class="btn-ghost" data-action="buyShopStock" data-shop="${shopId}" data-id="${item.id}" data-qty="50">+50</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+ 
+  function renderLaundry(){
+    const grid = document.getElementById('laundryGrid');
+    if(renderLockNotice('laundry', 'laundryLocked')){ grid.innerHTML = ''; return; }
+ 
+    grid.innerHTML = '';
+    state.laundry.machines.forEach((m, idx)=>{
+      const lvl = laundryLevelInfo(m.level);
+      const card = document.createElement('div');
+      let cls = 'card';
+      if(m.maintenanceDue) cls += ' maint';
+      else if(m.needsCleaning) cls += ' dirty';
+      else if(m.occupied) cls += ' occupied';
+      card.className = cls;
+ 
+      let statusHtml, actionHtml;
+      if(m.maintenanceDue){
+        const cost = Math.round(LAUNDRY_MAINTENANCE_COST * lvl.maintMult);
+        statusHtml = `<div class="room-status maint">Maintenance joie chhe!</div>`;
+        actionHtml = `<button class="btn-pay" data-action="laundryMaint" data-id="${m.id}">Pay ${fmt(cost)}</button>`;
+      } else if(m.needsCleaning){
+        statusHtml = `<div class="room-status dirty">Refill/Cleaning joie chhe</div>`;
+        actionHtml = `<button class="btn-amber" data-action="laundryClean" data-id="${m.id}">Clean ${fmt(lvl.cleanCost)}</button>`;
+      } else if(m.occupied){
+        statusHtml = `<div class="room-status occ">Load chalu chhe</div>`;
+        actionHtml = '';
+      } else {
+        statusHtml = `<div class="room-status empty">Khali chhe — customer ni raah</div>`;
+        const next = laundryLevelInfo(m.level+1);
+        actionHtml = m.level < LAUNDRY_LEVELS.length
+          ? `<button class="btn-ghost" data-action="laundryUpgrade" data-id="${m.id}">Upgrade to ${next.name} — ${fmt(next.upgradeCost)}</button>`
+          : '';
+      }
+ 
+      card.innerHTML = `
+        <div class="room-icon">${m.maintenanceDue ? '🛠️' : m.needsCleaning ? '🧹' : m.occupied ? '🌀' : '🧺'}</div>
+        <div class="room-title">Machine #${idx+1} <span class="level-chip">${lvl.name}</span></div>
+        ${statusHtml}
+        ${actionHtml}
+      `;
+      grid.appendChild(card);
+    });
+ 
+    const buyCard = document.createElement('div');
+    buyCard.className = 'card buy-room-card';
+    buyCard.innerHTML = `
+      <div class="inner">
+        <div style="font-size:1.6rem;">➕</div>
+        <button class="btn-buy" data-action="buyLaundry">Machine Kharido — ${fmt(nextLaundryCost())}</button>
+      </div>`;
+    grid.appendChild(buyCard);
+  }
+ 
+  function renderAirport(){
+    const grid = document.getElementById('airportGrid');
+    if(renderLockNotice('airport', 'airportLocked')){ grid.innerHTML = ''; return; }
+ 
+    grid.innerHTML = '';
+    state.airport.gates.forEach((g, idx)=>{
+      const lvl = airportLevelInfo(g.level);
+      const card = document.createElement('div');
+      let cls = 'card';
+      if(g.maintenanceDue) cls += ' maint';
+      else if(g.needsCleaning) cls += ' dirty';
+      else if(g.occupied) cls += ' occupied';
+      if(g.vip && g.occupied) cls += ' vip';
+      card.className = cls;
+ 
+      let statusHtml, actionHtml;
+      if(g.maintenanceDue){
+        const cost = Math.round(AIRPORT_MAINTENANCE_COST * lvl.maintMult);
+        statusHtml = `<div class="room-status maint">Runway maintenance joie chhe!</div>`;
+        actionHtml = `<button class="btn-pay" data-action="gateMaint" data-id="${g.id}">Pay ${fmt(cost)}</button>`;
+      } else if(g.needsCleaning){
+        statusHtml = `<div class="room-status dirty">Turnaround service joie chhe</div>`;
+        actionHtml = `<button class="btn-amber" data-action="gateClean" data-id="${g.id}">Clean ${fmt(lvl.cleanCost)}</button>`;
+      } else if(g.occupied){
+        statusHtml = `<div class="room-status occ">${g.vip ? 'Private jet chhe 👑' : 'Plane landed chhe'}</div>`;
+        actionHtml = '';
+      } else {
+        statusHtml = `<div class="room-status empty">Khali chhe — plane ni raah</div>`;
+        const next = airportLevelInfo(g.level+1);
+        actionHtml = g.level < AIRPORT_LEVELS.length
+          ? `<button class="btn-ghost" data-action="gateUpgrade" data-id="${g.id}">Upgrade to ${next.name} — ${fmt(next.upgradeCost)}</button>`
+          : '';
+      }
+ 
+      card.innerHTML = `
+        <div class="room-icon">${g.maintenanceDue ? '🛠️' : g.needsCleaning ? '🧹' : g.occupied ? (g.vip ? '👑' : '✈️') : '🛫'}</div>
+        <div class="room-title">Gate #${idx+1} <span class="level-chip">${lvl.name}</span>${g.vip && g.occupied ? '<span class="vip-chip">VIP</span>' : ''}</div>
+        ${statusHtml}
+        ${actionHtml}
+      `;
+      grid.appendChild(card);
+    });
+ 
+    const buyCard = document.createElement('div');
+    buyCard.className = 'card buy-room-card';
+    buyCard.innerHTML = `
+      <div class="inner">
+        <div style="font-size:1.6rem;">➕</div>
+        <button class="btn-buy" data-action="buyGate">Gate Kholo — ${fmt(nextGateCost())}</button>
+      </div>`;
+    grid.appendChild(buyCard);
+  }
+ 
+  function renderFinance(){
+    const loanGrid = document.getElementById('loanGrid');
+    loanGrid.innerHTML = '';
+    if(state.loan){
+      const card = document.createElement('div');
+      card.className = 'card item-card';
+      card.innerHTML = `
+        <div class="item-emoji">🏦</div>
+        <div class="room-title">Active Loan</div>
+        <div class="item-stock">Baki: ${fmt(state.loan.principal)}</div>
+        <div style="font-size:0.72rem; color:var(--text-dim);">${(LOAN_DAILY_INTEREST*100)}% interest / din</div>
+        <div class="qty-row">
+          <button class="btn-pay" data-action="repayLoan" data-amount="500">Repay 500</button>
+          <button class="btn-pay" data-action="repayLoan" data-amount="9999999">Repay All</button>
+        </div>
+      `;
+      loanGrid.appendChild(card);
+    } else {
+      const card = document.createElement('div');
+      card.className = 'card buy-room-card';
+      card.innerHTML = `
+        <div class="inner">
+          <div style="font-size:1.6rem;">🏦</div>
+          <button class="btn-buy" data-action="takeLoan">Bank thi ${fmt(LOAN_AMOUNT)} no Loan Lo</button>
+        </div>`;
+      loanGrid.appendChild(card);
+    }
+ 
+    const taxGrid = document.getElementById('taxGrid');
+    taxGrid.innerHTML = '';
+    const taxCard = document.createElement('div');
+    taxCard.className = 'card item-card';
+    if(state.taxDue > 0.5){
+      taxCard.innerHTML = `
+        <div class="item-emoji">🧾</div>
+        <div class="room-title">Tax Bill Due</div>
+        <div class="item-stock low">Due: ${fmt(state.taxDue)}</div>
+        <div class="qty-row"><button class="btn-pay" data-action="payTax">Tax Pay Karo</button></div>
+      `;
+    } else {
+      taxCard.innerHTML = `
+        <div class="item-emoji">✅</div>
+        <div class="room-title">Tax Clear</div>
+        <div class="item-stock">Koi tax due nathi — ${(TAX_RATE*100)}% dar din no income par lagshe.</div>
+      `;
+    }
+    taxGrid.appendChild(taxCard);
+ 
+    document.getElementById('reportIncome').textContent = fmt(state.todayIncome);
+    document.getElementById('reportExpense').textContent = fmt(state.todayExpense);
+    document.getElementById('reportProfit').textContent = fmt(state.todayIncome - state.todayExpense);
+  }
+ 
   function renderAchievements(){
     const grid = document.getElementById('achvGrid');
     grid.innerHTML = '';
@@ -1549,7 +2411,7 @@
       grid.appendChild(card);
     });
   }
-
+ 
   function renderNotifs(){
     const list = document.getElementById('notifList');
     if(!state.notifications.length){
@@ -1565,7 +2427,7 @@
       list.appendChild(div);
     });
   }
-
+ 
   function renderChart(){
     const svg = document.getElementById('walletChart');
     const points = state.walletHistory;
@@ -1590,7 +2452,7 @@
     // fallback simpler: build a proper <path>
     svg.innerHTML = `<path d="${path.trim()}" fill="none" stroke="var(--neon-teal)" stroke-width="2"/>`;
   }
-
+ 
   // ---------- NAVIGATION ----------
   function switchView(view){
     document.querySelectorAll('.nav-btn').forEach(b=>{
@@ -1599,19 +2461,41 @@
     document.querySelectorAll('.view').forEach(v=>{
       v.classList.toggle('active', v.id === 'view-' + view);
     });
+    closeDrawer();
   }
-
+ 
+  function openDrawer(){
+    document.getElementById('sidebar').classList.add('open');
+    document.getElementById('drawerBackdrop').classList.add('show');
+  }
+  function closeDrawer(){
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('drawerBackdrop').classList.remove('show');
+  }
+ 
+  document.getElementById('hamburgerBtn').addEventListener('click', openDrawer);
+  document.getElementById('drawerBackdrop').addEventListener('click', closeDrawer);
+ 
   document.querySelectorAll('.nav-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=> switchView(btn.dataset.view));
+    btn.addEventListener('click', ()=>{
+      const bizId = btn.dataset.business;
+      if(bizId && !isUnlocked(bizId)){
+        const meta = businessMeta(bizId);
+        showToast(`🔒 ${meta.name} abhi locked chhe — ${fmt(meta.unlockCost)} lifetime kamavo.`);
+        soundAlert();
+        return;
+      }
+      switchView(btn.dataset.view);
+    });
   });
-
+ 
   function updateSoundLabels(){
     document.getElementById('soundToggle').textContent = state.soundOn ? '🔊 SFX: On' : '🔇 SFX: Off';
     document.getElementById('musicToggle').textContent = state.musicOn ? '🎵 Music: On' : '🎵 Music: Off';
     document.getElementById('soundToggleMobile').textContent = state.soundOn ? '🔊' : '🔇';
     document.getElementById('musicToggleMobile').textContent = state.musicOn ? '🎵' : '🔈';
   }
-
+ 
   function toggleSfx(){
     ensureAudio();
     state.soundOn = !state.soundOn;
@@ -1625,15 +2509,15 @@
     updateSoundLabels();
     save();
   }
-
+ 
   document.getElementById('soundToggle').addEventListener('click', toggleSfx);
   document.getElementById('soundToggleMobile').addEventListener('click', toggleSfx);
   document.getElementById('musicToggle').addEventListener('click', toggleMusic);
   document.getElementById('musicToggleMobile').addEventListener('click', toggleMusic);
-
+ 
   document.getElementById('bonusBtn').addEventListener('click', claimDailyBonus);
   document.getElementById('prestigeBtn').addEventListener('click', doPrestige);
-
+ 
   // ---------- EVENTS ----------
   // A soft tick plays on every single button press anywhere in the app —
   // nav tabs, toggles, buy/sell, everything — for satisfying tactile feedback.
@@ -1643,7 +2527,7 @@
       soundClick();
     }
   }, true);
-
+ 
   let audioUnlocked = false;
   document.addEventListener('click', (e)=>{
     ensureAudio(); // first interaction unlocks Web Audio per browser policy
@@ -1663,23 +2547,37 @@
     else if(action === 'paySalary') paySalary(Number(btn.dataset.id));
     else if(action === 'buyShares') buyShares(btn.dataset.id, Number(btn.dataset.qty));
     else if(action === 'sellShares') sellShares(btn.dataset.id, btn.dataset.qty === 'all' ? 'all' : Number(btn.dataset.qty));
+    else if(action === 'buyShopStock') buyShopStock(btn.dataset.shop, btn.dataset.id, Number(btn.dataset.qty));
+    else if(action === 'buyLaundry'){ buyLaundryMachine(); soundCoin(); }
+    else if(action === 'laundryUpgrade') upgradeLaundryMachine(Number(btn.dataset.id));
+    else if(action === 'laundryMaint') payLaundryMaintenance(Number(btn.dataset.id));
+    else if(action === 'laundryClean') cleanLaundryMachine(Number(btn.dataset.id));
+    else if(action === 'buyGate'){ buyGate(); soundCoin(); }
+    else if(action === 'gateUpgrade') upgradeGate(Number(btn.dataset.id));
+    else if(action === 'gateMaint') payGateMaintenance(Number(btn.dataset.id));
+    else if(action === 'gateClean') cleanGate(Number(btn.dataset.id));
+    else if(action === 'takeLoan') takeLoan();
+    else if(action === 'repayLoan') repayLoan(Number(btn.dataset.amount));
+    else if(action === 'payTax') payTax();
     else if(action === 'dismissNotif'){
       state.notifications = state.notifications.filter(n=>n.id !== Number(btn.dataset.id));
       render(); save();
     }
   });
-
+ 
   // ---------- INIT ----------
   state = await loadState();
   migrateState();
   reconcileMarket();
   reconcileStocks();
+  reconcileShops();
   await runOfflineCatchup();
   checkAchievements();
+  checkBusinessUnlocks();
   updateSoundLabels();
   render();
   save();
-
+ 
   setInterval(()=>{
     try{
       tick(1, false);
@@ -1702,7 +2600,7 @@
       console.error('Tick error', err);
     }
   }, 1000);
-
+ 
   // Save on every path that could end the session, so progress
   // is never lost between visits — the game truly stays idle.
   window.addEventListener('beforeunload', ()=>{ saveState(); });
@@ -1714,9 +2612,10 @@
       startBackgroundMusic();
     }
   });
-
+ 
 })();
 </script>
-
+ 
 </body>
 </html>
+ 
