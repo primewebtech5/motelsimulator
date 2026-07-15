@@ -151,8 +151,62 @@
   /* ---------- MAIN CONTENT ---------- */
   .content{flex:1; padding:22px 26px 60px; max-width:920px;}
   .view{display:none;}
-  .view.active{display:block; animation:fadeIn 0.25s ease;}
-  @keyframes fadeIn{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
+  .view.active{display:block; animation:viewEnter 0.4s cubic-bezier(.2,.9,.3,1);}
+  @keyframes viewEnter{
+    0%{opacity:0; transform:translateY(18px) scale(0.96);}
+    60%{opacity:1; transform:translateY(-3px) scale(1.01);}
+    100%{opacity:1; transform:translateY(0) scale(1);}
+  }
+
+  /* ---------- HEAVY EFFECTS: screen shake + flash + ripple ---------- */
+  .screen-shake{ animation:screenShake 0.5s cubic-bezier(.36,.07,.19,.97); }
+  @keyframes screenShake{
+    10%,90%{ transform:translate3d(-1px,0,0); }
+    20%,80%{ transform:translate3d(2px,0,0); }
+    30%,50%,70%{ transform:translate3d(-4px,0,0); }
+    40%,60%{ transform:translate3d(4px,0,0); }
+  }
+  .screen-flash{
+    position:fixed;
+    inset:0;
+    z-index:80;
+    pointer-events:none;
+    background:radial-gradient(circle, rgba(255,215,106,0.35), transparent 70%);
+    animation:screenFlashFade 0.7s ease forwards;
+  }
+  @keyframes screenFlashFade{
+    0%{ opacity:1; }
+    100%{ opacity:0; }
+  }
+  .click-ripple{
+    position:fixed;
+    width:10px; height:10px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,0.9), rgba(53,232,196,0.4) 60%, transparent 70%);
+    pointer-events:none;
+    z-index:70;
+    transform:translate(-50%,-50%) scale(0);
+    animation:rippleExpand 0.55s ease-out forwards;
+  }
+  @keyframes rippleExpand{
+    0%{ transform:translate(-50%,-50%) scale(0); opacity:0.9; }
+    100%{ transform:translate(-50%,-50%) scale(10); opacity:0; }
+  }
+  .money-bill{
+    position:fixed;
+    top:-30px;
+    font-size:1.4rem;
+    z-index:60;
+    pointer-events:none;
+    animation:billFall linear forwards;
+  }
+  @keyframes billFall{
+    0%{ transform:translateY(0) rotate(0deg); opacity:1; }
+    100%{ transform:translateY(105vh) rotate(360deg); opacity:0.3; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .screen-shake, .screen-flash, .click-ripple, .money-bill{ animation:none; display:none; }
+  }
 
   .view-head{margin-bottom:18px;}
   .view-head h2{
@@ -196,7 +250,7 @@
     flex-direction:column;
     gap:8px;
     position:relative;
-    overflow:hidden;
+    overflow:visible;
     transition:transform 0.18s ease, box-shadow 0.18s ease;
   }
   .card::before{
@@ -204,9 +258,11 @@
     position:absolute;
     top:0; left:0; right:0;
     height:3px;
+    border-radius:16px 16px 0 0;
     background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-teal));
     opacity:0.5;
   }
+  .icon-svg-wrap{ overflow:visible; }
   @media (hover:hover){
     .card:hover{ transform:translateY(-3px); box-shadow:0 12px 24px rgba(0,0,0,0.35); }
   }
@@ -233,31 +289,67 @@
     align-items:center;
     justify-content:center;
   }
-  .plane-bob{ animation:planeBob 1s ease-in-out infinite; transform-origin:center; }
+  .plane-bob{ animation:planeBob 2.4s ease-in-out infinite; transform-origin:center; }
   @keyframes planeBob{
     0%{ transform:translateY(0) rotate(0deg); }
     50%{ transform:translateY(-3px) rotate(-1.5deg); }
     100%{ transform:translateY(0) rotate(0deg); }
   }
-  .runway-light{ animation:runwayBlink 1s ease-in-out infinite; }
-  .runway-light:nth-child(2){ animation-delay:0.33s; }
-  .runway-light:nth-child(3){ animation-delay:0.66s; }
+  .plane-landing{
+    animation:planeLanding 1.8s cubic-bezier(.2,.8,.3,1) forwards;
+    transform-origin:center;
+  }
+  @keyframes planeLanding{
+    0%{ transform:translate(-160px,-70px) rotate(-25deg) scale(0.4); opacity:0; }
+    55%{ transform:translate(20px,-8px) rotate(-4deg) scale(1.05); opacity:1; }
+    75%{ transform:translate(-6px,3px) rotate(2deg) scale(0.98); }
+    100%{ transform:translate(0,0) rotate(0deg) scale(1); }
+  }
+  .plane-takeoff{
+    animation:planeTakeoff 1.8s cubic-bezier(.5,0,.75,0) forwards;
+    transform-origin:center;
+  }
+  @keyframes planeTakeoff{
+    0%{ transform:translate(0,0) rotate(0deg) scale(1); opacity:1; }
+    30%{ transform:translate(15px,-6px) rotate(6deg) scale(1.05); }
+    100%{ transform:translate(180px,-90px) rotate(28deg) scale(0.35); opacity:0; }
+  }
+  .runway-light{ animation:runwayBlink 1.6s ease-in-out infinite; }
+  .runway-light:nth-child(2){ animation-delay:0.53s; }
+  .runway-light:nth-child(3){ animation-delay:1.06s; }
   @keyframes runwayBlink{
     0%,100%{ opacity:0.25; }
     50%{ opacity:1; }
   }
-  .washer-drum{ animation:washerSpin 1s linear infinite; transform-origin:center; }
+  .washer-drum{ animation:washerSpin 2.2s linear infinite; transform-origin:center; }
   @keyframes washerSpin{
     0%{ transform:rotate(0deg); }
     100%{ transform:rotate(360deg); }
   }
-  .washer-bubble{ animation:bubbleFloat 1s ease-in-out infinite; }
+  .washer-bubble{ animation:bubbleFloat 1.8s ease-in-out infinite; }
   @keyframes bubbleFloat{
     0%,100%{ transform:translateY(0); opacity:0.7; }
     50%{ transform:translateY(-4px); opacity:1; }
   }
+  .wrench-spin{ animation:wrenchSpin 2s linear infinite; display:inline-block; }
+  @keyframes wrenchSpin{
+    0%{ transform:rotate(0deg); }
+    100%{ transform:rotate(360deg); }
+  }
+  .broom-sweep{ animation:broomSweep 1.1s ease-in-out infinite; display:inline-block; }
+  @keyframes broomSweep{
+    0%,100%{ transform:translateX(-3px) rotate(-8deg); }
+    50%{ transform:translateX(3px) rotate(8deg); }
+  }
+  .vacancy-glow{ animation:vacancyGlow 2.4s ease-in-out infinite; }
+  @keyframes vacancyGlow{
+    0%,100%{ opacity:0.4; }
+    50%{ opacity:0.9; }
+  }
   @media (prefers-reduced-motion: reduce){
-    .plane-bob, .runway-light, .washer-drum, .washer-bubble, .card.maint{ animation:none; }
+    .plane-bob, .runway-light, .washer-drum, .washer-bubble, .card.maint,
+    .wrench-spin, .broom-sweep, .vacancy-glow,
+    .item-emoji, .steam-wisp, .item-stock.low{ animation:none; }
   }
   .level-chip{
     font-size:0.62rem;
@@ -316,9 +408,40 @@
   }
   .buy-room-card .inner{display:flex; flex-direction:column; gap:8px; align-items:center;}
 
-  .item-emoji{font-size:1.9rem;}
+  .item-emoji-wrap{ position:relative; display:inline-block; }
+  .item-emoji{ font-size:1.9rem; display:inline-block; animation:itemBob 2.4s ease-in-out infinite; }
+  @keyframes itemBob{
+    0%,100%{ transform:translateY(0) rotate(0deg); }
+    50%{ transform:translateY(-3px) rotate(-4deg); }
+  }
+  .item-emoji-wrap.sale-flash .item-emoji{ animation:itemSale 0.5s ease; }
+  @keyframes itemSale{
+    0%{ transform:scale(1); }
+    40%{ transform:scale(1.4) rotate(10deg); filter:drop-shadow(0 0 8px var(--neon-teal)); }
+    100%{ transform:scale(1) rotate(0deg); }
+  }
+  .steam-wisp{
+    position:absolute;
+    top:-6px; left:50%;
+    transform:translateX(-50%);
+    font-size:0.9rem;
+    color:rgba(255,255,255,0.5);
+    animation:steamRise 2.2s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes steamRise{
+    0%{ opacity:0; transform:translate(-50%, 4px) scale(0.8); }
+    40%{ opacity:0.8; }
+    100%{ opacity:0; transform:translate(-50%, -14px) scale(1.2); }
+  }
   .item-stock{font-size:0.78rem; color:var(--text-dim);}
-  .item-stock.low{color:var(--danger); font-weight:600;}
+  .item-stock.low{color:var(--danger); font-weight:600; animation:lowStockShake 1.8s ease-in-out infinite;}
+  @keyframes lowStockShake{
+    0%,85%,100%{ transform:translateX(0); }
+    88%{ transform:translateX(-2px); }
+    91%{ transform:translateX(2px); }
+    94%{ transform:translateX(-1px); }
+  }
   .item-trend{font-size:0.68rem; color:var(--gold); font-weight:700;}
   .qty-row{display:flex; gap:6px;}
   .qty-row button{flex:1; padding:7px 4px; font-size:0.72rem;}
@@ -672,6 +795,10 @@
       <button class="nav-btn" data-view="minigame">
         <span class="ico">🎮</span> Mini Game
       </button>
+      <button class="nav-btn" data-view="partner">
+        <span class="ico">💬</span> Priya
+        <span class="nav-badge" id="badge-partner"></span>
+      </button>
     </div>
 
     <button class="sidebar-sound" id="soundToggle">🔊 SFX: On</button>
@@ -890,8 +1017,145 @@
       </div>
     </section>
 
+    <!-- PRIYA: BUSINESS PARTNER -->
+    <section class="view" id="view-partner">
+      <div class="view-head">
+        <h2>💬 PRIYA</h2>
+        <p>Tamari business partner — tips mangi shako, vaat kari shako!</p>
+      </div>
+
+      <div class="partner-panel">
+        <div class="partner-avatar-wrap">
+          <svg viewBox="0 0 120 150" width="120" height="150">
+            <ellipse cx="60" cy="58" rx="40" ry="46" fill="#3a2a22"/>
+            <ellipse cx="60" cy="64" rx="30" ry="34" fill="#f4c9a0"/>
+            <path d="M26 46 Q60 8 94 46 Q95 62 86 54 Q60 32 34 54 Q25 62 26 46 Z" fill="#3a2a22"/>
+            <g class="partner-blink">
+              <ellipse cx="47" cy="66" rx="3.6" ry="4.6" fill="#2a1a10"/>
+              <ellipse cx="73" cy="66" rx="3.6" ry="4.6" fill="#2a1a10"/>
+            </g>
+            <circle cx="43" cy="78" r="5.5" fill="#ff9a9a" opacity="0.35"/>
+            <circle cx="77" cy="78" r="5.5" fill="#ff9a9a" opacity="0.35"/>
+            <path class="partner-smile" d="M48 85 Q60 95 72 85" stroke="#8a4a2a" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <circle cx="29" cy="72" r="2.2" fill="var(--gold)"/>
+            <circle cx="91" cy="72" r="2.2" fill="var(--gold)"/>
+            <path d="M14 150 Q60 108 106 150 Z" fill="var(--neon-pink)"/>
+            <path d="M44 112 L60 128 L76 112 L76 102 L44 102 Z" fill="#fff" opacity="0.92"/>
+          </svg>
+        </div>
+        <div class="partner-namebar">Priya <span class="partner-status-dot"></span> <span style="font-weight:400; color:var(--text-dim); font-size:0.72rem;">Business Partner</span></div>
+
+        <div class="partner-chat-log" id="partnerChatLog"></div>
+
+        <div class="partner-input-row">
+          <input type="text" id="partnerInput" placeholder="Priya ne kaik pucho... (jem ke 'airport')" maxlength="120"/>
+          <button class="btn-buy" id="partnerSendBtn">Send</button>
+        </div>
+        <div class="partner-suggestions">
+          <button class="btn-ghost partner-sugg" data-q="room">🏨 Room tips</button>
+          <button class="btn-ghost partner-sugg" data-q="employee">👷 Staff tips</button>
+          <button class="btn-ghost partner-sugg" data-q="loan">🏦 Loan tips</button>
+          <button class="btn-ghost partner-sugg" data-q="achievement">🏆 Achievements</button>
+        </div>
+      </div>
+    </section>
+
   </main>
 </div>
+
+<style>
+  .partner-panel{
+    background:var(--panel);
+    border-radius:18px;
+    padding:20px;
+    max-width:460px;
+    margin:0 auto;
+    box-shadow:0 10px 28px rgba(0,0,0,0.3);
+    border:1px solid rgba(255,255,255,0.06);
+  }
+  .partner-avatar-wrap{
+    display:flex;
+    justify-content:center;
+    margin-bottom:6px;
+    animation:partnerSway 3.6s ease-in-out infinite;
+    transform-origin:bottom center;
+  }
+  @keyframes partnerSway{
+    0%,100%{ transform:rotate(0deg); }
+    50%{ transform:rotate(1.2deg); }
+  }
+  .partner-blink{ animation:partnerBlink 4.2s ease-in-out infinite; transform-origin:60px 66px; }
+  @keyframes partnerBlink{
+    0%,92%,100%{ transform:scaleY(1); }
+    95%{ transform:scaleY(0.1); }
+  }
+  .partner-namebar{
+    text-align:center;
+    font-weight:700;
+    font-size:0.95rem;
+    margin-bottom:14px;
+  }
+  .partner-status-dot{
+    display:inline-block;
+    width:8px; height:8px;
+    border-radius:50%;
+    background:var(--neon-teal);
+    box-shadow:0 0 6px var(--neon-teal);
+    margin:0 3px;
+  }
+  .partner-chat-log{
+    height:220px;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    padding:10px;
+    background:var(--dark);
+    border-radius:12px;
+    margin-bottom:12px;
+  }
+  .partner-msg{
+    max-width:80%;
+    padding:8px 12px;
+    border-radius:14px;
+    font-size:0.82rem;
+    line-height:1.4;
+    animation:msgPop 0.25s ease;
+  }
+  @keyframes msgPop{
+    0%{ opacity:0; transform:translateY(6px) scale(0.95); }
+    100%{ opacity:1; transform:translateY(0) scale(1); }
+  }
+  .partner-msg.from-priya{
+    align-self:flex-start;
+    background:var(--panel-light);
+    border-bottom-left-radius:4px;
+  }
+  .partner-msg.from-user{
+    align-self:flex-end;
+    background:linear-gradient(135deg, var(--neon-teal), #1fb894);
+    color:#0a2b26;
+    font-weight:600;
+    border-bottom-right-radius:4px;
+  }
+  .partner-input-row{ display:flex; gap:8px; margin-bottom:10px; }
+  .partner-input-row input{
+    flex:1;
+    background:var(--panel-light);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:10px;
+    padding:9px 12px;
+    color:#f1eefc;
+    font-family:'Rubik', sans-serif;
+    font-size:0.85rem;
+  }
+  .partner-input-row input:focus{ outline:2px solid var(--neon-teal); }
+  .partner-suggestions{ display:flex; gap:6px; flex-wrap:wrap; }
+  .partner-sugg{ font-size:0.7rem; padding:7px 10px; }
+  @media (prefers-reduced-motion: reduce){
+    .partner-avatar-wrap, .partner-blink, .partner-msg{ animation:none; }
+  }
+</style>
 
 <style>
   .minigame-board{
@@ -1190,6 +1454,8 @@
       laundry: { machines: [], nextMachineId: 1 },
       airport: { gates: [], nextGateId: 1 },
       miniGame: { lastPlayedAt: 0, highScore: 0 },
+      partnerChat: [],
+      partnerViewedCount: 0,
       loan: null,
       taxDue: 0,
       todayIncome: 0,
@@ -1245,6 +1511,8 @@
     if(state.laundry.nextMachineId === undefined) state.laundry.nextMachineId = 1;
     if(!state.airport) state.airport = { gates: [], nextGateId: 1 };
     if(!state.miniGame) state.miniGame = { lastPlayedAt: 0, highScore: 0 };
+    if(!state.partnerChat) state.partnerChat = [];
+    if(state.partnerViewedCount === undefined) state.partnerViewedCount = 0;
     if(state.airport.nextGateId === undefined) state.airport.nextGateId = 1;
     if(state.loan === undefined) state.loan = null;
     if(state.taxDue === undefined) state.taxDue = 0;
@@ -1393,22 +1661,71 @@
   function soundAlert(){ playTone(300, 0.25, 'square'); }
   function soundAchievement(){ playTone(784, 0.1); setTimeout(()=>playTone(1175, 0.18), 100); }
 
-  // Small celebratory confetti burst for achievements and business unlocks —
-  // pure CSS-animated divs, self-removing, no external assets.
-  function fireConfetti(){
+  // Big celebratory confetti + falling money burst for achievements, unlocks,
+  // and prestige — pure CSS-animated divs, self-removing, no external assets.
+  function fireConfetti(big){
     const colors = ['#ff4fa3', '#35e8c4', '#ffd76a', '#a855f7', '#ffb703'];
-    const count = 24;
+    const count = big ? 50 : 28;
     for(let i=0;i<count;i++){
       const piece = document.createElement('div');
       piece.className = 'confetti-piece';
       piece.style.left = Math.random()*100 + 'vw';
       piece.style.background = colors[Math.floor(Math.random()*colors.length)];
-      piece.style.animationDuration = (1.2 + Math.random()*0.8) + 's';
-      piece.style.animationDelay = (Math.random()*0.3) + 's';
+      piece.style.animationDuration = (1.2 + Math.random()*0.9) + 's';
+      piece.style.animationDelay = (Math.random()*0.35) + 's';
       document.body.appendChild(piece);
-      setTimeout(()=> piece.remove(), 2400);
+      setTimeout(()=> piece.remove(), 2600);
+    }
+    if(big){
+      const bills = ['💵','💰','💴'];
+      for(let i=0;i<14;i++){
+        const bill = document.createElement('div');
+        bill.className = 'money-bill';
+        bill.textContent = bills[Math.floor(Math.random()*bills.length)];
+        bill.style.left = Math.random()*100 + 'vw';
+        bill.style.animationDuration = (1.6 + Math.random()*1.2) + 's';
+        bill.style.animationDelay = (Math.random()*0.4) + 's';
+        document.body.appendChild(bill);
+        setTimeout(()=> bill.remove(), 3200);
+      }
     }
   }
+
+  // Punchy screen shake — used sparingly, only for the biggest wins.
+  function shakeScreen(){
+    const app = document.querySelector('.app');
+    app.classList.remove('screen-shake');
+    void app.offsetWidth;
+    app.classList.add('screen-shake');
+    setTimeout(()=> app.classList.remove('screen-shake'), 500);
+  }
+
+  // Full-screen warm flash — pairs with confetti for a "big win" feeling.
+  function flashScreen(){
+    const flash = document.createElement('div');
+    flash.className = 'screen-flash';
+    document.body.appendChild(flash);
+    setTimeout(()=> flash.remove(), 750);
+  }
+
+  // Every button tap gets a satisfying expanding ripple right where it was pressed.
+  function spawnRipple(x, y){
+    const ripple = document.createElement('div');
+    ripple.className = 'click-ripple';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    document.body.appendChild(ripple);
+    setTimeout(()=> ripple.remove(), 600);
+  }
+
+  // Combo celebration used for the biggest moments: achievements, business
+  // unlocks, and prestige — shake + flash + big confetti + money rain, all at once.
+  function celebrateBig(){
+    shakeScreen();
+    flashScreen();
+    fireConfetti(true);
+  }
+
   function soundClick(){ playTone(700, 0.045, 'triangle'); }
 
   // ---------- BACKGROUND MUSIC (generated ambient loop, no external audio) ----------
@@ -1598,6 +1915,67 @@
     return CATEGORY_ORDER[idx];
   }
 
+  // ---------- PRIYA: BUSINESS PARTNER CHAT ----------
+  const PARTNER_RULES = [
+    { keys:['hi','hello','hey','kem cho','kem chho','namaste'], reply:"Hey boss! 😊 Kem cho? Aajni business planning ma su madad joie?" },
+    { keys:['room','motel','hotel'], reply:"Motel rooms ma invest karvu saru chhe! Upgrade karta rehjo, VIP customers vadhu kamavse pan maintenance jaldi joie. 🏨" },
+    { keys:['supermarket','mall','product','wafer','chocolate'], reply:"Supermarket ni stock khali na thava do — ek Stock Boy hire karo, e automatic refill kare chhe! 🛒" },
+    { keys:['coffee'], reply:"Coffee Shop start karva mate ₹5,000 lifetime kamavo pehla, pachi chalu karjo — steam wala items saru vechay chhe! ☕" },
+    { keys:['fast food','fastfood','burger','pizza'], reply:"Fast Food ekdum profitable chhe jyare unlock thay — ₹20,000 lifetime target rakho boss! 🍔" },
+    { keys:['laundry','washing'], reply:"Laundry machines saru passive income aape chhe — pan cleaning/refill bhoolta nahi, nahi to load nathi levay! 🧺" },
+    { keys:['airport','plane','flight','gate'], reply:"Airport end-game business chhe — ₹2,00,000 lifetime kamavo pachi khulse. VIP private jets khoob paisa aape chhe! ✈️" },
+    { keys:['employee','staff','hire','manager','cashier','cleaner','security','stock boy','receptionist'], reply:"6 roles chhe boss — Manager maintenance sambhale, Cashier sales vadhare, Stock Boy auto-restock kare. Pehla Manager hire karo! 👷" },
+    { keys:['loan','bank'], reply:"Loan levo tyare j jyare khatri hoy repay kari shakso — 2%/din interest lagse, vadhu time rakhso to vadhu chukvavu padse! 🏦" },
+    { keys:['tax'], reply:"Tax dar din 5% income par lagshe — Finance page ma pay karta rehjo, nahi to due vadhi jashe ane manager bhi help kare! 🧾" },
+    { keys:['prestige','naya shehar'], reply:"₹5,00,000 lifetime kamavo pachi Prestige karo — reset thashe pan permanent income bonus malshe! 🌆" },
+    { keys:['achievement','badge'], reply:"Achievements pura karva thi bonus paisa malshe boss — Dashboard ma list joi lo, ghana easy chhe! 🏆" },
+    { keys:['coin rush','minigame','mini game'], reply:"Coin Rush ramva thi extra paisa male chhe — 90 second cooldown chhe, etle time thi ramjo! 🎮" },
+    { keys:['stock','share','market','portfolio'], reply:"Share Market 24/7 khulu chhe — kimat vadhare tyare vecho, ghati tyare kharido. Dhyan rakhjo risk pan chhe! 📈" },
+    { keys:['reputation','net worth'], reply:"City Reputation ane Net Worth vadharva mate badha businesses unlock karo ane rooms/gates vadharta rehjo! 🌆" },
+    { keys:['thanks','thank you','aabhar','thank'], reply:"Koi vaat nahi boss! Hu hamesha tamari sathe chhu. 😊" },
+    { keys:['love','sweet','nice','good job','maja'], reply:"Aww, tame pan ekdum sweet cho boss! Chaalo, have kaam par pacha jaiye. 😄" },
+    { keys:['bye','aavjo','good night'], reply:"Aavjo boss! Business sambhadta rehjo, hu ahiya j chhu jyare joie tyare. 👋" },
+    { keys:['who are you','tu kon','tame kon','priya kon'], reply:"Hu Priya chhu — tamari business partner! Hu tamne tips aapu, ane khush thau jyare apdi empire vadhe. 💼" }
+  ];
+  const PARTNER_FALLBACKS = [
+    "Hmm, e vishe mane ochu khabar chhe boss, pan tame try karta rehjo! 😊",
+    "Interesting! Business empire vadhare che tem tem badhu samjai jashe. 💪",
+    "Tame khoob saru kaam kari rahya cho boss! Chaalo aage vadhiye. 🚀",
+    "Koi specific business vishe puchvu hoy to naam lakho — jem ke 'airport' ke 'loan'. 😊"
+  ];
+
+  function getPartnerReply(input){
+    const msg = input.toLowerCase();
+    for(const rule of PARTNER_RULES){
+      if(rule.keys.some(k => msg.includes(k))) return rule.reply;
+    }
+    return PARTNER_FALLBACKS[Math.floor(Math.random()*PARTNER_FALLBACKS.length)];
+  }
+
+  // Adds a message from Priya even when the player isn't looking — a badge
+  // shows up on her nav tab so they know she said something new.
+  function pushPartnerMessage(text){
+    state.partnerChat.push({ from:'priya', text, time: Date.now() });
+    if(state.partnerChat.length > 60) state.partnerChat.shift();
+  }
+
+  function sendPartnerMessage(){
+    const input = document.getElementById('partnerInput');
+    const text = input.value.trim();
+    if(!text) return;
+    state.partnerChat.push({ from:'user', text, time: Date.now() });
+    const reply = getPartnerReply(text);
+    setTimeout(()=>{
+      pushPartnerMessage(reply);
+      state.partnerViewedCount = state.partnerChat.length;
+      renderPartnerChat();
+      save();
+    }, 400 + Math.random()*400);
+    input.value = '';
+    renderPartnerChat();
+    save();
+  }
+
   // ---------- ACHIEVEMENTS ----------
   function checkAchievements(){
     ACHIEVEMENTS.forEach(a=>{
@@ -1608,7 +1986,8 @@
         addNotif(`Achievement unlock: ${a.title} (+${fmt(a.reward)})`, '');
         showToast(`🏆 ${a.title} unlocked! +${fmt(a.reward)}`);
         soundAchievement();
-        fireConfetti();
+        celebrateBig();
+        pushPartnerMessage(`Waah boss! "${a.title}" achievement pura karyu! 🎉 +${fmt(a.reward)} tamara wallet ma!`);
       }
     });
   }
@@ -1649,6 +2028,8 @@
     addNotif(`Naya Shehar! Prestige Level ${state.prestigeLevel} — income have +${state.prestigeLevel*25}% permanent.`, '');
     showToast(`🌆 Naya Shehar shuru! Permanent +${state.prestigeLevel*25}% income bonus.`);
     soundAchievement();
+    celebrateBig();
+    pushPartnerMessage(`Woohoo boss! Naya Shehar Level ${state.prestigeLevel}! Have hamesha mate +${state.prestigeLevel*25}% income bonus malshe! 🌆🎉`);
     render(); save();
   }
 
@@ -1720,7 +2101,8 @@
         addNotif(`🎉 ${b.name} unlock thai gayu! Naya business shuru karo.`, '');
         showToast(`🎉 ${b.icon} ${b.name} unlock thayu!`);
         soundAchievement();
-        fireConfetti();
+        celebrateBig();
+        pushPartnerMessage(`Boss! ${b.icon} ${b.name} have unlock thai gayu chhe! Chaalo, have ema investment karo! 🎉`);
       }
     });
   }
@@ -2331,6 +2713,18 @@
   // ---------- HERO SKYLINE (only rebuilds when the underlying business
   // structure actually changes, so long smooth animations — plane flying,
   // stars twinkling, clouds drifting — never stutter from the 1s tick loop) ----------
+  // Generic "skip rebuild if nothing meaningful changed" cache. Letting cards
+  // persist across ticks (instead of destroying/recreating them every second)
+  // is what lets CSS animations run smoothly and continuously rather than
+  // stuttering back to frame 0 every render.
+  const renderCache = {};
+  function shouldSkipRender(key, sig){
+    if(renderCache[key] === sig) return true;
+    renderCache[key] = sig;
+    return false;
+  }
+  const prevSoldCounts = {}; // tracks item.sold per card, to flash a card the instant it sells
+
   let lastHeroSignature = null;
   function renderHeroSkyline(){
     const sig = JSON.stringify({
@@ -2482,6 +2876,7 @@
     setBadge('badge-mall', lowStockCount);
     setBadge('badge-manpower', shiftEndedCount);
     setBadge('badge-finance', (state.taxDue > 0.5 ? 1 : 0));
+    setBadge('badge-partner', Math.max(0, state.partnerChat.length - state.partnerViewedCount));
 
     document.getElementById('trendBanner').textContent = `📈 Trending category abhi: ${trendingCategory()} — aa category vadhu vechay chhe`;
 
@@ -2501,6 +2896,7 @@
     renderAirport();
     renderFinance();
     document.getElementById('mgHighScore').textContent = fmt(state.miniGame.highScore);
+    renderPartnerChat();
     renderAchievements();
     renderNotifs();
     renderChart();
@@ -2552,7 +2948,67 @@
     else { el.classList.remove('show'); }
   }
 
+  function buildRoomIcon(room){
+    if(room.maintenanceDue){
+      return `
+        <div class="icon-svg-wrap">
+          <svg viewBox="0 0 64 64" width="56" height="56">
+            <rect x="16" y="10" width="32" height="46" rx="4" fill="#3a2a2a"/>
+            <rect x="22" y="16" width="20" height="14" rx="2" fill="var(--danger)" opacity="0.35"/>
+            <rect x="27" y="38" width="10" height="18" rx="2" fill="#1a1229"/>
+            <g class="wrench-spin" style="transform-origin:32px 23px;">
+              <text x="32" y="27" font-size="14" text-anchor="middle">🛠️</text>
+            </g>
+          </svg>
+        </div>`;
+    }
+    if(room.needsCleaning){
+      return `
+        <div class="icon-svg-wrap">
+          <svg viewBox="0 0 64 64" width="56" height="56">
+            <rect x="16" y="10" width="32" height="46" rx="4" fill="#3a3520"/>
+            <rect x="22" y="16" width="20" height="14" rx="2" fill="var(--amber)" opacity="0.3"/>
+            <rect x="27" y="38" width="10" height="18" rx="2" fill="#1a1229"/>
+            <text class="broom-sweep" x="32" y="27" font-size="14" text-anchor="middle">🧹</text>
+          </svg>
+        </div>`;
+    }
+    if(room.occupied){
+      const glow = room.vip ? 'var(--gold)' : 'var(--neon-teal)';
+      return `
+        <div class="icon-svg-wrap">
+          <svg viewBox="0 0 64 64" width="56" height="56">
+            <rect x="16" y="10" width="32" height="46" rx="4" fill="#2e2949"/>
+            <rect class="window-lit" x="22" y="16" width="20" height="14" rx="2" fill="${glow}" opacity="0.75"/>
+            <circle cx="27" cy="23" r="1.6" fill="#1a1229" opacity="0.5"/>
+            <circle cx="37" cy="23" r="1.6" fill="#1a1229" opacity="0.5"/>
+            <rect x="27" y="38" width="10" height="18" rx="2" fill="#1a1229"/>
+            <circle cx="35" cy="47" r="1.2" fill="${glow}"/>
+            ${room.vip ? `
+              <circle class="star-twinkle" cx="18" cy="14" r="1.4" fill="var(--gold)"/>
+              <circle class="star-twinkle" style="animation-delay:.4s" cx="48" cy="16" r="1.2" fill="var(--gold)"/>
+              <circle class="star-twinkle" style="animation-delay:.8s" cx="44" cy="10" r="1" fill="var(--gold)"/>
+            ` : ''}
+          </svg>
+        </div>`;
+    }
+    // empty / vacant
+    return `
+      <div class="icon-svg-wrap">
+        <svg viewBox="0 0 64 64" width="56" height="56">
+          <rect x="16" y="10" width="32" height="46" rx="4" fill="#241f3d"/>
+          <rect class="vacancy-glow" x="22" y="16" width="20" height="14" rx="2" fill="none" stroke="var(--neon-teal)" stroke-width="1.5" opacity="0.5"/>
+          <rect x="27" y="38" width="10" height="18" rx="2" fill="#151229"/>
+          <circle class="vacancy-glow" cx="35" cy="47" r="1.2" fill="var(--neon-teal)"/>
+        </svg>
+      </div>`;
+  }
+
+  let lastRoomsSignature = null;
   function renderRooms(){
+    const sig = JSON.stringify(state.rooms.map(r=>[r.id,r.occupied,r.vip,r.maintenanceDue,r.needsCleaning,r.level])) + '|' + nextRoomCost();
+    if(shouldSkipRender('rooms', sig)) return;
+
     const grid = document.getElementById('roomsGrid');
     grid.innerHTML = '';
     state.rooms.forEach((room, idx)=>{
@@ -2585,7 +3041,7 @@
       }
 
       card.innerHTML = `
-        <div class="room-icon">${room.maintenanceDue ? '🛠️' : room.needsCleaning ? '🧹' : room.occupied ? (room.vip ? '👑' : '🛏️') : '🚪'}</div>
+        ${buildRoomIcon(room)}
         <div class="room-title">Room #${idx+1} <span class="level-chip">${lvl.name}</span>${room.vip && room.occupied ? '<span class="vip-chip">VIP</span>' : ''}</div>
         ${statusHtml}
         ${actionHtml}
@@ -2603,7 +3059,28 @@
     grid.appendChild(buyCard);
   }
 
+  const STEAM_KEYWORDS = ['coffee', 'tea', 'espresso'];
+  function buildItemEmoji(item, keyPrefix, idx){
+    const key = keyPrefix + ':' + item.id;
+    const prev = prevSoldCounts[key];
+    const justSold = prev !== undefined && item.sold > prev;
+    prevSoldCounts[key] = item.sold;
+    const hasSteam = STEAM_KEYWORDS.some(k => item.id.toLowerCase().includes(k));
+    const delay = (idx * 0.35).toFixed(2);
+    return `
+      <div class="item-emoji-wrap ${justSold ? 'sale-flash' : ''}">
+        <div class="item-emoji" style="animation-delay:${delay}s">${item.emoji}</div>
+        ${hasSteam && item.stock > 0 ? `
+          <span class="steam-wisp" style="animation-delay:${delay}s">〜</span>
+          <span class="steam-wisp" style="animation-delay:${(parseFloat(delay)+0.5).toFixed(2)}s">〜</span>
+        ` : ''}
+      </div>`;
+  }
+
   function renderMall(){
+    const sig = JSON.stringify(state.market.map(m=>[m.id,m.stock,m.sold])) + '|' + trendingCategory();
+    if(shouldSkipRender('mall', sig)) return;
+
     const container = document.getElementById('mallGrid');
     container.innerHTML = '';
     const trend = trendingCategory();
@@ -2617,12 +3094,12 @@
 
       const grid = document.createElement('div');
       grid.className = 'grid';
-      items.forEach(item=>{
+      items.forEach((item, idx)=>{
         const card = document.createElement('div');
         card.className = 'card item-card';
         const low = item.stock === 0;
         card.innerHTML = `
-          <div class="item-emoji">${item.emoji}</div>
+          ${buildItemEmoji(item, 'mall', idx)}
           <div class="room-title">${item.name}${item.perishable ? ' 🧊' : ''}</div>
           <div class="item-stock ${low?'low':''}">${low ? 'Stock khali chhe!' : 'Stock: ' + item.stock}</div>
           <div style="font-size:0.72rem; color:var(--text-dim);">Vechay chhe ${fmt(item.sellPrice)} ma · Kul vechayu: ${item.sold}</div>
@@ -2635,6 +3112,9 @@
   }
 
   function renderPurchase(){
+    const sig = JSON.stringify(state.market.map(m=>[m.id,m.stock])) + '|' + trendingCategory();
+    if(shouldSkipRender('purchase', sig)) return;
+
     const container = document.getElementById('purchaseGrid');
     container.innerHTML = '';
     const trend = trendingCategory();
@@ -2648,11 +3128,11 @@
 
       const grid = document.createElement('div');
       grid.className = 'grid';
-      items.forEach(item=>{
+      items.forEach((item, idx)=>{
         const card = document.createElement('div');
         card.className = 'card item-card';
         card.innerHTML = `
-          <div class="item-emoji">${item.emoji}</div>
+          ${buildItemEmoji(item, 'purchase', idx)}
           <div class="room-title">${item.name}${item.perishable ? ' 🧊' : ''}</div>
           <div class="item-stock">Have Stock: ${item.stock}</div>
           <div style="font-size:0.72rem; color:var(--text-dim);">Kharid kimat: ${fmt(item.buyCost)} / nag</div>
@@ -2789,17 +3269,23 @@
   function renderShopView(shopId){
     const gridId = shopId + 'Grid';
     const lockedId = shopId + 'Locked';
-    const grid = document.getElementById(gridId);
-    if(renderLockNotice(shopId, lockedId)){ grid.innerHTML = ''; return; }
+    if(renderLockNotice(shopId, lockedId)){
+      document.getElementById(gridId).innerHTML = '';
+      return;
+    }
 
     const items = state.shops[shopId].items;
+    const sig = JSON.stringify(items.map(i=>[i.id,i.stock,i.sold]));
+    if(shouldSkipRender(shopId, sig)) return;
+
+    const grid = document.getElementById(gridId);
     grid.innerHTML = '';
-    items.forEach(item=>{
+    items.forEach((item, idx)=>{
       const card = document.createElement('div');
       card.className = 'card item-card';
       const low = item.stock === 0;
       card.innerHTML = `
-        <div class="item-emoji">${item.emoji}</div>
+        ${buildItemEmoji(item, shopId, idx)}
         <div class="room-title">${item.name}</div>
         <div class="item-stock ${low?'low':''}">${low ? 'Stock khali chhe!' : 'Stock: ' + item.stock}</div>
         <div style="font-size:0.72rem; color:var(--text-dim);">Kharid ${fmt(item.buyCost)} · Vechay ${fmt(item.sellPrice)} · Vechayu: ${item.sold}</div>
@@ -2835,9 +3321,14 @@
   }
 
   function renderLaundry(){
-    const grid = document.getElementById('laundryGrid');
-    if(renderLockNotice('laundry', 'laundryLocked')){ grid.innerHTML = ''; return; }
+    if(renderLockNotice('laundry', 'laundryLocked')){
+      document.getElementById('laundryGrid').innerHTML = '';
+      return;
+    }
+    const sig = JSON.stringify(state.laundry.machines.map(m=>[m.id,m.occupied,m.maintenanceDue,m.needsCleaning,m.level])) + '|' + nextLaundryCost();
+    if(shouldSkipRender('laundry', sig)) return;
 
+    const grid = document.getElementById('laundryGrid');
     grid.innerHTML = '';
     state.laundry.machines.forEach((m, idx)=>{
       const lvl = laundryLevelInfo(m.level);
@@ -2886,7 +3377,12 @@
     grid.appendChild(buyCard);
   }
 
-  function buildPlaneIcon(g){
+  function buildPlaneIcon(g, transition){
+    // transition: 'landing' | 'takeoff' | null
+    const flyClass = transition === 'landing' ? 'plane-landing'
+                    : transition === 'takeoff' ? 'plane-takeoff'
+                    : 'plane-bob';
+
     if(g.maintenanceDue){
       return `
         <div class="icon-svg-wrap">
@@ -2895,7 +3391,9 @@
               <ellipse cx="30" cy="34" rx="18" ry="6" fill="var(--danger)"/>
               <path d="M18 34 L6 25 L12 25 L22 30 Z" fill="var(--danger)"/>
               <path d="M40 34 L48 25 L44 34 Z" fill="var(--danger)"/>
-              <text x="30" y="38" font-size="12" text-anchor="middle">🛠️</text>
+              <g class="wrench-spin" style="transform-origin:30px 34px;">
+                <rect x="27" y="28" width="6" height="12" rx="2" fill="#fff"/>
+              </g>
             </g>
           </svg>
         </div>`;
@@ -2907,7 +3405,9 @@
             <ellipse cx="30" cy="34" rx="18" ry="6" fill="var(--amber)" opacity="0.85"/>
             <path d="M18 34 L6 25 L12 25 L22 30 Z" fill="var(--amber)" opacity="0.85"/>
             <path d="M40 34 L48 25 L44 34 Z" fill="var(--amber)" opacity="0.85"/>
-            <text x="30" y="38" font-size="12" text-anchor="middle">🧹</text>
+            <g class="broom-sweep" style="transform-origin:30px 34px;">
+              <rect x="27" y="30" width="6" height="10" rx="1" fill="#fff" opacity="0.8"/>
+            </g>
           </svg>
         </div>`;
     }
@@ -2915,15 +3415,16 @@
       const color = g.vip ? 'var(--gold)' : 'var(--neon-teal)';
       return `
         <div class="icon-svg-wrap">
-          <svg viewBox="0 0 64 64" width="56" height="56">
-            <g class="plane-bob">
+          <svg viewBox="0 0 64 64" width="56" height="56" overflow="visible">
+            <g class="${flyClass}">
               <ellipse cx="32" cy="34" rx="19" ry="6.5" fill="${color}"/>
               <path d="M20 34 L7 24 L13 24 L23 30 Z" fill="${color}"/>
               <path d="M42 34 L50 25 L46 34 Z" fill="${color}"/>
+              <path d="M14 34 L6 40 L12 34 Z" fill="${color}" opacity="0.8"/>
               <circle cx="16" cy="34" r="1.8" fill="#151229" opacity="0.6"/>
               <circle cx="24" cy="34" r="1.8" fill="#151229" opacity="0.6"/>
               <circle cx="32" cy="34" r="1.8" fill="#151229" opacity="0.6"/>
-              ${g.vip ? `<text x="32" y="20" font-size="14" text-anchor="middle">👑</text>` : ''}
+              ${g.vip ? `<circle class="star-twinkle" cx="32" cy="18" r="1.6" fill="var(--gold)"/><circle class="star-twinkle" style="animation-delay:.5s" cx="40" cy="22" r="1.2" fill="var(--gold)"/>` : ''}
             </g>
           </svg>
         </div>`;
@@ -2943,13 +3444,38 @@
       </div>`;
   }
 
+  const prevGateStates = {};
   function renderAirport(){
-    const grid = document.getElementById('airportGrid');
-    if(renderLockNotice('airport', 'airportLocked')){ grid.innerHTML = ''; return; }
+    if(renderLockNotice('airport', 'airportLocked')){
+      document.getElementById('airportGrid').innerHTML = '';
+      return;
+    }
+    const sig = JSON.stringify(state.airport.gates.map(g=>[g.id,g.occupied,g.vip,g.maintenanceDue,g.needsCleaning,g.level])) + '|' + nextGateCost();
+    if(shouldSkipRender('airport', sig)) return;
 
+    const grid = document.getElementById('airportGrid');
     grid.innerHTML = '';
+    let needsFollowUp = false;
+
     state.airport.gates.forEach((g, idx)=>{
       const lvl = airportLevelInfo(g.level);
+      const prev = prevGateStates[g.id];
+      let transition = null;
+      if(prev !== undefined){
+        if(!prev.occupied && g.occupied) transition = 'landing';
+        else if(prev.occupied && !g.occupied) transition = 'takeoff';
+      }
+
+      // For a takeoff we keep showing the plane (using its last known look)
+      // flying OFF the card, even though the gate itself is already empty —
+      // then a follow-up render swaps it for the runway once the animation ends.
+      const displayGate = transition === 'takeoff'
+        ? { ...g, occupied:true, vip: prev.vip, maintenanceDue:false, needsCleaning:false }
+        : g;
+      if(transition === 'takeoff') needsFollowUp = true;
+
+      prevGateStates[g.id] = { occupied: g.occupied, vip: g.vip };
+
       const card = document.createElement('div');
       let cls = 'card';
       if(g.maintenanceDue) cls += ' maint';
@@ -2978,7 +3504,7 @@
       }
 
       card.innerHTML = `
-        ${buildPlaneIcon(g)}
+        ${buildPlaneIcon(displayGate, transition)}
         <div class="room-title">Gate #${idx+1} <span class="level-chip">${lvl.name}</span>${g.vip && g.occupied ? '<span class="vip-chip">VIP</span>' : ''}</div>
         ${statusHtml}
         ${actionHtml}
@@ -2994,6 +3520,12 @@
         <button class="btn-buy" data-action="buyGate">Gate Kholo — ${fmt(nextGateCost())}</button>
       </div>`;
     grid.appendChild(buyCard);
+
+    // Force one follow-up rebuild once the takeoff flight finishes, so the
+    // gate then correctly settles into its empty runway visual.
+    if(needsFollowUp){
+      setTimeout(()=>{ renderCache['airport'] = null; render(); }, 1900);
+    }
   }
 
   function renderFinance(){
@@ -3047,6 +3579,29 @@
     document.getElementById('reportIncome').textContent = fmt(state.todayIncome);
     document.getElementById('reportExpense').textContent = fmt(state.todayExpense);
     document.getElementById('reportProfit').textContent = fmt(state.todayIncome - state.todayExpense);
+  }
+
+  let lastPartnerSignature = null;
+  function renderPartnerChat(){
+    const sig = state.partnerChat.length + ':' + (state.partnerChat[state.partnerChat.length-1]?.time || 0);
+    if(shouldSkipRender('partnerChat', sig)) return;
+
+    const log = document.getElementById('partnerChatLog');
+    log.innerHTML = '';
+    if(!state.partnerChat.length){
+      const div = document.createElement('div');
+      div.className = 'partner-msg from-priya';
+      div.textContent = "Hey boss! Hu Priya chhu, tamari business partner. Kai pan business vishe pucho — hu madad karish! 😊";
+      log.appendChild(div);
+    } else {
+      state.partnerChat.forEach(m=>{
+        const div = document.createElement('div');
+        div.className = 'partner-msg ' + (m.from === 'user' ? 'from-user' : 'from-priya');
+        div.textContent = m.text;
+        log.appendChild(div);
+      });
+    }
+    log.scrollTop = log.scrollHeight;
   }
 
   function renderAchievements(){
@@ -3114,6 +3669,11 @@
     document.querySelectorAll('.view').forEach(v=>{
       v.classList.toggle('active', v.id === 'view-' + view);
     });
+    if(view === 'partner'){
+      state.partnerViewedCount = state.partnerChat.length;
+      setBadge('badge-partner', 0);
+      save();
+    }
     closeDrawer();
   }
 
@@ -3172,6 +3732,17 @@
   document.getElementById('prestigeBtn').addEventListener('click', doPrestige);
   document.getElementById('mgPlayBtn').addEventListener('click', mgStartRound);
 
+  document.getElementById('partnerSendBtn').addEventListener('click', sendPartnerMessage);
+  document.getElementById('partnerInput').addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter') sendPartnerMessage();
+  });
+  document.querySelectorAll('.partner-sugg').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.getElementById('partnerInput').value = btn.dataset.q;
+      sendPartnerMessage();
+    });
+  });
+
   // ---------- EVENTS ----------
   // A soft tick plays on every single button press anywhere in the app —
   // nav tabs, toggles, buy/sell, everything — for satisfying tactile feedback.
@@ -3179,6 +3750,7 @@
     if(e.target.closest('button')){
       ensureAudio();
       soundClick();
+      spawnRipple(e.clientX, e.clientY);
     }
   }, true);
 
@@ -3273,4 +3845,4 @@
 </script>
 
 </body>
-</html> 
+</html>
