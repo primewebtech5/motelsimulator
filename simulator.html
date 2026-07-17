@@ -346,10 +346,29 @@
     0%,100%{ opacity:0.4; }
     50%{ opacity:0.9; }
   }
+  .guest-checkin{ animation:guestWalkIn 1.5s ease-in forwards; }
+  @keyframes guestWalkIn{
+    0%{ transform:translate(6px, 48px); opacity:0; }
+    15%{ opacity:1; }
+    85%{ transform:translate(32px, 48px); opacity:1; }
+    100%{ transform:translate(34px, 48px); opacity:0; }
+  }
+  .guest-checkout{ animation:guestWalkOut 1.5s ease-out forwards; }
+  @keyframes guestWalkOut{
+    0%{ transform:translate(34px, 48px); opacity:0; }
+    15%{ opacity:1; }
+    85%{ transform:translate(6px, 48px); opacity:1; }
+    100%{ transform:translate(2px, 48px); opacity:0; }
+  }
+  .guest-leg-a{ transform-origin:-2px -2px; animation:legSwingA 0.28s ease-in-out infinite alternate; }
+  .guest-leg-b{ transform-origin:2px -2px; animation:legSwingB 0.28s ease-in-out infinite alternate; }
+  @keyframes legSwingA{ 0%{ transform:rotate(-16deg); } 100%{ transform:rotate(16deg); } }
+  @keyframes legSwingB{ 0%{ transform:rotate(16deg); } 100%{ transform:rotate(-16deg); } }
   @media (prefers-reduced-motion: reduce){
     .plane-bob, .runway-light, .washer-drum, .washer-bubble, .card.maint,
     .wrench-spin, .broom-sweep, .vacancy-glow,
-    .item-emoji, .steam-wisp, .item-stock.low{ animation:none; }
+    .item-emoji, .steam-wisp, .item-stock.low,
+    .guest-checkin, .guest-checkout, .guest-leg-a, .guest-leg-b{ animation:none; }
   }
   .level-chip{
     font-size:0.62rem;
@@ -796,7 +815,7 @@
         <span class="ico">🎮</span> Mini Game
       </button>
       <button class="nav-btn" data-view="partner">
-        <span class="ico">💬</span> Priya
+        <span class="ico">💬</span> Emily
         <span class="nav-badge" id="badge-partner"></span>
       </button>
     </div>
@@ -1017,38 +1036,75 @@
       </div>
     </section>
 
-    <!-- PRIYA: BUSINESS PARTNER -->
+    <!-- EMILY: BUSINESS PARTNER -->
     <section class="view" id="view-partner">
       <div class="view-head">
-        <h2>💬 PRIYA</h2>
+        <h2>💬 EMILY</h2>
         <p>Tamari business partner — tips mangi shako, vaat kari shako!</p>
       </div>
 
       <div class="partner-panel">
         <div class="partner-avatar-wrap">
-          <svg viewBox="0 0 120 150" width="120" height="150">
-            <ellipse cx="60" cy="58" rx="40" ry="46" fill="#3a2a22"/>
-            <ellipse cx="60" cy="64" rx="30" ry="34" fill="#f4c9a0"/>
-            <path d="M26 46 Q60 8 94 46 Q95 62 86 54 Q60 32 34 54 Q25 62 26 46 Z" fill="#3a2a22"/>
+          <svg viewBox="0 0 140 200" width="132" height="188">
+            <defs>
+              <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f8d0ab"/>
+                <stop offset="100%" stop-color="#e8ae82"/>
+              </linearGradient>
+              <linearGradient id="hairGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#5c3a28"/>
+                <stop offset="100%" stop-color="#2e1c12"/>
+              </linearGradient>
+            </defs>
+
+            <path d="M20 70 Q13 132 30 192 Q46 176 46 150 L46 90 Q40 64 20 70 Z" fill="url(#hairGrad)"/>
+            <path d="M120 70 Q127 132 110 192 Q94 176 94 150 L94 90 Q100 64 120 70 Z" fill="url(#hairGrad)"/>
+
+            <rect x="60" y="118" width="20" height="26" fill="url(#skinGrad)"/>
+
+            <ellipse cx="70" cy="90" rx="34" ry="38" fill="url(#skinGrad)"/>
+
+            <ellipse cx="36" cy="92" rx="5" ry="8" fill="url(#skinGrad)"/>
+            <ellipse cx="104" cy="92" rx="5" ry="8" fill="url(#skinGrad)"/>
+            <circle cx="36" cy="98" r="2.2" fill="var(--gold)"/>
+            <circle cx="104" cy="98" r="2.2" fill="var(--gold)"/>
+
+            <path d="M32 60 Q70 18 108 60 Q113 87 100 73 Q70 39 40 73 Q27 87 32 60 Z" fill="url(#hairGrad)"/>
+            <path d="M45 54 Q56 44 61 60" stroke="#6b4530" stroke-width="1.4" fill="none" opacity="0.55"/>
+            <path d="M79 60 Q84 44 95 54" stroke="#6b4530" stroke-width="1.4" fill="none" opacity="0.55"/>
+
+            <path d="M48 78 Q55 73 63 77" stroke="#2e1c12" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M77 77 Q85 73 92 78" stroke="#2e1c12" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
             <g class="partner-blink">
-              <ellipse cx="47" cy="66" rx="3.6" ry="4.6" fill="#2a1a10"/>
-              <ellipse cx="73" cy="66" rx="3.6" ry="4.6" fill="#2a1a10"/>
+              <ellipse cx="55" cy="90" rx="6" ry="4.6" fill="#fff"/>
+              <ellipse cx="85" cy="90" rx="6" ry="4.6" fill="#fff"/>
+              <circle cx="56" cy="90" r="3.2" fill="#3a2416"/>
+              <circle cx="86" cy="90" r="3.2" fill="#3a2416"/>
+              <circle cx="57" cy="89" r="1" fill="#fff"/>
+              <circle cx="87" cy="89" r="1" fill="#fff"/>
+              <path d="M49 87 Q55 84 61 87" stroke="#2e1c12" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+              <path d="M79 87 Q85 84 91 87" stroke="#2e1c12" stroke-width="1.4" fill="none" stroke-linecap="round"/>
             </g>
-            <circle cx="43" cy="78" r="5.5" fill="#ff9a9a" opacity="0.35"/>
-            <circle cx="77" cy="78" r="5.5" fill="#ff9a9a" opacity="0.35"/>
-            <path class="partner-smile" d="M48 85 Q60 95 72 85" stroke="#8a4a2a" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-            <circle cx="29" cy="72" r="2.2" fill="var(--gold)"/>
-            <circle cx="91" cy="72" r="2.2" fill="var(--gold)"/>
-            <path d="M14 150 Q60 108 106 150 Z" fill="var(--neon-pink)"/>
-            <path d="M44 112 L60 128 L76 112 L76 102 L44 102 Z" fill="#fff" opacity="0.92"/>
+
+            <path d="M69 92 Q67 100 70 103 Q73 100 71 92" stroke="#c98f5f" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.8"/>
+
+            <ellipse cx="50" cy="104" rx="6" ry="4" fill="#ff9a9a" opacity="0.3"/>
+            <ellipse cx="90" cy="104" rx="6" ry="4" fill="#ff9a9a" opacity="0.3"/>
+
+            <path class="partner-smile" d="M56 111 Q70 122 84 111 Q70 118 56 111 Z" fill="#c1556b"/>
+
+            <path d="M18 200 Q70 152 122 200 Z" fill="var(--neon-pink)"/>
+            <path d="M55 148 L70 172 L85 148 L85 138 L55 138 Z" fill="#fff" opacity="0.95"/>
+            <circle cx="70" cy="186" r="2.4" fill="#fff" opacity="0.85"/>
           </svg>
         </div>
-        <div class="partner-namebar">Priya <span class="partner-status-dot"></span> <span style="font-weight:400; color:var(--text-dim); font-size:0.72rem;">Business Partner</span></div>
+        <div class="partner-namebar">Emily <span class="partner-status-dot"></span> <span style="font-weight:400; color:var(--text-dim); font-size:0.72rem;">Business Partner</span></div>
 
         <div class="partner-chat-log" id="partnerChatLog"></div>
 
         <div class="partner-input-row">
-          <input type="text" id="partnerInput" placeholder="Priya ne kaik pucho... (jem ke 'airport')" maxlength="120"/>
+          <input type="text" id="partnerInput" placeholder="Emily ne kaik pucho... (jem ke 'airport')" maxlength="120"/>
           <button class="btn-buy" id="partnerSendBtn">Send</button>
         </div>
         <div class="partner-suggestions">
@@ -1084,7 +1140,7 @@
     0%,100%{ transform:rotate(0deg); }
     50%{ transform:rotate(1.2deg); }
   }
-  .partner-blink{ animation:partnerBlink 4.2s ease-in-out infinite; transform-origin:60px 66px; }
+  .partner-blink{ animation:partnerBlink 4.2s ease-in-out infinite; transform-origin:70px 90px; }
   @keyframes partnerBlink{
     0%,92%,100%{ transform:scaleY(1); }
     95%{ transform:scaleY(0.1); }
@@ -1918,30 +1974,45 @@
   // ---------- PRIYA: BUSINESS PARTNER CHAT ----------
   const PARTNER_RULES = [
     { keys:['hi','hello','hey','kem cho','kem chho','namaste'], reply:"Hey boss! 😊 Kem cho? Aajni business planning ma su madad joie?" },
-    { keys:['room','motel','hotel'], reply:"Motel rooms ma invest karvu saru chhe! Upgrade karta rehjo, VIP customers vadhu kamavse pan maintenance jaldi joie. 🏨" },
+    { keys:['room','motel','hotel'], reply:"Motel rooms ma invest karvu saru chhe! Deluxe ane Suite ma upgrade karta rehjo, VIP customers 2x paisa aape pan maintenance jaldi joie. 🏨" },
+    { keys:['vip'], reply:"VIP customers normal karta double paisa aape chhe! Receptionist hire karo — e VIP chance vadhare chhe. 👑" },
     { keys:['supermarket','mall','product','wafer','chocolate'], reply:"Supermarket ni stock khali na thava do — ek Stock Boy hire karo, e automatic refill kare chhe! 🛒" },
     { keys:['coffee'], reply:"Coffee Shop start karva mate ₹5,000 lifetime kamavo pehla, pachi chalu karjo — steam wala items saru vechay chhe! ☕" },
     { keys:['fast food','fastfood','burger','pizza'], reply:"Fast Food ekdum profitable chhe jyare unlock thay — ₹20,000 lifetime target rakho boss! 🍔" },
     { keys:['laundry','washing'], reply:"Laundry machines saru passive income aape chhe — pan cleaning/refill bhoolta nahi, nahi to load nathi levay! 🧺" },
     { keys:['airport','plane','flight','gate'], reply:"Airport end-game business chhe — ₹2,00,000 lifetime kamavo pachi khulse. VIP private jets khoob paisa aape chhe! ✈️" },
     { keys:['employee','staff','hire','manager','cashier','cleaner','security','stock boy','receptionist'], reply:"6 roles chhe boss — Manager maintenance sambhale, Cashier sales vadhare, Stock Boy auto-restock kare. Pehla Manager hire karo! 👷" },
+    { keys:['xp','level up','employee level'], reply:"Employees active rahe tem tem XP male chhe — 10 minute active rahevathi ek level vadhe. Level 5 sudhi jai shake! 📈" },
     { keys:['loan','bank'], reply:"Loan levo tyare j jyare khatri hoy repay kari shakso — 2%/din interest lagse, vadhu time rakhso to vadhu chukvavu padse! 🏦" },
     { keys:['tax'], reply:"Tax dar din 5% income par lagshe — Finance page ma pay karta rehjo, nahi to due vadhi jashe ane manager bhi help kare! 🧾" },
-    { keys:['prestige','naya shehar'], reply:"₹5,00,000 lifetime kamavo pachi Prestige karo — reset thashe pan permanent income bonus malshe! 🌆" },
+    { keys:['prestige','naya shehar'], reply:"₹5,00,000 lifetime kamavo pachi Prestige karo — reset thashe pan permanent income bonus malshe, ane achievements yaad rahese! 🌆" },
     { keys:['achievement','badge'], reply:"Achievements pura karva thi bonus paisa malshe boss — Dashboard ma list joi lo, ghana easy chhe! 🏆" },
-    { keys:['coin rush','minigame','mini game'], reply:"Coin Rush ramva thi extra paisa male chhe — 90 second cooldown chhe, etle time thi ramjo! 🎮" },
-    { keys:['stock','share','market','portfolio'], reply:"Share Market 24/7 khulu chhe — kimat vadhare tyare vecho, ghati tyare kharido. Dhyan rakhjo risk pan chhe! 📈" },
+    { keys:['coin rush','minigame','mini game'], reply:"Coin Rush ramva thi extra paisa male chhe — 90 second cooldown chhe, combo x3 sudhi vadhare, etle jaldi jaldi tap karo! 🎮" },
+    { keys:['stock','share','market','portfolio'], reply:"Share Market 24/7 khulu chhe — kimat vadhare tyare vecho, ghati tyare kharido. Dhyan rakhjo risk pan chhe boss! 📈" },
+    { keys:['spoil','perishable','ice cream','waste'], reply:"Perishable items (ice cream, cold drink, juice) bau stock rakhso to spoil thai jay — Security Guard hire karo, e spoilage ghatade chhe! 🧊" },
     { keys:['reputation','net worth'], reply:"City Reputation ane Net Worth vadharva mate badha businesses unlock karo ane rooms/gates vadharta rehjo! 🌆" },
+    { keys:['daily bonus','bonus'], reply:"Dashboard par roj Daily Bonus levanu na bhoolso — streak vadhare tem vadhu paisa male chhe! 🎁" },
+    { keys:['strategy','tip','tips','advice','help me'], reply:"Meri salah: pehla 5 rooms banavo, pachi ek Manager hire karo, pachi Supermarket stock full rakho — basics thi j sauthi vadhu kamai thay chhe! 💡" },
+    { keys:['wallet','money','paisa','earn'], reply:"Paisa kamavva mate: rooms occupied rakho, stock khali na thava do, ane Coin Rush ramta rehjo. Idle rite pan kamay chhe! 💰" },
+    { keys:['joke','majak','funny'], reply:"Haha okay boss, ek joke: Motel na receptionist ne pucyu 'room khali chhe?' toh e bolyo 'khali nathi, pan tamaru wallet chhe!' 😂" },
+    { keys:['favourite','favorite','best business'], reply:"Mane Airport sauthi gamtu chhe — VIP private jets ekdum stylish chhe! Pan Motel apda empire nu pehlu pillar chhe. ✈️🏨" },
+    { keys:['motivat','tired','give up','hard','difficult'], reply:"Boss, hu jaanu chhu ke kabhi kabhi slow lage chhe, pan har naanu step motu banave chhe. Chaalo, ek room ke ek employee thi shuru karo! 💪" },
+    { keys:['congrat','wow','amazing','great'], reply:"Thank you boss! Tame j aa empire banavi rahya cho — hu to bas support karu chhu. 🎉" },
+    { keys:['sorry','maaf'], reply:"Koi vaandho nahi boss, badhu barabar chhe! Chaalo aage vadhiye. 😊" },
+    { keys:['age','umar','how old'], reply:"Hu ek business partner chhu boss, umar jaisu kai nathi mara mate — bas hamesha tamari sathe chhu! 😄" },
+    { keys:['name','naam'], reply:"Mari naam Emily chhe — tamari business empire ni partner! 💼" },
     { keys:['thanks','thank you','aabhar','thank'], reply:"Koi vaat nahi boss! Hu hamesha tamari sathe chhu. 😊" },
     { keys:['love','sweet','nice','good job','maja'], reply:"Aww, tame pan ekdum sweet cho boss! Chaalo, have kaam par pacha jaiye. 😄" },
     { keys:['bye','aavjo','good night'], reply:"Aavjo boss! Business sambhadta rehjo, hu ahiya j chhu jyare joie tyare. 👋" },
-    { keys:['who are you','tu kon','tame kon','priya kon'], reply:"Hu Priya chhu — tamari business partner! Hu tamne tips aapu, ane khush thau jyare apdi empire vadhe. 💼" }
+    { keys:['who are you','tu kon','tame kon','emily kon'], reply:"Hu Emily chhu — tamari business partner! Hu tamne tips aapu, ane khush thau jyare apdi empire vadhe. 💼" }
   ];
   const PARTNER_FALLBACKS = [
     "Hmm, e vishe mane ochu khabar chhe boss, pan tame try karta rehjo! 😊",
     "Interesting! Business empire vadhare che tem tem badhu samjai jashe. 💪",
     "Tame khoob saru kaam kari rahya cho boss! Chaalo aage vadhiye. 🚀",
-    "Koi specific business vishe puchvu hoy to naam lakho — jem ke 'airport' ke 'loan'. 😊"
+    "Koi specific business vishe puchvu hoy to naam lakho — jem ke 'airport' ke 'loan'. 😊",
+    "Mane thodu clear kaho boss? Ke pachi 'tips' lakho, hu general salah aapu. 💡",
+    "Ohh, e interesting sawaal chhe! Pan hu abhi thodu confused chhu — try 'strategy' ke 'employee'. 😅"
   ];
 
   function getPartnerReply(input){
@@ -1952,7 +2023,7 @@
     return PARTNER_FALLBACKS[Math.floor(Math.random()*PARTNER_FALLBACKS.length)];
   }
 
-  // Adds a message from Priya even when the player isn't looking — a badge
+  // Adds a message from Emily even when the player isn't looking — a badge
   // shows up on her nav tab so they know she said something new.
   function pushPartnerMessage(text){
     state.partnerChat.push({ from:'priya', text, time: Date.now() });
@@ -2948,16 +3019,29 @@
     else { el.classList.remove('show'); }
   }
 
-  function buildRoomIcon(room){
+  function buildGuestFigure(cls, color){
+    return `
+      <g class="${cls}">
+        <circle cx="0" cy="-14" r="3" fill="${color}"/>
+        <path d="M-3 -11 L3 -11 L4 -2 L-4 -2 Z" fill="${color}"/>
+        <line class="guest-leg guest-leg-a" x1="-2" y1="-2" x2="-3" y2="6" stroke="${color}" stroke-width="2" stroke-linecap="round"/>
+        <line class="guest-leg guest-leg-b" x1="2" y1="-2" x2="3" y2="6" stroke="${color}" stroke-width="2" stroke-linecap="round"/>
+      </g>`;
+  }
+
+  function buildRoomIcon(room, transition){
+    // transition: 'checkin' | 'checkout' | null
     if(room.maintenanceDue){
       return `
         <div class="icon-svg-wrap">
           <svg viewBox="0 0 64 64" width="56" height="56">
-            <rect x="16" y="10" width="32" height="46" rx="4" fill="#3a2a2a"/>
-            <rect x="22" y="16" width="20" height="14" rx="2" fill="var(--danger)" opacity="0.35"/>
-            <rect x="27" y="38" width="10" height="18" rx="2" fill="#1a1229"/>
-            <g class="wrench-spin" style="transform-origin:32px 23px;">
-              <text x="32" y="27" font-size="14" text-anchor="middle">🛠️</text>
+            <path d="M14 20 L32 6 L50 20 Z" fill="#4a3535"/>
+            <rect x="16" y="18" width="32" height="38" rx="3" fill="#3a2a2a"/>
+            <rect x="20" y="24" width="9" height="9" rx="1.5" fill="var(--danger)" opacity="0.3"/>
+            <rect x="35" y="24" width="9" height="9" rx="1.5" fill="var(--danger)" opacity="0.3"/>
+            <rect x="27" y="40" width="10" height="16" rx="2" fill="#1a1229"/>
+            <g class="wrench-spin" style="transform-origin:32px 30px;">
+              <text x="32" y="34" font-size="14" text-anchor="middle">🛠️</text>
             </g>
           </svg>
         </div>`;
@@ -2966,28 +3050,36 @@
       return `
         <div class="icon-svg-wrap">
           <svg viewBox="0 0 64 64" width="56" height="56">
-            <rect x="16" y="10" width="32" height="46" rx="4" fill="#3a3520"/>
-            <rect x="22" y="16" width="20" height="14" rx="2" fill="var(--amber)" opacity="0.3"/>
-            <rect x="27" y="38" width="10" height="18" rx="2" fill="#1a1229"/>
-            <text class="broom-sweep" x="32" y="27" font-size="14" text-anchor="middle">🧹</text>
+            <path d="M14 20 L32 6 L50 20 Z" fill="#4a4530"/>
+            <rect x="16" y="18" width="32" height="38" rx="3" fill="#3a3520"/>
+            <rect x="20" y="24" width="9" height="9" rx="1.5" fill="var(--amber)" opacity="0.3"/>
+            <rect x="35" y="24" width="9" height="9" rx="1.5" fill="var(--amber)" opacity="0.3"/>
+            <rect x="27" y="40" width="10" height="16" rx="2" fill="#1a1229"/>
+            <text class="broom-sweep" x="32" y="34" font-size="14" text-anchor="middle">🧹</text>
           </svg>
         </div>`;
     }
     if(room.occupied){
       const glow = room.vip ? 'var(--gold)' : 'var(--neon-teal)';
+      const guestCls = transition === 'checkin' ? 'guest-checkin' : transition === 'checkout' ? 'guest-checkout' : '';
       return `
         <div class="icon-svg-wrap">
-          <svg viewBox="0 0 64 64" width="56" height="56">
-            <rect x="16" y="10" width="32" height="46" rx="4" fill="#2e2949"/>
-            <rect class="window-lit" x="22" y="16" width="20" height="14" rx="2" fill="${glow}" opacity="0.75"/>
-            <circle cx="27" cy="23" r="1.6" fill="#1a1229" opacity="0.5"/>
-            <circle cx="37" cy="23" r="1.6" fill="#1a1229" opacity="0.5"/>
-            <rect x="27" y="38" width="10" height="18" rx="2" fill="#1a1229"/>
-            <circle cx="35" cy="47" r="1.2" fill="${glow}"/>
+          <svg viewBox="0 0 64 64" width="56" height="56" overflow="visible">
+            <path d="M14 20 L32 6 L50 20 Z" fill="#252044"/>
+            <rect x="16" y="18" width="32" height="38" rx="3" fill="#2e2949"/>
+            <rect x="14" y="20" width="36" height="2.5" fill="${glow}" opacity="0.7"/>
+            <rect class="window-lit" x="20" y="24" width="9" height="9" rx="1.5" fill="${glow}" opacity="0.75"/>
+            <line x1="24.5" y1="24" x2="24.5" y2="33" stroke="#1a1229" stroke-width="0.8" opacity="0.5"/>
+            <rect class="window-lit" x="35" y="24" width="9" height="9" rx="1.5" fill="${glow}" opacity="0.75"/>
+            <line x1="39.5" y1="24" x2="39.5" y2="33" stroke="#1a1229" stroke-width="0.8" opacity="0.5"/>
+            <rect x="27" y="40" width="10" height="16" rx="2" fill="#1a1229"/>
+            <circle cx="34" cy="48" r="0.9" fill="${glow}"/>
+            <rect x="24" y="55" width="16" height="1.5" fill="#151229" opacity="0.6"/>
+            ${guestCls ? buildGuestFigure(guestCls, glow) : ''}
             ${room.vip ? `
-              <circle class="star-twinkle" cx="18" cy="14" r="1.4" fill="var(--gold)"/>
-              <circle class="star-twinkle" style="animation-delay:.4s" cx="48" cy="16" r="1.2" fill="var(--gold)"/>
-              <circle class="star-twinkle" style="animation-delay:.8s" cx="44" cy="10" r="1" fill="var(--gold)"/>
+              <circle class="star-twinkle" cx="18" cy="12" r="1.4" fill="var(--gold)"/>
+              <circle class="star-twinkle" style="animation-delay:.4s" cx="48" cy="14" r="1.2" fill="var(--gold)"/>
+              <circle class="star-twinkle" style="animation-delay:.8s" cx="44" cy="8" r="1" fill="var(--gold)"/>
             ` : ''}
           </svg>
         </div>`;
@@ -2996,14 +3088,18 @@
     return `
       <div class="icon-svg-wrap">
         <svg viewBox="0 0 64 64" width="56" height="56">
-          <rect x="16" y="10" width="32" height="46" rx="4" fill="#241f3d"/>
-          <rect class="vacancy-glow" x="22" y="16" width="20" height="14" rx="2" fill="none" stroke="var(--neon-teal)" stroke-width="1.5" opacity="0.5"/>
-          <rect x="27" y="38" width="10" height="18" rx="2" fill="#151229"/>
-          <circle class="vacancy-glow" cx="35" cy="47" r="1.2" fill="var(--neon-teal)"/>
+          <path d="M14 20 L32 6 L50 20 Z" fill="#1c1832"/>
+          <rect x="16" y="18" width="32" height="38" rx="3" fill="#241f3d"/>
+          <rect class="vacancy-glow" x="20" y="24" width="9" height="9" rx="1.5" fill="none" stroke="var(--neon-teal)" stroke-width="1.3" opacity="0.5"/>
+          <rect class="vacancy-glow" x="35" y="24" width="9" height="9" rx="1.5" fill="none" stroke="var(--neon-teal)" stroke-width="1.3" opacity="0.5"/>
+          <rect x="27" y="40" width="10" height="16" rx="2" fill="#151229"/>
+          <circle class="vacancy-glow" cx="34" cy="48" r="1" fill="var(--neon-teal)"/>
+          <rect x="24" y="55" width="16" height="1.5" fill="#151229" opacity="0.6"/>
         </svg>
       </div>`;
   }
 
+  const prevRoomStates = {};
   let lastRoomsSignature = null;
   function renderRooms(){
     const sig = JSON.stringify(state.rooms.map(r=>[r.id,r.occupied,r.vip,r.maintenanceDue,r.needsCleaning,r.level])) + '|' + nextRoomCost();
@@ -3013,6 +3109,14 @@
     grid.innerHTML = '';
     state.rooms.forEach((room, idx)=>{
       const lvl = roomLevelInfo(room.level);
+      const prev = prevRoomStates[room.id];
+      let transition = null;
+      if(prev !== undefined){
+        if(!prev.occupied && room.occupied) transition = 'checkin';
+        else if(prev.occupied && !room.occupied) transition = 'checkout';
+      }
+      prevRoomStates[room.id] = { occupied: room.occupied };
+
       const card = document.createElement('div');
       let cls = 'card';
       if(room.maintenanceDue) cls += ' maint';
@@ -3041,7 +3145,7 @@
       }
 
       card.innerHTML = `
-        ${buildRoomIcon(room)}
+        ${buildRoomIcon(room, transition)}
         <div class="room-title">Room #${idx+1} <span class="level-chip">${lvl.name}</span>${room.vip && room.occupied ? '<span class="vip-chip">VIP</span>' : ''}</div>
         ${statusHtml}
         ${actionHtml}
@@ -3417,14 +3521,32 @@
         <div class="icon-svg-wrap">
           <svg viewBox="0 0 64 64" width="56" height="56" overflow="visible">
             <g class="${flyClass}">
-              <ellipse cx="32" cy="34" rx="19" ry="6.5" fill="${color}"/>
-              <path d="M20 34 L7 24 L13 24 L23 30 Z" fill="${color}"/>
-              <path d="M42 34 L50 25 L46 34 Z" fill="${color}"/>
-              <path d="M14 34 L6 40 L12 34 Z" fill="${color}" opacity="0.8"/>
-              <circle cx="16" cy="34" r="1.8" fill="#151229" opacity="0.6"/>
-              <circle cx="24" cy="34" r="1.8" fill="#151229" opacity="0.6"/>
-              <circle cx="32" cy="34" r="1.8" fill="#151229" opacity="0.6"/>
-              ${g.vip ? `<circle class="star-twinkle" cx="32" cy="18" r="1.6" fill="var(--gold)"/><circle class="star-twinkle" style="animation-delay:.5s" cx="40" cy="22" r="1.2" fill="var(--gold)"/>` : ''}
+              <!-- faint contrail -->
+              <line x1="-4" y1="34" x2="8" y2="34" stroke="${color}" stroke-width="1" opacity="0.25" stroke-dasharray="2 2"/>
+              <!-- fuselage -->
+              <ellipse cx="30" cy="34" rx="22" ry="5.5" fill="${color}"/>
+              <!-- nose cone -->
+              <path d="M50 34 L60 34 L51 30.5 Z" fill="${color}"/>
+              <!-- tail cone -->
+              <path d="M9 34 L1 30 L9.5 31.5 Z" fill="${color}" opacity="0.85"/>
+              <!-- vertical tail fin -->
+              <path d="M18 30.5 L12 15 L25 28.5 Z" fill="${color}" opacity="0.92"/>
+              <!-- swept wings -->
+              <path d="M25 32.5 L11 45 L29 35.5 Z" fill="${color}" opacity="0.78"/>
+              <path d="M33 32.5 L47 45 L31 35.5 Z" fill="${color}" opacity="0.78"/>
+              <!-- engines -->
+              <ellipse cx="19" cy="40.5" rx="3.2" ry="1.6" fill="${color}" opacity="0.65"/>
+              <ellipse cx="35" cy="40.5" rx="3.2" ry="1.6" fill="${color}" opacity="0.65"/>
+              <!-- cockpit window -->
+              <ellipse cx="47" cy="33" rx="2.6" ry="1.7" fill="#151229" opacity="0.75"/>
+              <!-- passenger windows -->
+              <circle cx="14" cy="34" r="0.9" fill="#151229" opacity="0.5"/>
+              <circle cx="19" cy="34" r="0.9" fill="#151229" opacity="0.5"/>
+              <circle cx="24" cy="34" r="0.9" fill="#151229" opacity="0.5"/>
+              <circle cx="29" cy="34" r="0.9" fill="#151229" opacity="0.5"/>
+              <circle cx="34" cy="34" r="0.9" fill="#151229" opacity="0.5"/>
+              <circle cx="39" cy="34" r="0.9" fill="#151229" opacity="0.5"/>
+              ${g.vip ? `<circle class="star-twinkle" cx="30" cy="14" r="1.6" fill="var(--gold)"/><circle class="star-twinkle" style="animation-delay:.5s" cx="38" cy="18" r="1.2" fill="var(--gold)"/>` : ''}
             </g>
           </svg>
         </div>`;
@@ -3591,7 +3713,7 @@
     if(!state.partnerChat.length){
       const div = document.createElement('div');
       div.className = 'partner-msg from-priya';
-      div.textContent = "Hey boss! Hu Priya chhu, tamari business partner. Kai pan business vishe pucho — hu madad karish! 😊";
+      div.textContent = "Hey boss! Hu Emily chhu, tamari business partner. Kai pan business vishe pucho — hu madad karish! 😊";
       log.appendChild(div);
     } else {
       state.partnerChat.forEach(m=>{
